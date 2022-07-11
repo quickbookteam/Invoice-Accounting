@@ -21,6 +21,8 @@ import com.intuit.oauth2.data.BearerTokenResponse;
 public class InvoiceAccountingApplication {
 
 //	@Value("${OAuth2AppClientId}")
+//	private String clientId;
+
 	private String clientId="ABPKq5IgAdjjgeMzfOYaNS1mzP8JB84vzvOXJPglewU6mCQTfT";
 
 //	@Value("${OAuth2AppClientSecret}")
@@ -56,7 +58,9 @@ public class InvoiceAccountingApplication {
 
 		OAuth2Config oauth2Config = new OAuth2Config.OAuth2ConfigBuilder(clientId, clientSecret)
 				.callDiscoveryAPI(quickBooksEnvironment).buildConfig();
+		
 
+		
 		OAuth2PlatformClient client = new OAuth2PlatformClient(oauth2Config);
 	
 		// Get the bearer token (OAuth2 tokens)
