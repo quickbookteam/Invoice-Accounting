@@ -61,6 +61,7 @@ public class InvoiceAccountingApplication {
 		
 
 		
+		
 		OAuth2PlatformClient client = new OAuth2PlatformClient(oauth2Config);
 	
 		// Get the bearer token (OAuth2 tokens)
