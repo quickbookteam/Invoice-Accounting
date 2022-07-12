@@ -45,8 +45,13 @@
     <version>1.2.17</version>
 </dependency>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 		<dependency>
+=======
+		<!-- data jar -->
+<dependency>
+>>>>>>> Siddharth
 =======
 		<!-- data jar -->
 <dependency>
@@ -72,6 +77,7 @@
     <version> 6.0.7 </version>
 </dependency>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 <!-- data jar -->
@@ -93,10 +99,15 @@
 </dependency>
 
 =======
+=======
+>>>>>>> Siddharth
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+<<<<<<< HEAD
+>>>>>>> Siddharth
+=======
 >>>>>>> Siddharth
 	</dependencies>
 

@@ -1,6 +1,7 @@
 package com.invoice_acounting;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,6 +23,10 @@ import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
+=======
+import org.apache.log4j.BasicConfigurator;
+import org.springframework.beans.factory.annotation.Autowired;
+>>>>>>> Siddharth
 =======
 import org.apache.log4j.BasicConfigurator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +63,7 @@ public class InvoiceAccountingApplication {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(InvoiceAccountingApplication.class, args);
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 		BasicConfigurator.configure();
@@ -146,6 +152,26 @@ public String demo() throws Exception {
 	}
 }
 
+=======
+		BasicConfigurator.configure();
+
+	}
+//	@Bean
+//	public DataService getDataService()
+//	{
+//		try {
+//			return quickBookIntegration.demo();
+//		} catch (Exception e) {
+//			
+//			e.printStackTrace();
+//			return null;
+//		}
+//		 
+//	}
+}
+
+
+>>>>>>> Siddharth
 =======
 		BasicConfigurator.configure();
 
