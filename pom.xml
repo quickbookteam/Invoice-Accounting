@@ -44,8 +44,13 @@
     <artifactId>log4j</artifactId>
     <version>1.2.17</version>
 </dependency>
+<<<<<<< HEAD
 
 		<dependency>
+=======
+		<!-- data jar -->
+<dependency>
+>>>>>>> Siddharth
     <groupId> com.intuit.quickbooks-online </groupId>
     <artifactId> ipp-v3-java-data </artifactId>
     <version> 6.0.7 </version>
@@ -66,6 +71,7 @@
     <classifier>jar-with-dependencies</classifier>
     <version> 6.0.7 </version>
 </dependency>
+<<<<<<< HEAD
 
 
 <!-- data jar -->
@@ -86,6 +92,12 @@
     <artifactId>spring-boot-starter-thymeleaf</artifactId>
 </dependency>
 
+=======
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+>>>>>>> Siddharth
 	</dependencies>
 
 	<build>
