@@ -1,14 +1,18 @@
 package com.invoice_acounting.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intuit.ipp.data.CompanyInfo;
+import com.intuit.ipp.exception.FMSException;
 import com.intuit.ipp.services.QueryResult;
 import com.invoice_acounting.config.QuickBookIntegration;
-import com.invoice_acounting.util.Helper;
+import com.invoice_acounting.model.invoice.Invoice;
 
 
 
@@ -35,5 +39,21 @@ public class TestController {
 			e.printStackTrace();
 		}
 
+	}
+	
+	@PostMapping("/invoice")
+	public Invoice createCustomer(@RequestBody Invoice invoice)
+	{
+	return 	invoice;
+		
+//		try {
+//
+//			System.out.println(quickBookIntegration.demo().add(invoice));
+//		
+//		} catch (Exception e) {
+//		
+//			e.printStackTrace();
+//		}
+//		return null;
 	}
 }
