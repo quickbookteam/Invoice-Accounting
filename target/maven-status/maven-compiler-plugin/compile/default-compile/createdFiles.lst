@@ -1,0 +1,6 @@
+com\invoice_acounting\controller\QBOController.class
+com\invoice_acounting\controller\HomeController.class
+com\invoice_acounting\helper\QBOServiceHelper.class
+com\invoice_acounting\client\OAuth2PlatformClientFactory.class
+com\invoice_acounting\controller\CallbackController.class
+com\invoice_acounting\InvoiceAccountingApplication.class
