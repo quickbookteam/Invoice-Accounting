@@ -23,7 +23,7 @@ public class QuickBookIntegration {
   private String clientSecret="KIMAYJDdSuGO3Sgc9Y7phwUH1kD9dsKLDvl6kXvQ";
 
   //    @Value("${refreshToken}")
-  private String refreshToken="AB11666344269mlZiUd7Xt6dWxv2OkR54bxpI8d1hOZtf2LdvP";
+  private String refreshToken="AB11666417468KB4zVQ79sAxG7W0WtHibkbGJqJFe2trtNO1kF";
 
   //    @Value("${RealmID}")
   
@@ -57,6 +57,7 @@ public class QuickBookIntegration {
 		}
       System.out.println(bearerTokenResponse.getAccessToken());
 		IAuthorizer oauth = new OAuth2Authorizer(bearerTokenResponse.getAccessToken());
+		System.out.println(bearerTokenResponse.getAccessToken());
 		Config.setProperty(Config.BASE_URL_QBO, quickBooksConnectURL);
 		Context context = new Context(oauth, ServiceType.QBO, RealmID);
 
