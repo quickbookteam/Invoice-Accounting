@@ -101,4 +101,18 @@ public class QBOServiceHelper {
 			}
 		return null;
     }
+    
+    public String getRefreshToken(String authcode)
+    {
+    	String url = "https://developer.intuit.com/v2/OAuth2Playground/RedirectUrl";
+    	try {
+			BearerTokenResponse bearerToken=factory.getOAuth2PlatformClient().retrieveBearerTokens(authcode, url);
+			return bearerToken.getRefreshToken();
+		} catch (OAuthException e) {
+			
+			e.printStackTrace();
+			return null;
+		}
+    	
+    }
 }

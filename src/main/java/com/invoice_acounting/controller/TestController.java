@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intuit.ipp.data.CompanyInfo;
+import com.intuit.ipp.services.DataService;
 import com.intuit.ipp.services.QueryResult;
 import com.invoice_acounting.config.QuickBookIntegration;
 import com.invoice_acounting.util.Helper;
@@ -15,7 +16,7 @@ import com.invoice_acounting.util.Helper;
 @RestController
 public class TestController {
 	@Autowired
-	QuickBookIntegration quickBookIntegration;
+	Helper helper;
 
 	QueryResult queryResult;
 
@@ -26,7 +27,7 @@ public class TestController {
 		String sql = "select * from companyinfo";
 
 		try {
-			queryResult = quickBookIntegration.demo().executeQuery(sql);
+			queryResult =helper.getConnection().executeQuery(sql);
 			CompanyInfo companyInfo = (CompanyInfo) queryResult.getEntities().get(0);
 			ObjectMapper mapper = new ObjectMapper();
 			System.out.println(mapper.writeValueAsString(companyInfo));

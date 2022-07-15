@@ -8,6 +8,8 @@ import com.intuit.ipp.data.Invoice;
 import com.intuit.ipp.services.DataService;
 import com.intuit.ipp.services.QueryResult;
 import com.invoice_acounting.config.QuickBookIntegration;
+import com.invoice_acounting.util.Helper;
+
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +22,9 @@ import java.util.List;
 
 @RestController
 public class CustomerController {
+    
     @Autowired
-    QuickBookIntegration quickBookIntegration;
-
-    DataService dataService;
+    Helper helper;
     private static final Logger logger = Logger.getLogger(CustomerController.class);
 
 
@@ -35,7 +36,7 @@ public class CustomerController {
     @PostMapping("/customer")
     public ResponseEntity<Customer> addInvoice(@RequestBody Customer customer) throws Exception
     {
-        DataService dataService=quickBookIntegration.demo();
+        DataService dataService=helper.getConnection();
         System.out.println("DataService ="+dataService);
        Customer result= dataService.add(customer);
         return new ResponseEntity<Customer>(result, HttpStatus.OK);
@@ -44,7 +45,7 @@ public class CustomerController {
     //Deletion can not be perform
     @DeleteMapping("/customer")
     public  ResponseEntity<Customer> delete(@RequestBody Customer customer) throws Exception {
-        DataService dataService = quickBookIntegration.demo();
+        DataService dataService = helper.getConnection();
         Customer result=  dataService.delete(customer);
         return new ResponseEntity<Customer>(result, HttpStatus.OK);
     }
@@ -56,7 +57,7 @@ public class CustomerController {
         String sql = "select * from customer";
         QueryResult queryResult;
         try {
-            queryResult = quickBookIntegration.demo().executeQuery(sql);
+            queryResult = helper.getConnection().executeQuery(sql);
             List<Customer> customerInfo= (List<Customer>) queryResult.getEntities();
             ObjectMapper mapper = new ObjectMapper();
 //            System.out.println(mapper.writeValueAsString(customerInfo));
@@ -70,7 +71,7 @@ public class CustomerController {
     @GetMapping("/customer/{id}")
     public Customer getCustomerById(@PathVariable("id") String id) throws Exception
     {
-        DataService dataService = quickBookIntegration.demo();
+        DataService dataService = helper.getConnection();
         Customer customer = new Customer();
         customer.setId(id);
 
@@ -83,7 +84,7 @@ public class CustomerController {
     @PutMapping("/customer/{id}")
     public Customer updateCustomer(@PathVariable("id") String id,@RequestBody Customer customer) throws Exception
     {
-        DataService dataService = quickBookIntegration.demo();
+        DataService dataService = helper.getConnection();
         Customer customer1 =new Customer();
         customer1.setId(id);
         Customer customerInfo = dataService.findById(customer1);
