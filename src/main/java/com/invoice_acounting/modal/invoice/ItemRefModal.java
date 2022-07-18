@@ -1,5 +1,4 @@
-package com.invoice_acounting.modal;
-
+package com.invoice_acounting.modal.invoice;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomerRef {
-String value;
-
+public class ItemRefModal {
+    public String name;
+    public String value;
 }

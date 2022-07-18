@@ -1,16 +1,11 @@
 package com.invoice_acounting.entity.customer;
 
+import lombok.Data;
 
+@Data
 public class PrimaryPhone {
 
 	private String freeFormNumber;
 
-	public String getFreeFormNumber() {
-		return freeFormNumber;
-	}
-
-	public void setFreeFormNumber(String freeFormNumber) {
-		this.freeFormNumber = freeFormNumber;
-	}
 	
 }

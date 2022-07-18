@@ -1,6 +1,7 @@
 package com.invoice_acounting;
 
 import org.apache.log4j.BasicConfigurator;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,6 +26,10 @@ public class InvoiceAccountingApplication {
 	public QuickBookIntegration calling()
 	{
 		return new QuickBookIntegration();
+	}
+	@Bean
+	public ModelMapper modelMapper() {
+	    return new ModelMapper();
 	}
 
 }

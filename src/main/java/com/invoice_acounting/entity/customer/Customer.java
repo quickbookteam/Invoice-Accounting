@@ -4,6 +4,7 @@ package com.invoice_acounting.entity.customer;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
@@ -16,6 +17,7 @@ public class Customer
 {
 	@Id
 	private String  _id;
+	@Indexed(unique=true)
 	private PrimaryEmailAddr primaryEmailAddr;
 	private String syncToken;
 	private String domain;
@@ -37,7 +39,5 @@ public class Customer
 	private double balance;
 	private Date createTime;
 	private Date lastUpdatedTime;
-
-	
-    	
+    
 }
