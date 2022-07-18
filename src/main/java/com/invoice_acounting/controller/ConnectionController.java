@@ -17,8 +17,8 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.intuit.oauth2.config.OAuth2Config;
 import com.intuit.oauth2.config.Scope;
 import com.intuit.oauth2.exception.InvalidRequestException;
-import com.invoice_acounting.client.OAuth2PlatformClientFactory;
-import com.invoice_acounting.helper.QBOServiceHelper;
+import com.invoice_acounting.config.OAuth2PlatformClientFactory;
+import com.invoice_acounting.util.QBOServiceHelper;
 
 @RestController
 public class ConnectionController {

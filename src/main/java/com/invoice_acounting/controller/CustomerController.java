@@ -8,6 +8,8 @@ import com.intuit.ipp.data.Invoice;
 import com.intuit.ipp.services.DataService;
 import com.intuit.ipp.services.QueryResult;
 import com.invoice_acounting.config.QuickBookIntegration;
+import com.invoice_acounting.repositery.CustomerRepo;
+import com.invoice_acounting.service.Implimentation.CustomerServiceImpl;
 import com.invoice_acounting.util.Helper;
 
 import org.apache.log4j.Logger;
@@ -22,17 +24,17 @@ import java.util.List;
 
 @RestController
 public class CustomerController {
+	
+	@Autowired
+	CustomerRepo customerRepo; 
     
+	@Autowired
+	CustomerServiceImpl customerService;
+	
     @Autowired
     Helper helper;
     private static final Logger logger = Logger.getLogger(CustomerController.class);
-
-
-    @GetMapping("/")
-    public String demo()
-    {
-        return "hello";
-    }
+    
     @PostMapping("/customer")
     public ResponseEntity<Customer> addInvoice(@RequestBody Customer customer) throws Exception
     {
@@ -40,6 +42,18 @@ public class CustomerController {
         System.out.println("DataService ="+dataService);
        Customer result= dataService.add(customer);
         return new ResponseEntity<Customer>(result, HttpStatus.OK);
+    }
+    
+    @PostMapping("/customer2")
+    public ResponseEntity<?> addCus(@RequestBody com.invoice_acounting.entity.customer.Customer customer) throws Exception
+    {
+    	
+//        DataService dataService=helper.getConnection();
+//        System.out.println("DataService ="+dataService);
+//       Customer result= dataService.add(customer);
+    	customerService.save(customer);
+    	
+        return new ResponseEntity<>(customer,HttpStatus.OK);
     }
 
     //Deletion can not be perform
@@ -49,7 +63,6 @@ public class CustomerController {
         Customer result=  dataService.delete(customer);
         return new ResponseEntity<Customer>(result, HttpStatus.OK);
     }
-
 
     @GetMapping("/customer")
     public ResponseEntity<List<Customer>> getCustomer() throws Exception
@@ -68,6 +81,7 @@ public class CustomerController {
         }
         return null;
     }
+    
     @GetMapping("/customer/{id}")
     public Customer getCustomerById(@PathVariable("id") String id) throws Exception
     {
@@ -81,6 +95,7 @@ public class CustomerController {
         }
         return null;
     }
+    
     @PutMapping("/customer/{id}")
     public Customer updateCustomer(@PathVariable("id") String id,@RequestBody Customer customer) throws Exception
     {
@@ -95,4 +110,13 @@ public class CustomerController {
         return customer;
     }
 
+    
+    
+    @GetMapping("/allcustomer")
+    public com.invoice_acounting.entity.customer.Customer getById()
+    {
+    	return customerRepo.findById("62d4fd07fff56f3a540d42a8").get();
+    }
+    
+    
 }

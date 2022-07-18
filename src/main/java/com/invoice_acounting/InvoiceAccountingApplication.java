@@ -11,31 +11,20 @@ import com.invoice_acounting.config.QuickBookIntegration;
 
 @SpringBootApplication
 public class InvoiceAccountingApplication {
-//	@Autowired
-//	
-//	QuickBookIntegration quickBookIntegration;
 
 	public static void main(String[] args) throws Exception {
 		ApplicationContext context =SpringApplication.run(InvoiceAccountingApplication.class, args);
 		BasicConfigurator.configure();
 		QuickBookIntegration quick= (QuickBookIntegration) context.getBean("calling");
 		quick.demo();
-//		InvoiceAccountingApplication obj=new InvoiceAccountingApplication();
-//		obj.calling();
 		System.out.println("Application Started");
 
 	}
+	
 	@Bean
 	public QuickBookIntegration calling()
 	{
 		return new QuickBookIntegration();
-//		System.out.println(quickBookIntegration);
-//		try {
-//			quickBookIntegration.demo();
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 	}
 
 }

@@ -8,5 +8,6 @@ public class Connection {
 	private String realmeId;
 	private String accessToken;
 	private String refreshToken;
-
+	
+	
 }
