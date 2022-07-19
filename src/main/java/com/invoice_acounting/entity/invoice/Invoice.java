@@ -4,7 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.invoice_acounting.entity.customer.LocalCustomer;
 
 import java.util.ArrayList;
 
@@ -17,8 +20,10 @@ public class Invoice {
 
     @Id
     private String  _id;
-    public ArrayList<Line> line;
-    public CustomerRef customerRef;
-
-
+    private String invoice_id;
+    private ArrayList<Line> line;
+    @DBRef
+    private LocalCustomer localCustomer ;
+    private String status;
+    
 }

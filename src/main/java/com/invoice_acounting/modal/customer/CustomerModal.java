@@ -14,7 +14,8 @@ import java.util.Date;
 @AllArgsConstructor
 public class CustomerModal {
 
-    private String  _id;
+    private String _id;
+    private String customer_id;
     private PrimaryEmailAddrModal primaryEmailAddr;
     private String syncToken;
     private String domain;
@@ -34,6 +35,7 @@ public class CustomerModal {
     private boolean taxable;
     private String printOnCheckName;
     private double balance;
+    private String status;
     private Date createTime;
     private Date lastUpdatedTime;
 

@@ -9,5 +9,4 @@ public class Connection {
 	private String accessToken;
 	private String refreshToken;
 	
-	
 }

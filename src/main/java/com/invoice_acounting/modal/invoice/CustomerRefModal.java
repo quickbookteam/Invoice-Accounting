@@ -5,9 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class CustomerRefModal {
-        public String value;
-        public String name;
+		private String value;
+        private String name;
+        private String customer_id;
 }

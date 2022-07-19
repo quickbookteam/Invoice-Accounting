@@ -2,6 +2,7 @@ package com.invoice_acounting.service.Implimentation;
 
 import com.invoice_acounting.dao.InvoiceDao;
 import com.invoice_acounting.entity.invoice.Invoice;
+import com.invoice_acounting.modal.invoice.InvoiceModal;
 import com.invoice_acounting.service.InvoiceService;
 import com.invoice_acounting.util.Helper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +19,13 @@ public class InvoiceServiceImpl implements InvoiceService {
     Helper helper;
 
     @Override
-    public ResponseEntity<?> save(Invoice invoice) {
+    public ResponseEntity<?> save(InvoiceModal invoice) {
        return invoiceDao.save(invoice);
     }
 
     @Override
-    public Invoice findById(String id) {
-        Invoice invoice=invoiceDao.findById(id);
-        return invoice;
+    public ResponseEntity<?> findById(String id) {
+        return invoiceDao.findById(id);
     }
 
 }

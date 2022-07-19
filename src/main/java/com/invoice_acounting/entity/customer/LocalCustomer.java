@@ -13,15 +13,15 @@ import lombok.Data;
 //@Entity
 @Document(collection =  "customers")
 @Data
-public class Customer
+public class LocalCustomer
 {
 	@Id
 	private String  _id;
-	@Indexed(unique=true)
+	private String customer_id;
 	private PrimaryEmailAddr primaryEmailAddr;
-	private String syncToken;
 	private String domain;
 	private String givenName;
+	@Indexed(unique=true)
 	private String displayName;
 	private boolean billWithParent;
 	private String fullyQualifiedName;
@@ -39,5 +39,6 @@ public class Customer
 	private double balance;
 	private Date createTime;
 	private Date lastUpdatedTime;
+	private String status=null;
     
 }

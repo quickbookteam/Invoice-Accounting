@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 
+import com.invoice_acounting.entity.customer.LocalCustomer;
+
 import java.util.ArrayList;
 
 @Data
@@ -13,8 +15,9 @@ import java.util.ArrayList;
 @AllArgsConstructor
 
 public class InvoiceModal {
-    @Id
-    private String  _id;
-    public ArrayList<LineModal> line;
-    public CustomerRefModal customerRef;
+	
+    private String id;
+    private ArrayList<LineModal> line;
+    private LocalCustomer localCustomer;
+    private String status;
 }

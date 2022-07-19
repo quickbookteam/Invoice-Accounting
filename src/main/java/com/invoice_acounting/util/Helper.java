@@ -2,7 +2,9 @@ package com.invoice_acounting.util;
 
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -23,6 +25,11 @@ public class Helper {
 	
 	@Autowired
 	ConnectionServiceImpl connectionService; 
+	
+	@Bean
+	public ModelMapper getMapper() {
+		return new ModelMapper();
+	}
 	
 	private static final Logger logger = Logger.getLogger(Helper.class);
 	private String processResponse(String failureMsg, QueryResult queryResult) {
@@ -49,4 +56,6 @@ public class Helper {
 		Context context = new Context(oauth, ServiceType.QBO, connection.getRealmeId());
 	return new DataService(context);
 	}
+	
+	
 }

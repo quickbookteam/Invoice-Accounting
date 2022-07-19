@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CustomerRef{
-    public String value;
-    public String name;
+	private String value;
+    private String name;
+    private String customer_id;
 }
