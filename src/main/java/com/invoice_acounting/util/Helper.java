@@ -1,5 +1,7 @@
 package com.invoice_acounting.util;
 
+import com.invoice_acounting.entity.customer.LocalCustomer;
+import com.invoice_acounting.modal.customer.CustomerModal;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.modelmapper.ModelMapper;
@@ -24,7 +26,9 @@ import com.invoice_acounting.service.Implimentation.ConnectionServiceImpl;
 public class Helper {
 	
 	@Autowired
-	ConnectionServiceImpl connectionService; 
+	ConnectionServiceImpl connectionService;
+
+
 	
 	@Bean
 	public ModelMapper getMapper() {
@@ -56,6 +60,6 @@ public class Helper {
 		Context context = new Context(oauth, ServiceType.QBO, connection.getRealmeId());
 	return new DataService(context);
 	}
-	
+
 	
 }

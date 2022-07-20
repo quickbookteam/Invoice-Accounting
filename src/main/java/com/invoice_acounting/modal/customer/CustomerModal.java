@@ -35,7 +35,6 @@ public class CustomerModal {
     private boolean taxable;
     private String printOnCheckName;
     private double balance;
-    private String status;
     private Date createTime;
     private Date lastUpdatedTime;
 

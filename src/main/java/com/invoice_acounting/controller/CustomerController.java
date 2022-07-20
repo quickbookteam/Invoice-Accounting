@@ -1,10 +1,10 @@
 package com.invoice_acounting.controller;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+import com.invoice_acounting.dao.CustomerDao;
+import com.invoice_acounting.entity.customer.LocalCustomer;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +36,9 @@ public class CustomerController {
 
 	@Autowired
 	Helper helper;
-	
+	@Autowired
+	CustomerDao customerDao;
+
 	@Autowired
 	CustomerCSVServiceImpl service;
 	private static final Logger logger = Logger.getLogger(CustomerController.class);
@@ -122,11 +124,12 @@ public class CustomerController {
 //	return result;
 	
 
-//	@PostMapping("/customer")
+//	@PostMapping("/customer10")
 //	public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer) throws Exception {
 //		DataService dataService = helper.getConnection();
 //		System.out.println("DataService =" + dataService);
 //		Customer result = dataService.add(customer);
+//		System.out.println(result.getId());
 //		return new ResponseEntity<Customer>(result, HttpStatus.OK);
 //	}
 
@@ -140,10 +143,23 @@ public class CustomerController {
 	@PostMapping("/customers")
 	public ResponseEntity<CustomerModal> addCustomersCsv(MultipartFile file) {
 		return service.addCustomersCsv(file);
-	} 
+	}
+
+//@PostMapping("/upload_customer")
+//	public Customer saveCustomerToQuickBookServer() throws FMSException {
+//	System.out.println(new Date());
+//	CustomerModal customerModal=customerService.findById("62d7ce6624157643aaddc3dd");
+//	Customer customer=customerService.saveCustomerToQuickBook(customerModal);
+//
+//
+//
+//	customerService.saveId(customer.getId(),"62d7ce6624157643aaddc3dd");
+//	return customer;
+//	}
 	
-	
-	
-	
-	
+//	@GetMapping("/list")
+//	public List<LocalCustomer> list()
+//	{
+//		return customerDao.getCustomers_With_CreatedStatus();
+//	}
 }

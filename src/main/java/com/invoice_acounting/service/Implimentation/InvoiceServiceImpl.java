@@ -1,7 +1,6 @@
 package com.invoice_acounting.service.Implimentation;
 
 import com.invoice_acounting.dao.InvoiceDao;
-import com.invoice_acounting.entity.invoice.Invoice;
 import com.invoice_acounting.modal.invoice.InvoiceModal;
 import com.invoice_acounting.service.InvoiceService;
 import com.invoice_acounting.util.Helper;

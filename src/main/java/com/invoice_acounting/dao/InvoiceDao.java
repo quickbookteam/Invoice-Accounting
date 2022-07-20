@@ -1,6 +1,6 @@
 package com.invoice_acounting.dao;
 
-import com.invoice_acounting.entity.invoice.Invoice;
+import com.invoice_acounting.entity.invoice.LocalInvoice;
 import com.invoice_acounting.modal.invoice.InvoiceModal;
 import com.invoice_acounting.repositery.InvoiceRepository;
 import com.invoice_acounting.util.Helper;
@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 
 @Component
 public class InvoiceDao {
@@ -21,11 +19,11 @@ public class InvoiceDao {
     @Autowired
     Helper helper;
 
-    public ResponseEntity<Invoice> save(InvoiceModal invoiceModal){
-       Invoice invoice = helper.getMapper().map(invoiceModal, Invoice.class);
+    public ResponseEntity<LocalInvoice> save(InvoiceModal invoiceModal){
+       LocalInvoice invoice = helper.getMapper().map(invoiceModal, LocalInvoice.class);
        invoice.setInvoice_id("0");
        invoice.setStatus("created");
-       Invoice result= invoiceRepository.save(invoice);
+       LocalInvoice result= invoiceRepository.save(invoice);
        return new ResponseEntity<>(result,HttpStatus.OK);
     }
     
@@ -33,7 +31,7 @@ public class InvoiceDao {
     	if(!invoiceRepository.existsById(id)) {
     		return new ResponseEntity<>("No Invoice found",HttpStatus.BAD_REQUEST);
     	}
-        Invoice invoice=invoiceRepository.findById(id).get();
+        LocalInvoice invoice=invoiceRepository.findById(id).get();
         return  new ResponseEntity<>(helper.getMapper().map(invoice, InvoiceModal.class),HttpStatus.OK);
     }
 

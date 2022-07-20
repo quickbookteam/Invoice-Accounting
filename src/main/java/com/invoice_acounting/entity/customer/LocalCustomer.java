@@ -39,6 +39,6 @@ public class LocalCustomer
 	private double balance;
 	private Date createTime;
 	private Date lastUpdatedTime;
-	private String status=null;
+	private String status;
     
 }

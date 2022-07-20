@@ -5,8 +5,16 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.intuit.ipp.data.Customer;
+import com.intuit.ipp.exception.FMSException;
+import com.intuit.ipp.services.DataService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -29,7 +37,9 @@ public class CustomerDao {
 	
 	@Autowired
 	CSVHelper cSVHelper;
-	
+
+	@Autowired
+	MongoTemplate mongoTemplate;
 
 	@Autowired
 	ModelMapper modelMapper;
@@ -95,5 +105,42 @@ public class CustomerDao {
 		return new ResponseEntity<CustomerModal>(HttpStatus.OK);
 
 	}
+	public CustomerModal findById(String id)
+	{
+LocalCustomer localCustomer=customerRepo.findById(id).get();
+		CustomerModal customerModal = helper.getMapper().map(localCustomer, CustomerModal.class);
+		return customerModal;
+	}
+	public List<LocalCustomer> findAllLocalCustomers()
+	{
+		return customerRepo.findAll();
+	}
+	public Customer saveCustomerToQuickBook(CustomerModal customerModal) throws FMSException {
+		DataService dataService=helper.getConnection();
+		ObjectMapper mapper=new ObjectMapper();
+		mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+		Customer customer= mapper.convertValue(customerModal, Customer.class);
 
+
+Customer customer1=dataService.add(customer);
+return customer1;
+
+
+	}
+public void saveID(String id,String localCustomerID)
+{
+	 LocalCustomer result=customerRepo.findById(localCustomerID).get();
+	result.setCustomer_id(id);
+	result.setStatus("Uploaded");
+	customerRepo.save(result);
+}
+public List<LocalCustomer> getCustomers_With_CreatedStatus()
+{
+	List<LocalCustomer> localCustomerList =new ArrayList<>();
+	Query query =new Query();
+	query.addCriteria(Criteria.where("status").is("created"));
+	localCustomerList = mongoTemplate.find(query,LocalCustomer.class);
+	System.out.println(localCustomerList);
+	return localCustomerList;
+}
 }

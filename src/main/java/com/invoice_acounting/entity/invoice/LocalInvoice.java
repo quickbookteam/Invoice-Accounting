@@ -16,7 +16,7 @@ import java.util.ArrayList;
 @AllArgsConstructor
 
 @Document(collection = "invoices")
-public class Invoice {
+public class LocalInvoice {
 
     @Id
     private String  _id;
