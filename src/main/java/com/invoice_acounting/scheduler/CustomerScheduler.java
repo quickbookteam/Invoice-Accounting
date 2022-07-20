@@ -28,7 +28,7 @@ public class CustomerScheduler {
     @Autowired
     CustomerService customerService;
 
-    @Scheduled(cron = "0 * * ? * *")//after every minute
+//    @Scheduled(cron = "0 * * ? * *")//after every minute
    public Customer saveCustomerToQuickBookServer() throws FMSException {
        System.out.println(new Date());
 
