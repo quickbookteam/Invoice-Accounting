@@ -2,6 +2,7 @@ package com.invoice_acounting.dao;
 
 import com.invoice_acounting.entity.invoice.LocalInvoice;
 import com.invoice_acounting.modal.invoice.InvoiceModal;
+import com.invoice_acounting.repositery.CustomerRepo;
 import com.invoice_acounting.repositery.InvoiceRepository;
 import com.invoice_acounting.util.Helper;
 
@@ -15,13 +16,19 @@ public class InvoiceDao {
 
     @Autowired
     InvoiceRepository invoiceRepository;
-    
+
+    @Autowired
+    CustomerRepo customerRepositery;
+
     @Autowired
     Helper helper;
 
-    public ResponseEntity<LocalInvoice> save(InvoiceModal invoiceModal){
+    public ResponseEntity<?> save(InvoiceModal invoiceModal){
+        if(invoiceModal.getCustomerRef().getValue().equals("0") || !customerRepositery.existsByCustomerId(invoiceModal.getCustomerRef().getValue())){
+            return new ResponseEntity<>("Customer not valid",HttpStatus.BAD_REQUEST);
+        }
        LocalInvoice invoice = helper.getMapper().map(invoiceModal, LocalInvoice.class);
-       invoice.setInvoice_id("0");
+       invoice.setInvoiceId("0");
        invoice.setStatus("created");
        LocalInvoice result= invoiceRepository.save(invoice);
        return new ResponseEntity<>(result,HttpStatus.OK);
@@ -34,5 +41,4 @@ public class InvoiceDao {
         LocalInvoice invoice=invoiceRepository.findById(id).get();
         return  new ResponseEntity<>(helper.getMapper().map(invoice, InvoiceModal.class),HttpStatus.OK);
     }
-
 }

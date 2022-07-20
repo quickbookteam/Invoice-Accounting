@@ -11,5 +11,4 @@ import lombok.NoArgsConstructor;
 public class CustomerRef{
 	private String value;
     private String name;
-    private String customer_id;
 }

@@ -49,7 +49,7 @@ public class CustomerDao {
 	public ResponseEntity<?> save(CustomerModal customer) {
 		LocalCustomer localCustomer = helper.getMapper().map(customer, LocalCustomer.class);
 		localCustomer.setStatus("created");
-		localCustomer.setCustomer_id("0");
+		localCustomer.setCustomerId("0");
 		customerRepo.save(localCustomer);
 		return new ResponseEntity<>(localCustomer, HttpStatus.OK);
 
@@ -130,7 +130,7 @@ return customer1;
 public void saveID(String id,String localCustomerID)
 {
 	 LocalCustomer result=customerRepo.findById(localCustomerID).get();
-	result.setCustomer_id(id);
+	result.setCustomerId(id);
 	result.setStatus("Uploaded");
 	customerRepo.save(result);
 }

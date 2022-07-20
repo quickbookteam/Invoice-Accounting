@@ -21,8 +21,6 @@ public class InvoiceAccountingApplication {
 		QuickBookIntegration quick= (QuickBookIntegration) context.getBean("calling");
 		quick.demo();
 		System.out.println("Application Started");
-
-
 	}
 	
 	@Bean

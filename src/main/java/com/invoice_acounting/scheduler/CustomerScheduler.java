@@ -38,7 +38,6 @@ public class CustomerScheduler {
            CustomerModal customerModal= customerService.findById(customer1.get_id());
             Customer customer=customerService.saveCustomerToQuickBook(customerModal);
             customerService.saveId(customer.getId(),customer1.get_id());
-
         }
        return null;
    }

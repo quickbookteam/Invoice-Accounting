@@ -1,6 +1,7 @@
 package com.invoice_acounting.modal.invoice;
 
 
+import com.invoice_acounting.entity.invoice.CustomerRef;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,8 +17,8 @@ import java.util.ArrayList;
 
 public class InvoiceModal {
 	
-    private String id;
+    private String invoiceId;
     private ArrayList<LineModal> line;
-    private LocalCustomer localCustomer;
-    private String status;
+    private CustomerRef customerRef;
+
 }

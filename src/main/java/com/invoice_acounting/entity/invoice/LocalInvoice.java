@@ -20,10 +20,9 @@ public class LocalInvoice {
 
     @Id
     private String  _id;
-    private String invoice_id;
+    private String invoiceId;
     private ArrayList<Line> line;
-    @DBRef
-    private LocalCustomer localCustomer ;
+    private CustomerRef customerRef;
     private String status;
     
 }

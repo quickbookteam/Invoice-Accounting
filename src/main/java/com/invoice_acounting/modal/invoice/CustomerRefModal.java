@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 public class CustomerRefModal {
 		private String value;
         private String name;
-        private String customer_id;
+        private String customerId;
 }

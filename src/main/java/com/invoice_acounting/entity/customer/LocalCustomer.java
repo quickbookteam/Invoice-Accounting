@@ -17,7 +17,7 @@ public class LocalCustomer
 {
 	@Id
 	private String  _id;
-	private String customer_id;
+	private String customerId;
 	private PrimaryEmailAddr primaryEmailAddr;
 	private String domain;
 	private String givenName;

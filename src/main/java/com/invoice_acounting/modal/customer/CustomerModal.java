@@ -15,7 +15,7 @@ import java.util.Date;
 public class CustomerModal {
 
     private String _id;
-    private String customer_id;
+    private String customerId;
     private PrimaryEmailAddrModal primaryEmailAddr;
     private String syncToken;
     private String domain;
