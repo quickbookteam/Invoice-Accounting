@@ -1,39 +1,29 @@
 package com.invoice_acounting.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.intuit.ipp.data.Customer;
-import com.intuit.ipp.data.Invoice;
-import com.intuit.ipp.exception.FMSException;
-import com.intuit.ipp.services.DataService;
-import com.intuit.ipp.services.QueryResult;
-import com.invoice_acounting.entity.customer.LocalCustomer;
-import com.invoice_acounting.modal.customer.CustomerModal;
-import com.invoice_acounting.repositery.CustomerRepo;
-import com.invoice_acounting.service.CustomerCSVServices;
-import com.invoice_acounting.service.Implimentation.CustomerServiceImpl;
-import com.invoice_acounting.util.Helper;
-import org.modelmapper.ModelMapper;
-
-import org.apache.log4j.Logger;
-import org.json.JSONObject;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.supercsv.io.CsvBeanWriter;
-import org.supercsv.io.ICsvBeanWriter;
-import org.supercsv.prefs.CsvPreference;
-
+import java.io.FileWriter;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.intuit.ipp.data.Customer;
+import com.intuit.ipp.exception.FMSException;
+import com.invoice_acounting.modal.customer.CustomerModal;
+import com.invoice_acounting.repositery.CustomerRepo;
+import com.invoice_acounting.service.Implimentation.CustomerCSVServiceImpl;
+import com.invoice_acounting.service.Implimentation.CustomerServiceImpl;
+import com.invoice_acounting.util.Helper;
 
 @RestController
 public class CustomerController {
@@ -48,7 +38,7 @@ public class CustomerController {
 	Helper helper;
 	
 	@Autowired
-	CustomerCSVServices service;
+	CustomerCSVServiceImpl service;
 	private static final Logger logger = Logger.getLogger(CustomerController.class);
 	
 	@GetMapping("/customer/{id}")
@@ -147,28 +137,13 @@ public class CustomerController {
 //		Customer result = dataService.delete(customer);
 //		return new ResponseEntity<Customer>(result, HttpStatus.OK);
 //	}
-	@GetMapping("/customer/export")
-    public void exportToCSV(HttpServletResponse response) throws IOException, FMSException {
-        response.setContentType("text/csv");
-        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-        String currentDateTime = dateFormatter.format(new Date());
-       // String csvFileName = "customer.csv";
-        String headerKey = "Content-Disposition";
-        String headerValue = "attachment; filename=customers_" + currentDateTime + ".csv";
-        //String headerValue = csvFileName;
-        response.setHeader(headerKey, headerValue);
-         
-        List<Customer> listUsers = service.listAll();
- 
-        ICsvBeanWriter csvWriter = new CsvBeanWriter(response.getWriter(), CsvPreference.STANDARD_PREFERENCE);
-        String[] csvHeader = {"User ID","name"};
-        String[] nameMapping = {"id", "givenName"};
-         
-        csvWriter.writeHeader(csvHeader);
-     
-        for (Customer user : listUsers) {
-            csvWriter.write(user, nameMapping);
-        }         
-        csvWriter.close();
-    }
+	@PostMapping("/customers")
+	public ResponseEntity<CustomerModal> addCustomersCsv(MultipartFile file) {
+		return service.addCustomersCsv(file);
+	} 
+	
+	
+	
+	
+	
 }

@@ -25,7 +25,7 @@ public class QuickBookIntegration {
   private String clientSecret="KIMAYJDdSuGO3Sgc9Y7phwUH1kD9dsKLDvl6kXvQ";
 
   //    @Value("${refreshToken}")
-  private String refreshToken="AB11666936484ovFxZ2DVD9sTqFHHvlhXMavRdZs1TMPopXwpU";
+  private String refreshToken="AB11667023347K1n2OYm0U9LJ4lvV1elxkGtrveaulmfVepuPs";
 
   //    @Value("${RealmID}")
   
