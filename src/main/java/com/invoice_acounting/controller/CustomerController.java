@@ -3,8 +3,6 @@ package com.invoice_acounting.controller;
 import java.util.Date;
 import java.util.List;
 
-import com.invoice_acounting.dao.CustomerDao;
-import com.invoice_acounting.entity.customer.LocalCustomer;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,59 +15,57 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.intuit.ipp.data.Customer;
 import com.intuit.ipp.exception.FMSException;
+
 import com.invoice_acounting.modal.customer.CustomerModal;
+import com.invoice_acounting.modal.customer.LocalCustomerModal;
 import com.invoice_acounting.repositery.CustomerRepo;
-import com.invoice_acounting.service.Implimentation.CustomerCSVServiceImpl;
-import com.invoice_acounting.service.Implimentation.CustomerServiceImpl;
+import com.invoice_acounting.service.CustomerCSVServices;
+import com.invoice_acounting.service.CustomerService;
 import com.invoice_acounting.util.Helper;
 
 @RestController
 public class CustomerController {
 
 	@Autowired
-	CustomerRepo customerRepo;
+	CustomerService customerService;
 
 	@Autowired
-	CustomerServiceImpl customerService;
-
-	@Autowired
-	Helper helper;
-	@Autowired
-	CustomerDao customerDao;
-
-	@Autowired
-	CustomerCSVServiceImpl service;
-	private static final Logger logger = Logger.getLogger(CustomerController.class);
+	CustomerCSVServices service;
 	
+	private static final Logger logger = Logger.getLogger(CustomerController.class);
+
 	@GetMapping("/customer/{id}")
-	public CustomerModal get(@PathVariable("id") String id) throws FMSException {
+	public LocalCustomerModal get(@PathVariable("id") String id) throws FMSException {
 		return customerService.get(id);
 	}
-	
+
 	@PostMapping("/customer")
-	public ResponseEntity<?> addLocalCustomer(@RequestBody CustomerModal customer)throws Exception {
+	public ResponseEntity<?> addLocalCustomer(@RequestBody CustomerModal customer) throws Exception {
 		customer.setLastUpdatedTime(new Date());
 		customer.setCreateTime(new Date());
 		return customerService.save(customer);
 	}
-	
+
 	@DeleteMapping("/customer/{id}")
-	public ResponseEntity<?> deleteCustomer(@PathVariable("id") String id){
+	public ResponseEntity<?> deleteCustomer(@PathVariable("id") String id) {
 		return customerService.delete(id);
 	}
 
 	@GetMapping("/allcustomer")
-	public List<CustomerModal> getAllCustomer() throws FMSException {
+	public List<LocalCustomerModal> getAllCustomer() throws FMSException {
 		return customerService.getAll();
 	}
-	
-	@PutMapping("/customer/{id}")
-	public CustomerModal updateCustomer(@PathVariable("id") String id, @RequestBody CustomerModal customer) {
-		return customerService.update(id,customer);
+
+	@PutMapping("/customer")
+	public CustomerModal updateCustomer(@RequestBody CustomerModal customer) {
+		return customerService.update(customer);
 	}
-		
+
+	@PostMapping("/customers")
+	public ResponseEntity<LocalCustomerModal> addCustomersCsv(MultipartFile file) {
+		return service.addCustomersCsv(file);
+	}
 //	@GetMapping("/customer")
 //	public ResponseEntity<List<Customer>> getCustomer() throws Exception {
 //		String sql = "select * from customer";
@@ -87,7 +83,6 @@ public class CustomerController {
 //		return null;
 //	}
 
-
 //	@PutMapping("/customer/{id}")
 //	public Customer updateCustomer(@PathVariable("id") String id, @RequestBody Customer customer) throws Exception {
 //		DataService dataService = helper.getConnection();
@@ -101,7 +96,6 @@ public class CustomerController {
 //		return customer;
 //	}
 
-
 //	@GetMapping("/customer/{id}")
 //	public Customer getCustomerById(@PathVariable("id") String id) throws Exception {
 //		DataService dataService = helper.getConnection();
@@ -114,7 +108,7 @@ public class CustomerController {
 //		}
 //		return null;
 //	}
-	
+
 //	LocalCustomer customer = customerRepo.findById(id).get();
 //	Customer customermap = helper.getMapper().map(customer, Customer.class);
 //	System.out.println("customer " + customermap);
@@ -122,7 +116,6 @@ public class CustomerController {
 //	System.out.println("DataService =" + dataService);
 //	Customer result = dataService.add(customermap);
 //	return result;
-	
 
 //	@PostMapping("/customer10")
 //	public ResponseEntity<Customer> addCustomer(@RequestBody Customer customer) throws Exception {
@@ -140,10 +133,6 @@ public class CustomerController {
 //		Customer result = dataService.delete(customer);
 //		return new ResponseEntity<Customer>(result, HttpStatus.OK);
 //	}
-	@PostMapping("/customers")
-	public ResponseEntity<CustomerModal> addCustomersCsv(MultipartFile file) {
-		return service.addCustomersCsv(file);
-	}
 
 //@PostMapping("/upload_customer")
 //	public Customer saveCustomerToQuickBookServer() throws FMSException {
@@ -156,7 +145,7 @@ public class CustomerController {
 //	customerService.saveId(customer.getId(),"62d7ce6624157643aaddc3dd");
 //	return customer;
 //	}
-	
+
 //	@GetMapping("/list")
 //	public List<LocalCustomer> list()
 //	{

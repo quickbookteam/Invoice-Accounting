@@ -1,15 +1,16 @@
 package com.invoice_acounting.service;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 
-import com.invoice_acounting.modal.Connection;
+import com.invoice_acounting.entity.Connection;
+import com.invoice_acounting.modal.ConnectionModal;
 
-@Service
+
 public interface ConnectionService {
 	
-	ResponseEntity<?> save(Connection connection);
+	public ResponseEntity<?> save(ConnectionModal connection);
+
+	public Connection getDetails();
 	
-	Connection get(Long id);
 	
 }

@@ -1,16 +1,19 @@
 package com.invoice_acounting.modal.customer;
 
-import java.util.Date;
-
+import com.invoice_acounting.entity.customer.BillAddr;
+import com.invoice_acounting.entity.customer.PrimaryEmailAddr;
+import com.invoice_acounting.entity.customer.PrimaryPhone;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CustomerModal {
-    private String id;
+public class LocalCustomerModal {
+    private String customerId;
     private PrimaryEmailAddrModal primaryEmailAddr;
     private String syncToken;
     private String domain;
@@ -32,4 +35,5 @@ public class CustomerModal {
     private double balance;
     private Date createTime;
     private Date lastUpdatedTime;
+
 }

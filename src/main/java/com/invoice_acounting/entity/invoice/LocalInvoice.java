@@ -1,24 +1,26 @@
 package com.invoice_acounting.entity.invoice;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import com.invoice_acounting.entity.customer.LocalCustomer;
-
 import java.util.ArrayList;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
+@Data
+@Builder
 @Document(collection = "invoices")
+@RequiredArgsConstructor()
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class LocalInvoice {
 
     @Id
+    @Field("_id")
     private String  _id;
     private String invoiceId;
     private ArrayList<Line> line;

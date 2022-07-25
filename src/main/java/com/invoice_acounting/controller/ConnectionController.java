@@ -20,13 +20,15 @@ import com.intuit.oauth2.exception.InvalidRequestException;
 import com.invoice_acounting.config.OAuth2PlatformClientFactory;
 import com.invoice_acounting.util.QBOServiceHelper;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
+@Slf4j
 public class ConnectionController {
 
 	@Autowired
 	private QBOServiceHelper qBOServiceHelper;
 	
-	private static final Logger logger = Logger.getLogger(ConnectionController.class);
 	@Autowired
 	OAuth2PlatformClientFactory factory;
 
@@ -34,20 +36,20 @@ public class ConnectionController {
 	private String redirectUri;
 
 	@RequestMapping("/connectToQuickbooks")
-	public View connectToQuickbooks(HttpSession session) {
-		logger.info("inside connectToQuickbooks ");
+	public View connectToQuickbooks() {
+		log.info("inside connectToQuickbooks ");
 		OAuth2Config oauth2Config = factory.getOAuth2Config();
 
 		String redirectUri = factory.getPropertyValue("OAuth2AppRedirectUri");
 
 		String csrf = oauth2Config.generateCSRFToken();
-		session.setAttribute("csrfToken", csrf);
+//		session.setAttribute("csrfToken", csrf);
 		try {
 			List<Scope> scopes = new ArrayList<Scope>();
 			scopes.add(Scope.All);
 			return new RedirectView(oauth2Config.prepareUrl(scopes, redirectUri, csrf), true, true, false);
 		} catch (InvalidRequestException e) {
-			logger.error("Exception calling connectToQuickbooks ", e);
+			log.error("Exception calling connectToQuickbooks ", e);
 		}
 		return null;
 	}

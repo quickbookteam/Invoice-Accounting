@@ -6,9 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intuit.ipp.data.CompanyInfo;
-import com.intuit.ipp.services.DataService;
 import com.intuit.ipp.services.QueryResult;
-import com.invoice_acounting.config.QuickBookIntegration;
 import com.invoice_acounting.util.Helper;
 
 
@@ -21,7 +19,7 @@ public class TestController {
 	QueryResult queryResult;
 
 	@GetMapping("/test")
-	public void test() {
+	public Object test() {
 //		DataService service = dataService;
 
 		String sql = "select * from companyinfo";
@@ -31,9 +29,12 @@ public class TestController {
 			CompanyInfo companyInfo = (CompanyInfo) queryResult.getEntities().get(0);
 			ObjectMapper mapper = new ObjectMapper();
 			System.out.println(mapper.writeValueAsString(companyInfo));
+			return mapper.writeValueAsString(companyInfo);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
+			return null;
 		}
 
 	}

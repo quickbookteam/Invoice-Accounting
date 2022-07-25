@@ -1,8 +1,11 @@
 package com.invoice_acounting.service.Implimentation;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,26 +13,45 @@ import org.springframework.web.multipart.MultipartFile;
 import com.intuit.ipp.data.Customer;
 import com.intuit.ipp.exception.FMSException;
 import com.intuit.ipp.services.DataService;
-import com.invoice_acounting.dao.CustomerDao;
-import com.invoice_acounting.modal.customer.CustomerModal;
+
+import com.invoice_acounting.entity.customer.LocalCustomer;
+import com.invoice_acounting.modal.customer.LocalCustomerModal;
+import com.invoice_acounting.repositery.CustomerRepo;
 import com.invoice_acounting.service.CustomerCSVServices;
+import com.invoice_acounting.util.CSVHelper;
 import com.invoice_acounting.util.Helper;
+
 @Service
 public class CustomerCSVServiceImpl implements CustomerCSVServices {
-	 @Autowired
-	    Helper helper;
-	 @Autowired
-	 CustomerDao dao;
-	     
-	    public List<Customer> listAll() throws FMSException {
-	        DataService dataService = helper.getConnection();
-	        return dataService.findAll(new Customer());
-}
+	CustomerCSVServiceImpl() {
+		this.modelMapper = new ModelMapper();
+		this.helper = new Helper();
+	}
 
+	@Autowired
+	CustomerRepo customerRepo;
 
-		@Override
-		public ResponseEntity<CustomerModal> addCustomersCsv(MultipartFile file) {
-			
-			return dao.addCustomersCsv(file);
-		}
+	Helper helper;
+
+	ModelMapper modelMapper;
+
+	@Autowired
+	CSVHelper cSVHelper;
+
+	@Override
+	public List<Customer> listAll() throws FMSException {
+		DataService dataService = helper.getConnection();
+		return dataService.findAll(new Customer());
+	}
+
+	@Override
+	public ResponseEntity<LocalCustomerModal> addCustomersCsv(MultipartFile file) {
+
+		List<LocalCustomerModal> customerModals = cSVHelper.fileToCustomer(file);
+		List<LocalCustomer> customers = customerModals.stream()
+				.map(customer -> modelMapper.map(customer, LocalCustomer.class)).collect(Collectors.toList());
+
+		customerRepo.saveAll(customers);
+		return new ResponseEntity<LocalCustomerModal>(HttpStatus.OK);
+	}
 }

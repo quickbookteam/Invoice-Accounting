@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+
 public interface InvoiceService {
 	
     ResponseEntity<?> save(InvoiceModal invoice);
@@ -20,6 +20,8 @@ public interface InvoiceService {
 
     List<LocalInvoice> findAll();
 
-    Invoice saveInvoiceToQuickBook(InvoiceModal invoiceModal) throws FMSException;
+   
     public void saveId(String id,String localInvoiceId);
+
+
 }

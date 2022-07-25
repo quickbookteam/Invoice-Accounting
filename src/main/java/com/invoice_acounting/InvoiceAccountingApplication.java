@@ -1,17 +1,18 @@
 package com.invoice_acounting;
 
-import com.invoice_acounting.dao.CustomerDao;
 import org.apache.log4j.BasicConfigurator;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
+import com.intuit.ipp.services.DataService;
 import com.invoice_acounting.config.QuickBookIntegration;
 
 @SpringBootApplication
+@AutoConfiguration
 public class InvoiceAccountingApplication {
 
 
@@ -19,7 +20,7 @@ public class InvoiceAccountingApplication {
 		ApplicationContext context =SpringApplication.run(InvoiceAccountingApplication.class, args);
 		BasicConfigurator.configure();
 		QuickBookIntegration quick= (QuickBookIntegration) context.getBean("calling");
-		quick.demo();
+//		quick.onlineIntegartion();
 		System.out.println("Application Started");
 	}
 	
@@ -32,7 +33,8 @@ public class InvoiceAccountingApplication {
 	public ModelMapper modelMapper() {
 	    return new ModelMapper();
 	}
-
+     
+	
 
 }
 

@@ -27,7 +27,12 @@ public class InvoiceController {
 	public ResponseEntity<?> getInvoice(@PathVariable("id") String id) throws Exception {
 		return invoiceService.findById(id);
 	}
-	
+//	@PostMapping ("/invoice2")
+//	public Invoice addInvoice(@RequestBody Invoice invoice) throws Exception {
+//		DataService dataService = helper.getConnection();
+//		dataService.add(invoice);
+//		return invoice;
+//	}
 //
 //	@GetMapping ("/invoice/{id}")
 //	public Invoice getInvoice(@PathVariable("id") String id) throws Exception {
@@ -44,12 +49,7 @@ public class InvoiceController {
 //		return invoice1;
 //	}
 //
-	@PostMapping ("/invoice2")
-	public Invoice addInvoice(@RequestBody Invoice invoice) throws Exception {
-		DataService dataService = helper.getConnection();
-		dataService.add(invoice);
-		return invoice;
-	}
+	
 	
 //	@PostMapping("/invoice2")
 //	public ResponseEntity<?> addInvoice2(@RequestBody com.invoice_acounting.entity.invoice.Invoice invoice) throws Exception

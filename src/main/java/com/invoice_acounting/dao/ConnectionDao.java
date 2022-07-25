@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.invoice_acounting.modal.Connection;
+import com.invoice_acounting.modal.ConnectionModal;
 import com.invoice_acounting.repositery.ConnectionRepositery;
 
 @Service
@@ -16,7 +16,7 @@ public class ConnectionDao {
 	@Autowired
 	ConnectionRepositery connectionRepo;
 	
-	public ResponseEntity<?> save(Connection connection) {
+	public ResponseEntity<?> save(ConnectionModal connection) {
 		
 		com.invoice_acounting.entity.Connection con =new com.invoice_acounting.entity.Connection();
 		con.setId(1L);
@@ -29,11 +29,11 @@ public class ConnectionDao {
 		
 	}
 	
-	public Connection get(Long id) {
+	public ConnectionModal get(Long id) {
 		Optional<com.invoice_acounting.entity.Connection> optional = connectionRepo.findById(id);
 		if(!optional.isEmpty()) {
 			com.invoice_acounting.entity.Connection connection =optional.get();
-			Connection con =new Connection();
+			ConnectionModal con =new ConnectionModal();
 			con.setId(connection.getId());
 			con.setAccessToken(connection.getAccessToken());
 			con.setRealmeId(connection.getRealmId());

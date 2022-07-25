@@ -12,15 +12,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.invoice_acounting.modal.customer.BillAddrModal;
-import com.invoice_acounting.modal.customer.CustomerModal;
+import com.invoice_acounting.modal.customer.LocalCustomerModal;
 import com.invoice_acounting.modal.customer.PrimaryEmailAddrModal;
 import com.invoice_acounting.modal.customer.PrimaryPhoneModal;
 
 @Component
 public class CSVHelper {
-	public List<CustomerModal> fileToCustomer(MultipartFile file) {
+	public List<LocalCustomerModal> fileToCustomer(MultipartFile file) {
 		BufferedReader br;
-		List<CustomerModal> customerModal=new ArrayList<CustomerModal>();
+		List<LocalCustomerModal> customerModal=new ArrayList<LocalCustomerModal>();
 		try {
 			String line;
 			InputStream is = file.getInputStream();
@@ -38,8 +38,8 @@ public class CSVHelper {
 		}
 	}
 
-	public static CustomerModal customerIntializer(String data[]) {
-		CustomerModal customer = new CustomerModal();
+	public static LocalCustomerModal customerIntializer(String data[]) {
+		LocalCustomerModal customer = new LocalCustomerModal();
 		for (int i = 0; i < data.length; i++) {
 			customer.setActive(Boolean.parseBoolean(data[0]));
 			customer.setBalance(Double.parseDouble(data[1]));

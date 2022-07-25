@@ -6,6 +6,7 @@ import java.util.function.Function;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.invoice_acounting.entity.Connection;
