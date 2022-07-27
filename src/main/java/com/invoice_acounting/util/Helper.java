@@ -1,29 +1,42 @@
 package com.invoice_acounting.util;
 
-import org.apache.log4j.Logger;
-import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.intuit.ipp.data.CompanyInfo;
-import com.intuit.ipp.services.QueryResult;
+import com.intuit.ipp.core.Context;
+import com.intuit.ipp.core.ServiceType;
+import com.intuit.ipp.exception.FMSException;
+import com.intuit.ipp.security.IAuthorizer;
+import com.intuit.ipp.security.OAuth2Authorizer;
+import com.intuit.ipp.services.DataService;
+import com.intuit.ipp.util.Config;
+import com.invoice_acounting.entity.Connection;
+import com.invoice_acounting.service.ConnectionService;
+import com.invoice_acounting.service.Implimentation.ConnectionServiceImpl;
+
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
 
 public class Helper {
-	private static final Logger logger = Logger.getLogger(Helper.class);
-	private String processResponse(String failureMsg, QueryResult queryResult) {
-        if (!queryResult.getEntities().isEmpty() && queryResult.getEntities().size() > 0) {
-            CompanyInfo companyInfo = (CompanyInfo) queryResult.getEntities().get(0);
-            logger.info("Companyinfo -> CompanyName: " + companyInfo.getCompanyName());
-            ObjectMapper mapper = new ObjectMapper();
-            try {
-                String jsonInString = mapper.writeValueAsString(companyInfo);
-                return jsonInString;
-            } catch (JsonProcessingException e) {
-                logger.error("Exception while getting company info ", e);
-                return new JSONObject().put("response", failureMsg).toString();
-            }
+	
+	
+	ConnectionService connectionService;
+	
+	@Autowired
+	public void ConnectionService(@Qualifier("connectionImplementation")ConnectionService connectionService)
+	{
+		this.connectionService=connectionService;
+	}
 
-        }
-        return failureMsg;
-    }
+	public DataService getConnection() throws FMSException {
+		Connection connection = connectionService.getDetails();
+		IAuthorizer oauth = new OAuth2Authorizer(connection.getAccessToken());
+		Config.setProperty(Config.BASE_URL_QBO, "https://sandbox-quickbooks.api.intuit.com/v3/company");
+		Context context = new Context(oauth, ServiceType.QBO, connection.getRealmId());
+		return new DataService(context);
+	}
+
 }
