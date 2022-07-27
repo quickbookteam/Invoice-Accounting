@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.intuit.quickbooks-online:ipp-v3-java-devkit:jar-with-dependencies:6.0.7">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/intuit/quickbooks-online/ipp-v3-java-devkit/6.0.7/ipp-v3-java-devkit-6.0.7-jar-with-dependencies.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/intuit/quickbooks-online/ipp-v3-java-devkit/6.0.7/ipp-v3-java-devkit-6.0.7-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/intuit/quickbooks-online/ipp-v3-java-devkit/6.0.7/ipp-v3-java-devkit-6.0.7-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6b6865d0-bc1b-4a2c-9cf6-b100e7f97e0d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/InvoiceAccountingApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/InvoiceAccountingApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/config/OAuth2PlatformClientFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/config/OAuth2PlatformClientFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/controller/ConnectionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/controller/ConnectionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/controller/CustomerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/entity/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/entity/Connection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/entity/customer/BillAddr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/entity/customer/BillAddr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/entity/customer/LocalCustomer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/entity/customer/LocalCustomer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/entity/customer/PrimaryEmailAddr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/entity/customer/PrimaryEmailAddr.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/entity/customer/PrimaryPhone.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/entity/customer/PrimaryPhone.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/exception/CustomExceptionHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/exception/CustomerNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/exception/InvoiceNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/modal/ConnectionModal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/modal/ConnectionModal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/modal/customer/BillAddrModal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/modal/customer/BillAddrModal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/modal/customer/CustomerModal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/modal/customer/CustomerModal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/modal/customer/LocalCustomerModal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/modal/customer/LocalCustomerModal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/modal/customer/PrimaryEmailAddrModal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/modal/customer/PrimaryEmailAddrModal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/modal/customer/PrimaryPhoneModal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/modal/customer/PrimaryPhoneModal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/repositery/ConnectionRepositery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/repositery/ConnectionRepositery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/repositery/CustomerRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/repositery/CustomerRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/scheduler/ConnectionSchedular.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/scheduler/ConnectionSchedular.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/service/ConnectionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/service/ConnectionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/service/CustomerCSVServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/service/CustomerCSVServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/service/CustomerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/service/CustomerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/service/Implimentation/ConnectionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/service/Implimentation/ConnectionServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/service/Implimentation/CustomerCSVServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/service/Implimentation/CustomerCSVServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/service/Implimentation/CustomerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/service/Implimentation/CustomerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/util/CSVHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/util/CSVHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/util/ChartHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/util/ChartHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/util/Data.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/util/Data.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/util/Helper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/util/Helper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/util/QBOServiceHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/util/QBOServiceHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/util/UtilContants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/invoice_acounting/util/UtilContants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/maven/com.invoice_acounting/Invoice-Accounting/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/META-INF/maven/com.invoice_acounting/Invoice-Accounting/pom.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2CFCgKwFzUGc8WefZLRDedg45zb" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.invoice_acounting.dao" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="InvoiceAccountingApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.invoice_acounting.InvoiceAccountingApplication" />
+      <module name="Invoice-Accounting" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.invoice_acounting.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.InvoiceAccountingApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6b6865d0-bc1b-4a2c-9cf6-b100e7f97e0d" name="Changes" comment="" />
+      <created>1658389068595</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1658389068595</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

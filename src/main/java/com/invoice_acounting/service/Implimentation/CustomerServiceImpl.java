@@ -22,13 +22,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intuit.ipp.data.Customer;
 import com.intuit.ipp.exception.FMSException;
 import com.intuit.ipp.services.DataService;
 import com.invoice_acounting.entity.customer.LocalCustomer;
-import com.invoice_acounting.exception.CustomerNotFoundException;
 import com.invoice_acounting.modal.customer.CustomerModal;
 import com.invoice_acounting.modal.customer.LocalCustomerModal;
 import com.invoice_acounting.repositery.CustomerRepo;
@@ -36,7 +34,6 @@ import com.invoice_acounting.service.CustomerService;
 import com.invoice_acounting.util.ChartHelper;
 import com.invoice_acounting.util.Data;
 import com.invoice_acounting.util.Helper;
-import com.invoice_acounting.util.UtilContants;
 
 @Service("CustomerServiceImpl")
 @Qualifier("customerServiceImplementation")
@@ -89,7 +86,7 @@ public class CustomerServiceImpl implements CustomerService {
 		List<LocalCustomer> customerAll = customerRepo.findAll();
 		List<LocalCustomerModal> customerModalList = new ArrayList<>();
 		if (customerAll.size() < 1) {
-			throw new CustomerNotFoundException("no such customer found");
+			
 		}
 		for (LocalCustomer customer : customerAll) {
 			LocalCustomerModal customerModal = modelMapper.map(customer, LocalCustomerModal.class);
@@ -110,7 +107,7 @@ public class CustomerServiceImpl implements CustomerService {
 			customerRepo.save(actualCustomer);
 			return new ResponseEntity<CustomerModal>(customer, HttpStatus.OK);
 		}
-		throw new CustomerNotFoundException("customer not fond");
+	return null;
 	}
 
 	@Override
@@ -121,7 +118,7 @@ public class CustomerServiceImpl implements CustomerService {
 			LocalCustomerModal customerModal = modelMapper.map(customer, LocalCustomerModal.class);
 			return new ResponseEntity<LocalCustomerModal>(customerModal,HttpStatus.OK);
 		}
-		throw new CustomerNotFoundException();
+	return null;
 	}
 
 	
@@ -141,9 +138,7 @@ public class CustomerServiceImpl implements CustomerService {
 			result.setCustomerId(id);
 			result.setStatus("Uploaded");
 			customerRepo.save(result);
-		} else {
-			throw new CustomerNotFoundException("localcustomer not fond");
-		}
+		} 
 	}
 
 	@Override
@@ -159,8 +154,6 @@ public class CustomerServiceImpl implements CustomerService {
 		if (result != null) {
 			result.setStatus("Uploaded");
 			customerRepo.save(result);
-		} else {
-			throw new CustomerNotFoundException("localcustomer not fond");
 		}
 	}
 
