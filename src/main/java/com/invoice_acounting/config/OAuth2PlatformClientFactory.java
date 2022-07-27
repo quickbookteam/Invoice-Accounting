@@ -1,4 +1,4 @@
-package com.invoice_acounting.client;
+package com.invoice_acounting.config;
 
 import javax.annotation.PostConstruct;
 
