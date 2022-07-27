@@ -11,29 +11,23 @@ import org.springframework.context.annotation.Bean;
 import com.intuit.ipp.services.DataService;
 import com.invoice_acounting.config.QuickBookIntegration;
 
+import lombok.extern.slf4j.Slf4j;
+
 @SpringBootApplication
 @AutoConfiguration
+@Slf4j
 public class InvoiceAccountingApplication {
 
 
 	public static void main(String[] args) throws Exception {
 		ApplicationContext context =SpringApplication.run(InvoiceAccountingApplication.class, args);
 		BasicConfigurator.configure();
-		QuickBookIntegration quick= (QuickBookIntegration) context.getBean("calling");
-//		quick.onlineIntegartion();
+
+//		log.info("inside main Application started");
 		System.out.println("Application Started");
 	}
 	
-	@Bean
-	public QuickBookIntegration calling()
-	{
-		return new QuickBookIntegration();
-	}
-	@Bean
-	public ModelMapper modelMapper() {
-	    return new ModelMapper();
-	}
-     
+
 	
 
 }

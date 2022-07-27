@@ -15,7 +15,7 @@ public interface InvoiceService {
 	
     ResponseEntity<?> save(InvoiceModal invoice);
     
-    ResponseEntity<?> findById(String id);
+    ResponseEntity<InvoiceModal> findById(String id);
 
 
     List<LocalInvoice> findAll();

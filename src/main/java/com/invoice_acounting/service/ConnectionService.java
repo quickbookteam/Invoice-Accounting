@@ -12,5 +12,9 @@ public interface ConnectionService {
 
 	public Connection getDetails();
 	
-	
+	public ConnectionModal get(Long id);
+
+	public ConnectionModal updateConnectionInfo(ConnectionModal connectionModal);
+
+
 }

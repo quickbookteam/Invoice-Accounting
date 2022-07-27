@@ -54,8 +54,5 @@ public class ConnectionController {
 		return null;
 	}
 
-	@GetMapping("/refreshtoken")
-	public String getRefreshToken() {
- return null;
-	}
+	
 }

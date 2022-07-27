@@ -1,30 +1,46 @@
 package com.invoice_acounting.service.Implimentation;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.invoice_acounting.entity.Connection;
 import com.invoice_acounting.modal.ConnectionModal;
 import com.invoice_acounting.repositery.ConnectionRepositery;
+import com.invoice_acounting.repositery.CustomerRepo;
 import com.invoice_acounting.service.ConnectionService;
+import com.invoice_acounting.util.ChartHelper;
+import com.invoice_acounting.util.Helper;
 
 @Service("ConnectionServiceImpl")
-
+@Qualifier("connectionImplementation")
 public class ConnectionServiceImpl implements ConnectionService {
 
-	@Autowired
+	
 	ConnectionRepositery connectionRepositery;
+	
+	Helper helper;
+
+	ModelMapper modelMapper;
+
+	ObjectMapper mapper;
+
+	@Autowired
+	public ConnectionServiceImpl(@Qualifier("connectionRepository")ConnectionRepositery connectionRepositery) {
+		this.connectionRepositery = connectionRepositery;
+		this.modelMapper = new ModelMapper();
+		this.mapper = new ObjectMapper();
+		this.helper = new Helper();
+
+	}
 
 	@Override
 	public ResponseEntity<?> save(ConnectionModal connection) {
-		Connection con = new Connection();
-		con.setId(1L);
-		con.setAccessToken(connection.getAccessToken());
-		con.setRealmId(connection.getRealmeId());
-		con.setRefershToken(connection.getRefreshToken());
+		Connection con = modelMapper.map(connection, Connection.class);
 		connectionRepositery.save(con);
 
 		return new ResponseEntity<>("Added", HttpStatus.OK);
@@ -51,6 +67,19 @@ public class ConnectionServiceImpl implements ConnectionService {
 
 		return connectionRepositery.findById(1L).get();
 		}
+	
+	@Override
+	public ConnectionModal get(Long id) {
+		if(!connectionRepositery.existsById(id)) {
+			return null;
+		}
+	   return new ModelMapper().map(connectionRepositery.findById(id).get(), ConnectionModal.class);
+	}
 
+	@Override
+	public ConnectionModal updateConnectionInfo(ConnectionModal connectionModel) {
+		connectionRepositery.save(new ModelMapper().map(connectionModel, Connection.class));		
+	   return connectionModel;
+	}
 
 }

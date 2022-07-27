@@ -16,7 +16,11 @@ public class Connection {
 	@Id
 	private Long id;
 	private String realmId;
-	private String refershToken;
+	private String refreshToken;
 	private String accessToken;
+	private String quickBooksConnectURL;
+	private String clientId;
+	private String clientSecret;
 
 }
+	

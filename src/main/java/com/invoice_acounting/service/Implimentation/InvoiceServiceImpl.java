@@ -18,6 +18,8 @@ import com.intuit.ipp.data.Invoice;
 import com.intuit.ipp.exception.FMSException;
 import com.intuit.ipp.services.DataService;
 import com.invoice_acounting.entity.invoice.LocalInvoice;
+import com.invoice_acounting.exception.CustomerNotFoundException;
+import com.invoice_acounting.exception.InvoiceNotFoundException;
 import com.invoice_acounting.modal.invoice.InvoiceModal;
 import com.invoice_acounting.repositery.CustomerRepo;
 import com.invoice_acounting.repositery.InvoiceRepository;
@@ -58,29 +60,43 @@ public class InvoiceServiceImpl implements InvoiceService {
 	}
 
 	@Override
-	public ResponseEntity<?> findById(String id) {
+	public ResponseEntity<InvoiceModal> findById(String id) {
 
 		if (!invoiceRepository.existsById(id)) {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+			throw new InvoiceNotFoundException();
 		}
 		LocalInvoice invoice = invoiceRepository.findById(id).get();
 		InvoiceModal invoiceModal = modelMapper.map(invoice, InvoiceModal.class);
-		return new ResponseEntity<>(invoiceModal, HttpStatus.OK);
+		return new ResponseEntity<InvoiceModal>(invoiceModal, HttpStatus.OK);
 	}
 
 	@Override
 	public List<LocalInvoice> findAll() {
-		return invoiceRepository.findAll();
+		List<LocalInvoice> localinvoice=invoiceRepository.findAll();
+		boolean check = localinvoice.isEmpty();
+		if(check==false) {
+		return localinvoice;
+		}
+		else
+		{
+			throw new InvoiceNotFoundException();
+		}
 	}
 
 
 
 	@Override
 	public void saveId(String id, String localInvoiceId) {
+		
 		LocalInvoice result = invoiceRepository.findById(localInvoiceId).get();
-		result.setStatus("uploaded");
-		result.setInvoiceId(id);
-		invoiceRepository.save(result);
+		if(result!=null) {
+			result.setStatus("uploaded");
+			result.setInvoiceId(id);
+			invoiceRepository.save(result);
+		}
+		else {
+			throw new InvoiceNotFoundException();
+		}
 	}
 
 	

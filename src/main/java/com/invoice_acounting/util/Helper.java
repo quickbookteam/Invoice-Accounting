@@ -15,13 +15,21 @@ import com.invoice_acounting.entity.Connection;
 import com.invoice_acounting.service.ConnectionService;
 import com.invoice_acounting.service.Implimentation.ConnectionServiceImpl;
 
-@Component
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+
 public class Helper {
 	
-	@Autowired
-	@Qualifier("ConnectionServiceImpl")
+	
 	ConnectionService connectionService;
-
+	
+	@Autowired
+	public void ConnectionService(@Qualifier("connectionImplementation")ConnectionService connectionService)
+	{
+		this.connectionService=connectionService;
+	}
 
 	public DataService getConnection() throws FMSException {
 		Connection connection = connectionService.getDetails();
