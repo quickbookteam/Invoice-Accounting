@@ -76,7 +76,8 @@ public class ConnectionServiceImpl implements ConnectionService {
 
 	@Override
 	public ConnectionModal updateConnectionInfo(ConnectionModal connectionModel) {
-		connectionRepositery.save(new ModelMapper().map(connectionModel, Connection.class));		
+		Connection connection=new ModelMapper().map(connectionModel, Connection.class);
+		connectionRepositery.save(connection);		
 	   return connectionModel;
 	}
 
