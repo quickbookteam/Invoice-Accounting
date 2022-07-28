@@ -1,6 +1,8 @@
 package com.invoice_acounting.scheduler;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,7 @@ import com.invoice_acounting.modal.EmailDetails;
 import com.invoice_acounting.service.ConnectionService;
 import com.invoice_acounting.service.CustomerService;
 import com.invoice_acounting.service.Emailservice;
+import com.invoice_acounting.service.Implimentation.EmailServiceImp;
 import com.invoice_acounting.util.UtilContants;
 
 import lombok.extern.slf4j.Slf4j;
@@ -34,19 +37,20 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class EmailSchedular {
 	
-	 @Autowired
-	 private Emailservice emailService;
+	 
+	 private  Emailservice emailService;
 
-	 @Autowired
-	 CustomerService customerService;
+	 
+	 private CustomerService customerService;
 
-//    @Autowired // inject FirstServiceImpl
-//    public void ConnectionService(@Qualifier("connectionImplementation") ConnectionService connectionService) {
-//    	log.info("autowiring Email service", connectionService);
-//        this.connectionService = connectionService;
-//    }
+    @Autowired // inject FirstServiceImpl
+    public void Emailservice(@Qualifier("emailService") Emailservice emailService,@Qualifier("customerServiceImplementation") CustomerService customerService) {
+    	log.info("autowiring Email service", emailService);
+        this.emailService = emailService;
+        this.customerService=customerService;
+    }
 
-    @Scheduled(cron = "0 * * ? * *")
+    //@Scheduled(cron = "0 * * ? * *")
     public String connectionStablished()
     {
     	
@@ -62,5 +66,5 @@ public class EmailSchedular {
         return status;
     }
 
-
+    
 }

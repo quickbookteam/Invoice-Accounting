@@ -35,7 +35,7 @@ import com.invoice_acounting.util.ChartHelper;
 import com.invoice_acounting.util.Data;
 import com.invoice_acounting.util.Helper;
 
-@Service("CustomerServiceImpl")
+@Service
 @Qualifier("customerServiceImplementation")
 public class CustomerServiceImpl implements CustomerService {
 
@@ -44,19 +44,18 @@ public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	MongoTemplate mongoTemplate;
 
-	Helper helper;
-
 	ChartHelper chartHelper;
 	ModelMapper modelMapper;
-
+    Helper helper;
 	ObjectMapper mapper;
 
+	@Autowired
 	public CustomerServiceImpl(CustomerRepo customerRepo) {
 		this.customerRepo = customerRepo;
 		this.modelMapper = new ModelMapper();
 		this.mapper = new ObjectMapper();
-		this.helper = new Helper();
 		this.chartHelper = new ChartHelper();
+		this.helper=new Helper();
 	}
 
 	@Override

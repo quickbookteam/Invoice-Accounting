@@ -8,6 +8,7 @@ import javax.mail.internet.MimeMessage;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 
 import org.springframework.core.io.FileSystemResource;
@@ -19,9 +20,10 @@ import com.invoice_acounting.modal.EmailDetails;
 import com.invoice_acounting.service.Emailservice;
 
 // Annotation
-@Service
 // Class
 // Implementing EmailService interface
+@Service
+@Qualifier("emailService")
 public class EmailServiceImp implements Emailservice {
 
     @Autowired 

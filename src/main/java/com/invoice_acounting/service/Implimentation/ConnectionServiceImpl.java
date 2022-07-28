@@ -16,14 +16,12 @@ import com.invoice_acounting.service.ConnectionService;
 import com.invoice_acounting.util.ChartHelper;
 import com.invoice_acounting.util.Helper;
 
-@Service("ConnectionServiceImpl")
+@Service
 @Qualifier("connectionImplementation")
 public class ConnectionServiceImpl implements ConnectionService {
 
 	
 	ConnectionRepositery connectionRepositery;
-	
-	Helper helper;
 
 	ModelMapper modelMapper;
 
@@ -34,7 +32,7 @@ public class ConnectionServiceImpl implements ConnectionService {
 		this.connectionRepositery = connectionRepositery;
 		this.modelMapper = new ModelMapper();
 		this.mapper = new ObjectMapper();
-		this.helper = new Helper();
+		
 
 	}
 
@@ -63,8 +61,6 @@ public class ConnectionServiceImpl implements ConnectionService {
 
 	@Override
 	public Connection getDetails() {
-		System.out.println(connectionRepositery);
-
 		return connectionRepositery.findById(1L).get();
 		}
 	

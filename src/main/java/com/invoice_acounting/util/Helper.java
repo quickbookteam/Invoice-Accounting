@@ -2,6 +2,7 @@ package com.invoice_acounting.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import com.intuit.ipp.core.Context;
@@ -15,11 +16,11 @@ import com.invoice_acounting.entity.Connection;
 import com.invoice_acounting.service.ConnectionService;
 import com.invoice_acounting.service.Implimentation.ConnectionServiceImpl;
 
-import lombok.AllArgsConstructor;
+
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-
+@Component
 public class Helper {
 	
 	
@@ -30,7 +31,7 @@ public class Helper {
 	{
 		this.connectionService=connectionService;
 	}
-
+    
 	public DataService getConnection() throws FMSException {
 		Connection connection = connectionService.getDetails();
 		IAuthorizer oauth = new OAuth2Authorizer(connection.getAccessToken());
