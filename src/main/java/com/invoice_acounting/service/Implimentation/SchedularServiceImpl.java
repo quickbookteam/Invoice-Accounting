@@ -2,7 +2,6 @@ package com.invoice_acounting.service.Implimentation;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +9,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -20,9 +17,7 @@ import com.intuit.ipp.data.Customer;
 import com.intuit.ipp.data.Invoice;
 import com.intuit.ipp.exception.FMSException;
 import com.intuit.ipp.services.DataService;
-import com.invoice_acounting.entity.customer.LocalCustomer;
 import com.invoice_acounting.entity.invoice.LocalInvoice;
-import com.invoice_acounting.exception.CustomerNotFoundException;
 import com.invoice_acounting.modal.customer.LocalCustomerModal;
 import com.invoice_acounting.modal.invoice.InvoiceModal;
 import com.invoice_acounting.repositery.CustomerRepo;

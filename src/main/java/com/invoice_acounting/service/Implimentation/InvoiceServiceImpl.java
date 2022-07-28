@@ -1,30 +1,23 @@
 package com.invoice_acounting.service.Implimentation;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.intuit.ipp.data.Invoice;
-import com.intuit.ipp.exception.FMSException;
-import com.intuit.ipp.services.DataService;
 import com.invoice_acounting.entity.invoice.LocalInvoice;
-import com.invoice_acounting.exception.CustomerNotFoundException;
-import com.invoice_acounting.exception.InvoiceNotFoundException;
+import com.invoice_acounting.exception.InvoiceException;
+import com.invoice_acounting.modal.CommonResponse;
 import com.invoice_acounting.modal.invoice.InvoiceModal;
 import com.invoice_acounting.repositery.CustomerRepo;
 import com.invoice_acounting.repositery.InvoiceRepository;
 import com.invoice_acounting.service.InvoiceService;
 import com.invoice_acounting.util.Helper;
+import com.invoice_acounting.util.UtilConstants;
 
 @Service
 public class InvoiceServiceImpl implements InvoiceService {
@@ -48,26 +41,30 @@ public class InvoiceServiceImpl implements InvoiceService {
 	}
 
 	@Override
-	public ResponseEntity<?> save(InvoiceModal invoiceModal) {
-//		if (customerRepositery.findByCustomerId(invoiceModal.getCustomerRef().getValue()) == null) {
-//			return new ResponseEntity<>("Customer not valid", HttpStatus.BAD_REQUEST);
-//		}
+	public ResponseEntity<CommonResponse> save(InvoiceModal invoiceModal) {
+		if (customerRepositery.findByCustomerId(invoiceModal.getCustomerRef().getValue()) == null) {
+			throw new InvoiceException(UtilConstants.CUSTOMER_NOT_FOUND,HttpStatus.NOT_FOUND);
+		}
 		LocalInvoice invoice = modelMapper.map(invoiceModal, LocalInvoice.class);
 		invoice.setInvoiceId("0");
 		invoice.setStatus("created");
 		LocalInvoice result = invoiceRepository.save(invoice);
-		return new ResponseEntity<>(result, HttpStatus.OK);
+		CommonResponse response = new CommonResponse(result,UtilConstants.INVOICE_SAVED);
+		return new ResponseEntity<CommonResponse>(response, HttpStatus.ACCEPTED);
+		
 	}
 
 	@Override
-	public ResponseEntity<InvoiceModal> findById(String id) {
+	public ResponseEntity<CommonResponse> findById(String id) {
 
 		if (!invoiceRepository.existsById(id)) {
-			throw new InvoiceNotFoundException();
+			throw new InvoiceException(UtilConstants.INVOICE_NOT_FOUND,HttpStatus.NOT_FOUND);
 		}
 		LocalInvoice invoice = invoiceRepository.findById(id).get();
 		InvoiceModal invoiceModal = modelMapper.map(invoice, InvoiceModal.class);
-		return new ResponseEntity<InvoiceModal>(invoiceModal, HttpStatus.OK);
+		CommonResponse response = new CommonResponse(invoiceModal,UtilConstants.INVOICE_FOUND);
+		return new ResponseEntity<CommonResponse>(response, HttpStatus.FOUND);
+		
 	}
 
 	@Override
@@ -79,7 +76,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 		}
 		else
 		{
-			throw new InvoiceNotFoundException();
+			throw new InvoiceException();
 		}
 	}
 
@@ -95,7 +92,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 			invoiceRepository.save(result);
 		}
 		else {
-			throw new InvoiceNotFoundException();
+			throw new InvoiceException();
 		}
 	}
 

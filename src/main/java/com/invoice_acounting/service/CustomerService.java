@@ -7,25 +7,26 @@ import org.springframework.http.ResponseEntity;
 import com.intuit.ipp.data.Customer;
 import com.intuit.ipp.exception.FMSException;
 import com.invoice_acounting.entity.customer.LocalCustomer;
+import com.invoice_acounting.modal.CommonResponse;
 import com.invoice_acounting.modal.customer.CustomerModal;
 import com.invoice_acounting.modal.customer.LocalCustomerModal;
 
 
 public interface CustomerService {
 
-	ResponseEntity<?> save(CustomerModal customerModal);
+	ResponseEntity<CommonResponse> save(CustomerModal customerModal);
 
-	ResponseEntity<LocalCustomerModal> getCustomerById(String id)throws Exception;
+	ResponseEntity<CommonResponse> getCustomerById(String id)throws Exception;
 
-	public ResponseEntity<?> delete(String id);
+	public ResponseEntity<CommonResponse> delete(String id);
 
-	public List<LocalCustomerModal> getAll();
+	public  ResponseEntity<CommonResponse> getAll();
 
-	public ResponseEntity<CustomerModal> update(CustomerModal customer);
+	public  ResponseEntity<CommonResponse> update(CustomerModal customer);
 
 //	public ResponseEntity<LocalCustomerModal> findById(String id);
 
-	public List<LocalCustomer> findAllLocalCustomers();
+
 
 	
 	public Customer updateCustomerToQuickBook(Customer customer) throws FMSException;
@@ -37,6 +38,8 @@ public interface CustomerService {
 	List<LocalCustomer> getCustomers_With_CreatedStatus();
 
 	List<LocalCustomer> getCustomers_With_UpdatedStatus();
+
+	
 
 
 }
