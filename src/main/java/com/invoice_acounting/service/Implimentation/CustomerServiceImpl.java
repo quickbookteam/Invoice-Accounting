@@ -34,16 +34,16 @@ import com.invoice_acounting.util.UtilConstants;
 @Qualifier("customerServiceImplementation")
 public class CustomerServiceImpl implements CustomerService {
 
-	public final CustomerRepo customerRepo;
+	private final CustomerRepo customerRepo;
 
 	@Autowired
-	MongoTemplate mongoTemplate;
+	private MongoTemplate mongoTemplate;
 
-	Helper helper;
+	private Helper helper;
 
-	ModelMapper modelMapper;
+	private ModelMapper modelMapper;
 
-	ObjectMapper mapper;
+	private ObjectMapper mapper;
 
 	public CustomerServiceImpl(CustomerRepo customerRepo) {
 		this.customerRepo = customerRepo;

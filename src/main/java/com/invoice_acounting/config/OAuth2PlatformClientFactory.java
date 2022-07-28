@@ -19,8 +19,8 @@ public class OAuth2PlatformClientFactory {
 	@Autowired
 	org.springframework.core.env.Environment env;
 
-	OAuth2PlatformClient client;
-	OAuth2Config oauth2Config;
+	private OAuth2PlatformClient client;
+	private OAuth2Config oauth2Config;
 	
 	@PostConstruct
 	public void init() {

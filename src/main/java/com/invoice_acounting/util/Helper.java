@@ -2,7 +2,6 @@ package com.invoice_acounting.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
 
 import com.intuit.ipp.core.Context;
 import com.intuit.ipp.core.ServiceType;
@@ -13,9 +12,7 @@ import com.intuit.ipp.services.DataService;
 import com.intuit.ipp.util.Config;
 import com.invoice_acounting.entity.Connection;
 import com.invoice_acounting.service.ConnectionService;
-import com.invoice_acounting.service.Implimentation.ConnectionServiceImpl;
 
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
@@ -23,7 +20,7 @@ import lombok.NoArgsConstructor;
 public class Helper {
 	
 	
-	ConnectionService connectionService;
+	private ConnectionService connectionService;
 	
 	@Autowired
 	public void ConnectionService(@Qualifier("connectionImplementation")ConnectionService connectionService)

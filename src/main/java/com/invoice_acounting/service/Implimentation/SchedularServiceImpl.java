@@ -29,16 +29,16 @@ import com.invoice_acounting.util.Helper;
 @Qualifier("schedularServiceImplementation")
 public class SchedularServiceImpl implements SchedularService {
 	@Autowired
-	InvoiceRepository invoiceRepository;
+	private InvoiceRepository invoiceRepository;
 	
 	@Autowired
-	public  CustomerRepo customerRepo;
+	private  CustomerRepo customerRepo;
 	
-	ObjectMapper mapper;
-	Helper helper;
+	private ObjectMapper mapper;
+	private Helper helper;
 	@Autowired
-	MongoTemplate mongoTemplate;
-	ModelMapper modelMapper;
+	private MongoTemplate mongoTemplate;
+	private ModelMapper modelMapper;
 
 	SchedularServiceImpl() {
 		this.helper = new Helper();

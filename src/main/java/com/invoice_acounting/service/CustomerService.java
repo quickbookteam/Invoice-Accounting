@@ -9,7 +9,6 @@ import com.intuit.ipp.exception.FMSException;
 import com.invoice_acounting.entity.customer.LocalCustomer;
 import com.invoice_acounting.modal.CommonResponse;
 import com.invoice_acounting.modal.customer.CustomerModal;
-import com.invoice_acounting.modal.customer.LocalCustomerModal;
 
 
 public interface CustomerService {

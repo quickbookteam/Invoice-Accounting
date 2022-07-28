@@ -19,13 +19,13 @@ import com.invoice_acounting.util.Helper;
 public class ConnectionServiceImpl implements ConnectionService {
 
 	
-	ConnectionRepositery connectionRepositery;
+	private ConnectionRepositery connectionRepositery;
 	
-	Helper helper;
+	private Helper helper;
 
-	ModelMapper modelMapper;
+	private ModelMapper modelMapper;
 
-	ObjectMapper mapper;
+	private ObjectMapper mapper;
 
 	@Autowired
 	public ConnectionServiceImpl(@Qualifier("connectionRepository")ConnectionRepositery connectionRepositery) {

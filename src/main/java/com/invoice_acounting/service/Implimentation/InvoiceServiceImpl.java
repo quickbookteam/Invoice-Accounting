@@ -25,18 +25,18 @@ import com.invoice_acounting.util.UtilConstants;
 @Service
 public class InvoiceServiceImpl implements InvoiceService {
 
-	Helper helper;
+	private Helper helper;
 
-	ModelMapper modelMapper;
-
-	@Autowired
-	InvoiceRepository invoiceRepository;
+	private ModelMapper modelMapper;
 
 	@Autowired
-	CustomerRepo customerRepositery;
+	private InvoiceRepository invoiceRepository;
 
 	@Autowired
-	MongoTemplate mongoTemplate;
+	private CustomerRepo customerRepositery;
+
+	@Autowired
+	private MongoTemplate mongoTemplate;
 
 	InvoiceServiceImpl() {
 		this.helper = new Helper();
