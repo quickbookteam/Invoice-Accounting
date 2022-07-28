@@ -10,7 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.invoice_acounting.entity.invoice.LocalInvoice;
-import com.invoice_acounting.exception.InvoiceException;
+import com.invoice_acounting.exception.CustomException;
+import com.invoice_acounting.exception.CustomerNotFound;
+
+import com.invoice_acounting.exception.InvoiceNotFound;
 import com.invoice_acounting.modal.CommonResponse;
 import com.invoice_acounting.modal.invoice.InvoiceModal;
 import com.invoice_acounting.repositery.CustomerRepo;
@@ -43,22 +46,26 @@ public class InvoiceServiceImpl implements InvoiceService {
 	@Override
 	public ResponseEntity<CommonResponse> save(InvoiceModal invoiceModal) {
 		if (customerRepositery.findByCustomerId(invoiceModal.getCustomerRef().getValue()) == null) {
-			throw new InvoiceException(UtilConstants.CUSTOMER_NOT_FOUND,HttpStatus.NOT_FOUND);
+			throw new CustomerNotFound(UtilConstants.CUSTOMER_NOT_FOUND);
 		}
-		LocalInvoice invoice = modelMapper.map(invoiceModal, LocalInvoice.class);
-		invoice.setInvoiceId("0");
-		invoice.setStatus("created");
-		LocalInvoice result = invoiceRepository.save(invoice);
-		CommonResponse response = new CommonResponse(result,UtilConstants.INVOICE_SAVED);
-		return new ResponseEntity<CommonResponse>(response, HttpStatus.ACCEPTED);
+		try {
+			LocalInvoice invoice = modelMapper.map(invoiceModal, LocalInvoice.class);
+			invoice.setInvoiceId("0");
+			invoice.setStatus("created");
+			LocalInvoice result = invoiceRepository.save(invoice);
+			CommonResponse response = new CommonResponse(result,UtilConstants.INVOICE_SAVED);
+			return new ResponseEntity<CommonResponse>(response, HttpStatus.ACCEPTED);
+		} catch (Exception e) {
+			throw new CustomException(e.getMessage());
+		}
 		
 	}
 
 	@Override
-	public ResponseEntity<CommonResponse> findById(String id) {
+	public ResponseEntity<CommonResponse> findById(String id)   {
 
 		if (!invoiceRepository.existsById(id)) {
-			throw new InvoiceException(UtilConstants.INVOICE_NOT_FOUND,HttpStatus.NOT_FOUND);
+			throw new InvoiceNotFound(UtilConstants.INVOICE_NOT_FOUND);
 		}
 		LocalInvoice invoice = invoiceRepository.findById(id).get();
 		InvoiceModal invoiceModal = modelMapper.map(invoice, InvoiceModal.class);
@@ -76,7 +83,8 @@ public class InvoiceServiceImpl implements InvoiceService {
 		}
 		else
 		{
-			throw new InvoiceException();
+			return null;
+//			throw new InvoiceException();
 		}
 	}
 
@@ -92,7 +100,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 			invoiceRepository.save(result);
 		}
 		else {
-			throw new InvoiceException();
+//			throw new InvoiceException();
 		}
 	}
 

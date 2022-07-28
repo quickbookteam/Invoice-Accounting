@@ -19,13 +19,14 @@ import com.intuit.ipp.data.Customer;
 import com.intuit.ipp.exception.FMSException;
 import com.intuit.ipp.services.DataService;
 import com.invoice_acounting.entity.customer.LocalCustomer;
-import com.invoice_acounting.exception.CustomerException;
+import com.invoice_acounting.exception.CustomException;
+
+import com.invoice_acounting.exception.CustomerNotFound;
 import com.invoice_acounting.modal.CommonResponse;
 import com.invoice_acounting.modal.customer.CustomerModal;
 import com.invoice_acounting.modal.customer.LocalCustomerModal;
 import com.invoice_acounting.repositery.CustomerRepo;
 import com.invoice_acounting.service.CustomerService;
-
 import com.invoice_acounting.util.Helper;
 import com.invoice_acounting.util.UtilConstants;
 
@@ -62,7 +63,7 @@ public class CustomerServiceImpl implements CustomerService {
 			CommonResponse response = new CommonResponse(localCustomer, UtilConstants.CUSTOMER_SAVED);
 			return new ResponseEntity<CommonResponse>(response, HttpStatus.OK);
 		} catch (Exception e) {
-			throw new CustomerException(e.getMessage(),HttpStatus.BAD_REQUEST);
+			throw new CustomException(e.getMessage());
 		}
 	}
 
@@ -76,7 +77,7 @@ public class CustomerServiceImpl implements CustomerService {
 			CommonResponse response = new CommonResponse(null, UtilConstants.CUSTOMER_DELETED);
 			return new ResponseEntity<CommonResponse>(response, HttpStatus.OK);
 		}
-		throw new CustomerException(UtilConstants.CUSTOMER_NOT_FOUND,HttpStatus.NOT_FOUND);
+		throw new CustomerNotFound(UtilConstants.CUSTOMER_NOT_FOUND);
 	}
 
 	@Override
@@ -84,7 +85,7 @@ public class CustomerServiceImpl implements CustomerService {
 		List<LocalCustomer> customerAll = customerRepo.findAll();
 		List<LocalCustomerModal> customerModalList = new ArrayList<>();
 		if (customerAll.size() < 1) {
-			throw new CustomerException(UtilConstants.CUSTOMER_NOT_FOUND,HttpStatus.NOT_FOUND);
+			throw new CustomerNotFound(UtilConstants.CUSTOMER_NOT_FOUND);
 		}
 		for (LocalCustomer customer : customerAll) {
 			LocalCustomerModal customerModal = modelMapper.map(customer, LocalCustomerModal.class);
@@ -108,7 +109,7 @@ public class CustomerServiceImpl implements CustomerService {
 			CommonResponse response = new CommonResponse(customer, UtilConstants.CUSTOMER_UPDATED);
 			return new ResponseEntity<CommonResponse>(response, HttpStatus.ACCEPTED);
 		}
-		throw new CustomerException(UtilConstants.CUSTOMER_NOT_FOUND,HttpStatus.NOT_FOUND);
+		throw new CustomerNotFound(UtilConstants.CUSTOMER_NOT_FOUND);
 	}
 
 	@Override
@@ -121,7 +122,7 @@ public class CustomerServiceImpl implements CustomerService {
 			return new ResponseEntity<CommonResponse>(response, HttpStatus.FOUND);
 			
 		}
-		throw new CustomerException(UtilConstants.CUSTOMER_NOT_FOUND,HttpStatus.NOT_FOUND);
+		throw new CustomerNotFound(UtilConstants.CUSTOMER_NOT_FOUND);
 	}
 
 
