@@ -6,6 +6,7 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -22,6 +23,7 @@ import com.intuit.oauth2.exception.OAuthException;
 import com.invoice_acounting.modal.ConnectionModal;
 import com.invoice_acounting.modal.EmailDetails;
 import com.invoice_acounting.service.ConnectionService;
+import com.invoice_acounting.service.CustomerService;
 import com.invoice_acounting.service.Emailservice;
 import com.invoice_acounting.util.UtilContants;
 
@@ -35,6 +37,8 @@ public class EmailSchedular {
 	 @Autowired
 	 private Emailservice emailService;
 
+	 @Autowired
+	 CustomerService customerService;
 
 //    @Autowired // inject FirstServiceImpl
 //    public void ConnectionService(@Qualifier("connectionImplementation") ConnectionService connectionService) {
@@ -45,12 +49,14 @@ public class EmailSchedular {
     @Scheduled(cron = "0 * * ? * *")
     public String connectionStablished()
     {
+    	
+        customerService.generateCharts();
     	EmailDetails details=new EmailDetails();
     	details.setRecipient("rusiapradhan33@gmail.com");
 		details.setAttachment("D:\\charts\\Customerpie.jpg");
 		details.setMsgBody("daily deport"+new Date());
 		details.setSubject("daily customer report");
-
+       
     	String status= emailService.sendMailWithAttachment(details);
 
         return status;
