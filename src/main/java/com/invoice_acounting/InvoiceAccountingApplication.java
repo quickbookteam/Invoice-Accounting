@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class InvoiceAccountingApplication {
 
-
 	public static void main(String[] args) throws Exception {
 		ApplicationContext context =SpringApplication.run(InvoiceAccountingApplication.class, args);
 		BasicConfigurator.configure();
@@ -22,10 +21,6 @@ public class InvoiceAccountingApplication {
 //		log.info("inside main Application started");
 		System.out.println("Application Started");
 	}
-	
-
-	
-
 }
 
 
