@@ -17,7 +17,7 @@ import com.invoice_acounting.util.Helper;
 
 public interface CustomerCSVServices {
     
-	 public List<Customer> listAll() throws Exception;
-	 public ResponseEntity<LocalCustomerModal> addCustomersCsv(MultipartFile file);
+	  List<Customer> listAll() throws Exception;
+	  ResponseEntity<LocalCustomerModal> addCustomersCsv(MultipartFile file);
     }
      

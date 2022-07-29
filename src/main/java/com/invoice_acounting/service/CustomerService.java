@@ -29,17 +29,17 @@ public interface CustomerService {
 
 
 	
-	public Customer updateCustomerToQuickBook(Customer customer) throws FMSException;
+	 Customer updateCustomerToQuickBook(Customer customer) throws FMSException;
 
-	public void saveId(String id, String localCustomerId);
+	 void saveId(String id, String localCustomerId);
 
-	public void updateStatus(String customerId);
+	 void updateStatus(String customerId);
 
 	List<LocalCustomer> getCustomers_With_CreatedStatus();
 
 	List<LocalCustomer> getCustomers_With_UpdatedStatus();
-	public List<Data> customerCount();
+	 List<Data> customerCount();
 	
-	  public ResponseEntity<String> generateCharts() ;
+	  ResponseEntity<String> generateCharts() ;
 
 }
