@@ -3,6 +3,7 @@ package com.invoice_acounting.service.Implimentation;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.xmlbeans.impl.jam.mutable.MPackage;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,8 +26,8 @@ import com.invoice_acounting.repositery.InvoiceRepository;
 import com.invoice_acounting.service.SchedularService;
 import com.invoice_acounting.util.Helper;
 
-@Service("SchedularServiceImpl")
-@Qualifier("schedularServiceImplementation")
+@Service
+@Qualifier("schedularServiceImpl")
 public class SchedularServiceImpl implements SchedularService {
 	@Autowired
 	private InvoiceRepository invoiceRepository;
@@ -40,10 +41,12 @@ public class SchedularServiceImpl implements SchedularService {
 	private MongoTemplate mongoTemplate;
 	private ModelMapper modelMapper;
 
-	SchedularServiceImpl() {
-		this.helper = new Helper();
+	SchedularServiceImpl(@Qualifier("helper") Helper helper) {
+		this.helper = helper;
 		this.modelMapper = new ModelMapper();
 		this.mapper = new ObjectMapper();
+		
+		
 	}
 
 	@Override
@@ -58,13 +61,16 @@ public class SchedularServiceImpl implements SchedularService {
 
 	@Override
 	public Invoice saveInvoiceToQuickBook(InvoiceModal invoiceModal) throws FMSException {
+		
+		
 		DataService dataService = helper.getConnection();
-		ObjectMapper mapper = new ObjectMapper();
-
 		mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+
 		Invoice invoice = mapper.convertValue(invoiceModal, Invoice.class);
+		System.out.println(" rusia === "+invoice.getCustomerRef().getName());
 
 		Invoice invoice1 = dataService.add(invoice);
+		System.out.println(" Invoice shivani-====== "+ invoice1.getCustomerRef().getName());
 		return invoice1;
 	}
 
@@ -81,7 +87,10 @@ public class SchedularServiceImpl implements SchedularService {
 	
 	@Override
 	public void saveId(String id, String localInvoiceId) {
+
+		System.out.println("????????????"+localInvoiceId);
 		LocalInvoice result = invoiceRepository.findById(localInvoiceId).get();
+//		System.out.println("#######"+result.get_id());
 		result.setStatus("uploaded");
 		result.setInvoiceId(id);
 		invoiceRepository.save(result);

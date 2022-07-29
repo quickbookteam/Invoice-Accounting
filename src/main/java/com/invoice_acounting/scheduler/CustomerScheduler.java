@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intuit.ipp.data.Customer;
@@ -24,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CustomerScheduler {
 
-	private Helper helper;
+	
 	private ModelMapper modelMapper;
 
 	private CustomerService customerService;
@@ -32,9 +33,8 @@ public class CustomerScheduler {
 	private SchedularService schedularService;
 
 	@Autowired
-	public CustomerScheduler(@Qualifier("customerServiceImplementation") CustomerService customerService,
-			@Qualifier("schedularServiceImplementation") SchedularService schedularService) {
-		this.helper = new Helper();
+	public CustomerScheduler( CustomerService customerService, SchedularService schedularService) {
+		
 		this.customerService = customerService;
 		this.schedularService = schedularService;
 		this.modelMapper = new ModelMapper();
@@ -43,7 +43,7 @@ public class CustomerScheduler {
 	@Autowired
 	ObjectMapper mapper;
 
-//	@Scheduled(cron = "* * * ? * *") // after every second
+	@Scheduled(cron = "* * * ? * *") // after every second
 	public Customer saveCustomerToQuickBookServer() throws Exception {
 		System.out.println(new Date());
 

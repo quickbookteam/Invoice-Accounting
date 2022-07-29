@@ -14,7 +14,7 @@ import com.invoice_acounting.repositery.ConnectionRepositery;
 import com.invoice_acounting.service.ConnectionService;
 import com.invoice_acounting.util.Helper;
 
-@Service("ConnectionServiceImpl")
+@Service
 @Qualifier("connectionImplementation")
 public class ConnectionServiceImpl implements ConnectionService {
 

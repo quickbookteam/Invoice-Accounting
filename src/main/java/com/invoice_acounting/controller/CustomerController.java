@@ -26,10 +26,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CustomerController {
 
-	@Autowired
+	
 	CustomerService customerService;
 
-
+	@Autowired
+	CustomerController(CustomerService customerService)
+	{
+		 this.customerService=customerService;
+	}
 
 
 	@GetMapping("/customer/{id}")

@@ -20,7 +20,6 @@ import com.intuit.ipp.exception.FMSException;
 import com.intuit.ipp.services.DataService;
 import com.invoice_acounting.entity.customer.LocalCustomer;
 import com.invoice_acounting.exception.CustomException;
-
 import com.invoice_acounting.exception.CustomerNotFound;
 import com.invoice_acounting.modal.CommonResponse;
 import com.invoice_acounting.modal.customer.CustomerModal;
@@ -30,7 +29,7 @@ import com.invoice_acounting.service.CustomerService;
 import com.invoice_acounting.util.Helper;
 import com.invoice_acounting.util.UtilConstants;
 
-@Service("CustomerServiceImpl")
+@Service
 @Qualifier("customerServiceImplementation")
 public class CustomerServiceImpl implements CustomerService {
 

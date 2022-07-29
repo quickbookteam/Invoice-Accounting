@@ -20,8 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class LocalInvoice {
 
     @Id
-    @Field("_id")
-    private String  _id;
+    private String  id;
     private String invoiceId;
     private ArrayList<Line> line;
     private CustomerRef customerRef;
