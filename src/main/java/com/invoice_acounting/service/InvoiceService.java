@@ -1,21 +1,19 @@
 package com.invoice_acounting.service;
 
-import com.intuit.ipp.data.Invoice;
-import com.intuit.ipp.exception.FMSException;
-import com.invoice_acounting.entity.invoice.LocalInvoice;
-import com.invoice_acounting.modal.invoice.InvoiceModal;
+import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.invoice_acounting.entity.invoice.LocalInvoice;
+import com.invoice_acounting.modal.CommonResponse;
+import com.invoice_acounting.modal.invoice.InvoiceModal;
 
 
 public interface InvoiceService {
 	
-    ResponseEntity<?> save(InvoiceModal invoice);
+	ResponseEntity<CommonResponse> save(InvoiceModal invoice);
     
-    ResponseEntity<InvoiceModal> findById(String id);
+	ResponseEntity<CommonResponse> findById(String id);
 
 
     List<LocalInvoice> findAll();

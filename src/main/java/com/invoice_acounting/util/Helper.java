@@ -13,20 +13,18 @@ import com.intuit.ipp.services.DataService;
 import com.intuit.ipp.util.Config;
 import com.invoice_acounting.entity.Connection;
 import com.invoice_acounting.service.ConnectionService;
-import com.invoice_acounting.service.Implimentation.ConnectionServiceImpl;
 
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-
+@Component
 public class Helper {
 	
 	
-	ConnectionService connectionService;
+	private ConnectionService connectionService;
 	
 	@Autowired
-	public void ConnectionService(@Qualifier("connectionImplementation")ConnectionService connectionService)
+	public void ConnectionService(@Qualifier("connectionImplementation")  ConnectionService connectionService)
 	{
 		this.connectionService=connectionService;
 	}

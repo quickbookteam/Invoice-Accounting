@@ -1,35 +1,23 @@
 package com.invoice_acounting.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-import com.intuit.ipp.core.Context;
-import com.intuit.ipp.core.ServiceType;
-import com.intuit.ipp.security.IAuthorizer;
-import com.intuit.ipp.security.OAuth2Authorizer;
-import com.intuit.ipp.services.DataService;
-import com.intuit.ipp.util.Config;
-import com.intuit.oauth2.client.OAuth2PlatformClient;
-import com.intuit.oauth2.config.Environment;
-import com.intuit.oauth2.config.OAuth2Config;
-import com.intuit.oauth2.data.BearerTokenResponse;
-import com.invoice_acounting.modal.ConnectionModal;
 import com.invoice_acounting.service.ConnectionService;
-import com.invoice_acounting.util.UtilContants;
+import com.invoice_acounting.util.UtilConstants;
 
 public class QuickBookIntegration {
 //  @Value("${OAuth2AppClientId}")
-	private String clientId = UtilContants.clientId;
+	private String clientId = UtilConstants.clientId;
 
 	// @Value("${OAuth2AppClientSecret}")
-	private String clientSecret = UtilContants.clientSecret;
+	private String clientSecret = UtilConstants.clientSecret;
 
 	// @Value("${refreshToken}")
-	private String refreshToken = UtilContants.refreshToken;
+	private String refreshToken = UtilConstants.refreshToken;
 
 	// @Value("${RealmID}")
 
-	private String RealmID = UtilContants.RealmID;
+	private String RealmID = UtilConstants.RealmID;
 
 	@Autowired
 	ConnectionService connectionService;

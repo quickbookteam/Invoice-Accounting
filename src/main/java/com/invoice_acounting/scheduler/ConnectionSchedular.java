@@ -21,7 +21,7 @@ import com.intuit.oauth2.data.BearerTokenResponse;
 import com.intuit.oauth2.exception.OAuthException;
 import com.invoice_acounting.modal.ConnectionModal;
 import com.invoice_acounting.service.ConnectionService;
-import com.invoice_acounting.util.UtilContants;
+import com.invoice_acounting.util.UtilConstants;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,7 +39,7 @@ public class ConnectionSchedular {
         this.connectionService = connectionService;
     }
 
-    @Scheduled(cron = "0 * * ? * *")
+//    @Scheduled(cron = "0 * * ? * *")
     public void connectionStablished() throws OAuthException, FMSException {
         System.out.println("Connection" + new Date());
         log.info("connected in Scheduled");
@@ -48,16 +48,16 @@ public class ConnectionSchedular {
         if (ObjectUtils.isEmpty(connectionModel)) {
         	connectionModel=new ConnectionModal();
             connectionModel.setId(1L);
-            connectionModel.setRealmId(UtilContants.RealmID);
-            connectionModel.setRefreshToken(UtilContants.refreshToken);
-            connectionModel.setQuickBooksConnectURL(UtilContants.quickBooksConnectURL);
-            connectionModel.setClientId(UtilContants.clientId);
-            connectionModel.setClientSecret(UtilContants.clientSecret);
+            connectionModel.setRealmId(UtilConstants.RealmID);
+            connectionModel.setRefreshToken(UtilConstants.refreshToken);
+            connectionModel.setQuickBooksConnectURL(UtilConstants.quickBooksConnectURL);
+            connectionModel.setClientId(UtilConstants.clientId);
+            connectionModel.setClientSecret(UtilConstants.clientSecret);
         }
        
 
         OAuth2Config oauth2Config = new OAuth2Config.OAuth2ConfigBuilder(connectionModel.getClientId(), connectionModel.getClientSecret())
-                .callDiscoveryAPI(UtilContants.quickBooksEnvironment).buildConfig();
+                .callDiscoveryAPI(UtilConstants.quickBooksEnvironment).buildConfig();
 
         OAuth2PlatformClient client = new OAuth2PlatformClient(oauth2Config);
 
@@ -93,8 +93,8 @@ public class ConnectionSchedular {
         }
 
         IAuthorizer oauth = new OAuth2Authorizer(bearerTokenResponse.getAccessToken());
-        Config.setProperty(Config.BASE_URL_QBO, UtilContants.quickBooksConnectURL);
-        Context context = new Context(oauth, ServiceType.QBO, UtilContants.RealmID);
+        Config.setProperty(Config.BASE_URL_QBO, UtilConstants.quickBooksConnectURL);
+        Context context = new Context(oauth, ServiceType.QBO, UtilConstants.RealmID);
     }
 
 

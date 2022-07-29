@@ -29,7 +29,7 @@ import com.invoice_acounting.config.OAuth2PlatformClientFactory;
 public class QBOServiceHelper {
 	
 	@Autowired
-	OAuth2PlatformClientFactory factory;
+	private OAuth2PlatformClientFactory factory;
 	
 	private static final Logger logger = Logger.getLogger(QBOServiceHelper.class);
 

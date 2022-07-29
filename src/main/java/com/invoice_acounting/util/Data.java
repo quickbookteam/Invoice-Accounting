@@ -4,8 +4,8 @@ import java.util.Date;
 
 @lombok.Data
 public class Data {
-    Date createTime;
-    Integer count;
+	private Date createTime;
+	private Integer count;
 	@Override
 	public String toString() {
 		return "Data [createTime=" + createTime + ", count=" + count + "]";
