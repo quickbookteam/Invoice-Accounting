@@ -19,11 +19,11 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-
+@Component
+@Qualifier("helper")
 public class Helper {
-	
-	
-	ConnectionService connectionService;
+
+	private ConnectionService connectionService;
 	
 	@Autowired
 	public void ConnectionService(@Qualifier("connectionImplementation")ConnectionService connectionService)
