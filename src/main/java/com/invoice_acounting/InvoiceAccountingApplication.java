@@ -18,8 +18,8 @@ public class InvoiceAccountingApplication {
 		ApplicationContext context =SpringApplication.run(InvoiceAccountingApplication.class, args);
 		BasicConfigurator.configure();
 
-//		log.info("inside main Application started");
-		System.out.println("Application Started");
+		log.info("inside main Application started");
+
 	}
 }
 
