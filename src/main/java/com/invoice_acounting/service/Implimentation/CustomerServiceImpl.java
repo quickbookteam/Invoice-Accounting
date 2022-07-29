@@ -29,7 +29,6 @@ import com.intuit.ipp.services.DataService;
 import com.invoice_acounting.entity.customer.LocalCustomer;
 import com.invoice_acounting.exception.CustomException;
 import com.invoice_acounting.exception.CustomerNotFoundException;
-
 import com.invoice_acounting.modal.CommonResponse;
 import com.invoice_acounting.modal.customer.CustomerModal;
 import com.invoice_acounting.modal.customer.LocalCustomerModal;
@@ -62,6 +61,7 @@ public class CustomerServiceImpl implements CustomerService {
 		this.modelMapper = new ModelMapper();
 		this.mapper = new ObjectMapper();
 		this.helper = new Helper();
+		this.chartHelper=new ChartHelper();
 
 	}
 
@@ -173,7 +173,7 @@ public class CustomerServiceImpl implements CustomerService {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("status").is("created"));
 		localCustomerList = mongoTemplate.find(query, LocalCustomer.class);
-		System.out.println(localCustomerList);
+		
 		return localCustomerList;
 	}
 
@@ -183,7 +183,7 @@ public class CustomerServiceImpl implements CustomerService {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("status").is("updated"));
 		localCustomerList = mongoTemplate.find(query, LocalCustomer.class);
-		System.out.println(localCustomerList);
+	
 		return localCustomerList;
 	}
 

@@ -7,12 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.invoice_acounting.entity.Connection;
 import com.invoice_acounting.modal.ConnectionModal;
 import com.invoice_acounting.repositery.ConnectionRepositery;
 import com.invoice_acounting.service.ConnectionService;
-import com.invoice_acounting.util.Helper;
 
 @Service
 @Qualifier("connectionImplementation")
@@ -39,7 +37,7 @@ public class ConnectionServiceImpl implements ConnectionService {
 
 	@Override
 	public Connection getDetails() {
-		System.out.println(connectionRepositery);
+		
 
 		return connectionRepositery.findById(1L).get();
 	}

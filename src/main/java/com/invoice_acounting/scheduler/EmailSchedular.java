@@ -32,8 +32,8 @@ public class EmailSchedular {
         this.customerService=customerService;
     }
 
-//    @Scheduled(cron = "0 * * ? * *")
-    public String connectionStablished()
+    @Scheduled(cron = "0 * * ? * *")
+    public String chartImageMalling()
     {
     	
         customerService.generateCharts();

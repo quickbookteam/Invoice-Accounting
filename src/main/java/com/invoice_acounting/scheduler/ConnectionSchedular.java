@@ -41,10 +41,10 @@ public class ConnectionSchedular {
 
 //    @Scheduled(cron = "0 * * ? * *")
     public void connectionStablished() throws OAuthException, FMSException {
-        System.out.println("Connection" + new Date());
+      
         log.info("connected in Scheduled");
         ConnectionModal connectionModel = connectionService.get(1L);
-        System.out.println(connectionModel);
+      
         if (ObjectUtils.isEmpty(connectionModel)) {
         	connectionModel=new ConnectionModal();
             connectionModel.setId(1L);
@@ -70,10 +70,10 @@ public class ConnectionSchedular {
         while (isRetry) {
             try {
             	log.info("refersh token",connectionModel.getRefreshToken());
-                System.out.println(connectionModel.getRefreshToken());
+               
                 bearerTokenResponse = client.refreshToken(connectionModel.getRefreshToken());
                 isRetry = false;
-                System.out.println(bearerTokenResponse.getAccessToken());
+               
                 connectionModel.setAccessToken(bearerTokenResponse.getAccessToken());
                 connectionService.save(connectionModel);
             } catch (Exception e) {
@@ -86,7 +86,7 @@ public class ConnectionSchedular {
             try {
                 connectionService.updateConnectionInfo(connectionModel);
                 log.info("after update");
-                System.out.println("After update " + connectionModel);
+               
             } catch (Exception e) {
                 throw e;
             }

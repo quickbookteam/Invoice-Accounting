@@ -1,15 +1,10 @@
 package com.invoice_acounting;
 
 import org.apache.log4j.BasicConfigurator;
-import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
-
-import com.intuit.ipp.services.DataService;
-import com.invoice_acounting.config.QuickBookIntegration;
 
 import lombok.extern.slf4j.Slf4j;
 

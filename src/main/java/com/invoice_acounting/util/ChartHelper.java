@@ -18,7 +18,7 @@ public class ChartHelper {
 
         DefaultPieDataset dataset = new DefaultPieDataset();
     
-        System.out.println(list);
+       
         // get value from list
         for (Data ob : list) {
             dataset.setValue(String.valueOf(UtilConstants.months.get(ob.getCreateTime().getMonth())), Double.valueOf(ob.getCount()));

@@ -53,7 +53,7 @@ public class SchedularServiceImpl implements SchedularService {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("status").is("created"));
 		localInvoices = mongoTemplate.find(query, LocalInvoice.class);
-		System.out.println(localInvoices);
+		
 		return localInvoices;
 	}
 
