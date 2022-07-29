@@ -27,7 +27,7 @@ public class Helper {
 	ConnectionService connectionService;
 	
 	@Autowired
-	public void ConnectionService(@Qualifier("connectionImplementation")ConnectionService connectionService)
+	Helper(@Qualifier("connectionImplementation")ConnectionService connectionService)
 	{
 		this.connectionService=connectionService;
 	}
