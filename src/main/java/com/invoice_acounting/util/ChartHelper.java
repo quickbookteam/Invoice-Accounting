@@ -7,6 +7,7 @@ import java.util.List;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
 
@@ -18,7 +19,6 @@ public class ChartHelper {
 
         DefaultPieDataset dataset = new DefaultPieDataset();
     
-        System.out.println(list);
         // get value from list
         for (Data ob : list) {
             dataset.setValue(String.valueOf(UtilContants.months.get(ob.getCreateTime().getMonth())), Double.valueOf(ob.getCount()));
@@ -35,4 +35,5 @@ public class ChartHelper {
         }
 
     }
+
 }

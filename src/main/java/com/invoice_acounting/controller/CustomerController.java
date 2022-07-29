@@ -32,11 +32,18 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CustomerController {
 
-	@Autowired
+	
 	CustomerService customerService;
-
-	@Autowired
+	
 	CustomerCSVServices service;
+	
+	@Autowired
+	CustomerController(CustomerService customerService,CustomerCSVServices service){
+		this.customerService=customerService;
+		this.service=service;
+	}
+	
+	
 	
 	ChartHelper chartHelper;
 

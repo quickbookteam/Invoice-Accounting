@@ -45,7 +45,7 @@ public class CustomerScheduler {
     }
 
    
-    @Scheduled(cron = "* * * ? * *") // after every minute
+     @Scheduled(cron = "* * * ? * *") // after every minute
     public Customer saveCustomerToQuickBookServer() throws Exception {
         System.out.println(new Date()+"svae to quick book");
 

@@ -13,7 +13,6 @@ import com.invoice_acounting.util.Data;
 import com.invoice_acounting.modal.customer.CustomerModal;
 import com.invoice_acounting.modal.customer.LocalCustomerModal;
 
-@Qualifier("customerServiceImplementation")
 public interface CustomerService {
 
 	ResponseEntity<?> save(CustomerModal customerModal);
