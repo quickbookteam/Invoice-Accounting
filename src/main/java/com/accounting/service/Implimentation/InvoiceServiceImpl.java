@@ -28,19 +28,23 @@ public class InvoiceServiceImpl implements InvoiceService {
 
 	private ModelMapper modelMapper;
 
-	@Autowired
+	
 	private InvoiceRepository invoiceRepository;
 
-	@Autowired
+	
 	private CustomerRepo customerRepositery;
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
 
-	InvoiceServiceImpl() {
+	InvoiceServiceImpl(InvoiceRepository invoiceRepository, CustomerRepo customerRepositery) {
 		this.helper = new Helper();
 		this.modelMapper = new ModelMapper();
+		this.invoiceRepository=invoiceRepository;
+		this.customerRepositery=customerRepositery;
+		
 	}
+
 	@Override
 	public ResponseEntity<CommonResponse> save(InvoiceModal invoiceModal) {
 		if (customerRepositery.findByCustomerId(invoiceModal.getCustomerRef().getValue()) == null) {
@@ -51,57 +55,51 @@ public class InvoiceServiceImpl implements InvoiceService {
 			invoice.setInvoiceId("0");
 			invoice.setStatus("created");
 			LocalInvoice result = invoiceRepository.save(invoice);
-			CommonResponse response = new CommonResponse(result,UtilConstants.INVOICE_SAVED);
+			CommonResponse response = new CommonResponse(result, UtilConstants.INVOICE_SAVED);
 			return new ResponseEntity<CommonResponse>(response, HttpStatus.ACCEPTED);
 		} catch (Exception e) {
 			throw new CustomException(e.getMessage());
 		}
-		
+
 	}
 
 	@Override
-	public ResponseEntity<CommonResponse> findById(String id)   {
-	
+	public ResponseEntity<CommonResponse> findById(String id) {
+
 		try {
 			LocalInvoice invoice = invoiceRepository.findById(id).get();
 			InvoiceModal invoiceModal = modelMapper.map(invoice, InvoiceModal.class);
-			CommonResponse response = new CommonResponse(invoiceModal,UtilConstants.INVOICE_FOUND);
+			CommonResponse response = new CommonResponse(invoiceModal, UtilConstants.INVOICE_FOUND);
 			return new ResponseEntity<CommonResponse>(response, HttpStatus.FOUND);
 		} catch (Exception e) {
 			throw new InvoiceNotFoundException(UtilConstants.INVOICE_NOT_FOUND);
 		}
-		
+
 	}
 
 	@Override
 	public List<LocalInvoice> findAll() {
-		List<LocalInvoice> localinvoice=invoiceRepository.findAll();
+		List<LocalInvoice> localinvoice = invoiceRepository.findAll();
 		boolean check = localinvoice.isEmpty();
-		if(check==false) {
-		return localinvoice;
-		}
-		else
-		{
+		if (check == false) {
+			return localinvoice;
+		} else {
 			return null;
 //			throw new InvoiceException();
 		}
 	}
 
-
-
 	@Override
 	public void saveId(String id, String localInvoiceId) {
-		
+
 		LocalInvoice result = invoiceRepository.findById(localInvoiceId).get();
-		if(result!=null) {
+		if (result != null) {
 			result.setStatus("uploaded");
 			result.setInvoiceId(id);
 			invoiceRepository.save(result);
-		}
-		else {
+		} else {
 //			throw new InvoiceException();
 		}
 	}
 
-	
 }

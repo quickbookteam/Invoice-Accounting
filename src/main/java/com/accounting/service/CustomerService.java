@@ -11,12 +11,11 @@ import com.accounting.util.Data;
 import com.intuit.ipp.data.Customer;
 import com.intuit.ipp.exception.FMSException;
 
-
 public interface CustomerService {
 
 	ResponseEntity<CommonResponse> save(CustomerModal customerModal);
 
-	ResponseEntity<CommonResponse> getCustomerById(String id)throws Exception;
+	ResponseEntity<CommonResponse> getCustomerById(String id) throws Exception;
 
 	ResponseEntity<CommonResponse> delete(String id);
 
@@ -24,22 +23,18 @@ public interface CustomerService {
 
 	ResponseEntity<CommonResponse> update(CustomerModal customer);
 
-//	public ResponseEntity<LocalCustomerModal> findById(String id);
+	Customer updateCustomerToQuickBook(Customer customer) throws FMSException;
 
+	void saveId(String id, String localCustomerId);
 
-
-	
-	 Customer updateCustomerToQuickBook(Customer customer) throws FMSException;
-
-	 void saveId(String id, String localCustomerId);
-
-	 void updateStatus(String customerId);
+	void updateStatus(String customerId);
 
 	List<LocalCustomer> getCustomers_With_CreatedStatus();
 
 	List<LocalCustomer> getCustomers_With_UpdatedStatus();
-	 List<Data> customerCount();
-	
-	  ResponseEntity<String> generateCharts() ;
+
+	List<Data> customerCount();
+
+	ResponseEntity<String> generateCharts();
 
 }

@@ -1,13 +1,14 @@
 package com.accounting.service;
 
+import org.springframework.http.ResponseEntity;
+
+import com.accounting.modal.CommonResponse;
 import com.accounting.modal.transaction.LocalTransactionModel;
 import com.intuit.ipp.exception.FMSException;
 
-import org.springframework.http.ResponseEntity;
-
 public interface TransactionServices {
 
-    ResponseEntity<?> saveTransaction(LocalTransactionModel localTransactionModel) throws FMSException;
+	ResponseEntity<CommonResponse> saveTransaction(LocalTransactionModel localTransactionModel) throws FMSException;
 
-    ResponseEntity<?> getTransaction(String id);
+	ResponseEntity<CommonResponse> getTransaction(String id);
 }

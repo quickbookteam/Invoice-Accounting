@@ -37,7 +37,6 @@ public class ConnectionServiceImpl implements ConnectionService {
 
 	@Override
 	public Connection getDetails() {
-		
 
 		return connectionRepositery.findById(1L).get();
 	}

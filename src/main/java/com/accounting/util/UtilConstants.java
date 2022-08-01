@@ -23,5 +23,8 @@ public static String INVOICE_NOT_FOUND="Invoice Not Found";
 public static String INVOICE_SAVED="Invoice Saved Successfully";
 public static String INVOICE_FOUND="Invoice found Successsfully";
 
+public static String TRANSECTION_SAVED="Transection Saved SuccessFully";
+public static String TRANSECTION_FOUND="Transection Found Successfully";
+
 public static  List<String> months = Arrays.asList("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
 }

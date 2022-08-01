@@ -61,7 +61,7 @@ public class CustomerServiceImpl implements CustomerService {
 		this.modelMapper = new ModelMapper();
 		this.mapper = new ObjectMapper();
 		this.helper = new Helper();
-		this.chartHelper=new ChartHelper();
+		this.chartHelper = new ChartHelper();
 
 	}
 
@@ -173,7 +173,7 @@ public class CustomerServiceImpl implements CustomerService {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("status").is("created"));
 		localCustomerList = mongoTemplate.find(query, LocalCustomer.class);
-		
+
 		return localCustomerList;
 	}
 
@@ -183,7 +183,7 @@ public class CustomerServiceImpl implements CustomerService {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("status").is("updated"));
 		localCustomerList = mongoTemplate.find(query, LocalCustomer.class);
-	
+
 		return localCustomerList;
 	}
 
