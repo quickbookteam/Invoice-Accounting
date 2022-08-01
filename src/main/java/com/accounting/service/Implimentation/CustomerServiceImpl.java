@@ -1,13 +1,21 @@
 package com.accounting.service.Implimentation;
 
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.fields;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.joda.time.DateTime;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
@@ -16,12 +24,14 @@ import org.springframework.stereotype.Service;
 
 import com.accounting.entity.customer.LocalCustomer;
 import com.accounting.exception.CustomException;
-import com.accounting.exception.CustomerNotFound;
+import com.accounting.exception.CustomerNotFoundException;
 import com.accounting.modal.CommonResponse;
 import com.accounting.modal.customer.CustomerModal;
 import com.accounting.modal.customer.LocalCustomerModal;
 import com.accounting.repositery.CustomerRepo;
 import com.accounting.service.CustomerService;
+import com.accounting.util.ChartHelper;
+import com.accounting.util.Data;
 import com.accounting.util.Helper;
 import com.accounting.util.UtilConstants;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,12 +43,14 @@ import com.intuit.ipp.services.DataService;
 @Qualifier("customerServiceImplementation")
 public class CustomerServiceImpl implements CustomerService {
 
-	private final CustomerRepo customerRepo;
+	public final CustomerRepo customerRepo;
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
 
 	private Helper helper;
+
+	private ChartHelper chartHelper;
 
 	private ModelMapper modelMapper;
 
@@ -49,6 +61,7 @@ public class CustomerServiceImpl implements CustomerService {
 		this.modelMapper = new ModelMapper();
 		this.mapper = new ObjectMapper();
 		this.helper = new Helper();
+		this.chartHelper=new ChartHelper();
 
 	}
 
@@ -76,7 +89,7 @@ public class CustomerServiceImpl implements CustomerService {
 			CommonResponse response = new CommonResponse(null, UtilConstants.CUSTOMER_DELETED);
 			return new ResponseEntity<CommonResponse>(response, HttpStatus.OK);
 		}
-		throw new CustomerNotFound(UtilConstants.CUSTOMER_NOT_FOUND);
+		throw new CustomerNotFoundException(UtilConstants.CUSTOMER_NOT_FOUND);
 	}
 
 	@Override
@@ -84,13 +97,13 @@ public class CustomerServiceImpl implements CustomerService {
 		List<LocalCustomer> customerAll = customerRepo.findAll();
 		List<LocalCustomerModal> customerModalList = new ArrayList<>();
 		if (customerAll.size() < 1) {
-			throw new CustomerNotFound(UtilConstants.CUSTOMER_NOT_FOUND);
+			throw new CustomerNotFoundException(UtilConstants.CUSTOMER_NOT_FOUND);
 		}
 		for (LocalCustomer customer : customerAll) {
 			LocalCustomerModal customerModal = modelMapper.map(customer, LocalCustomerModal.class);
 			customerModalList.add(customerModal);
 		}
-		CommonResponse response = new CommonResponse(customerModalList,UtilConstants.CUSTOMER_LIST);
+		CommonResponse response = new CommonResponse(customerModalList, UtilConstants.CUSTOMER_LIST);
 		return new ResponseEntity<CommonResponse>(response, HttpStatus.FOUND);
 	}
 
@@ -108,7 +121,7 @@ public class CustomerServiceImpl implements CustomerService {
 			CommonResponse response = new CommonResponse(customer, UtilConstants.CUSTOMER_UPDATED);
 			return new ResponseEntity<CommonResponse>(response, HttpStatus.ACCEPTED);
 		}
-		throw new CustomerNotFound(UtilConstants.CUSTOMER_NOT_FOUND);
+		throw new CustomerNotFoundException(UtilConstants.CUSTOMER_NOT_FOUND);
 	}
 
 	@Override
@@ -119,12 +132,10 @@ public class CustomerServiceImpl implements CustomerService {
 			LocalCustomerModal customerModal = modelMapper.map(customer, LocalCustomerModal.class);
 			CommonResponse response = new CommonResponse(customerModal, UtilConstants.CUSTOMER_FOUND);
 			return new ResponseEntity<CommonResponse>(response, HttpStatus.FOUND);
-			
+
 		}
-		throw new CustomerNotFound(UtilConstants.CUSTOMER_NOT_FOUND);
+		throw new CustomerNotFoundException(UtilConstants.CUSTOMER_NOT_FOUND);
 	}
-
-
 
 	@Override
 	public void saveId(String id, String localCustomerId) {
@@ -134,7 +145,7 @@ public class CustomerServiceImpl implements CustomerService {
 			result.setStatus("Uploaded");
 			customerRepo.save(result);
 		} else {
-//			throw new CustomerException("localcustomer not fond");
+			throw new CustomerNotFoundException("localcustomer not fond");
 		}
 	}
 
@@ -152,7 +163,7 @@ public class CustomerServiceImpl implements CustomerService {
 			result.setStatus("Uploaded");
 			customerRepo.save(result);
 		} else {
-//			throw new CustomerException("localcustomer not fond");
+			throw new CustomerNotFoundException("localcustomer not fond");
 		}
 	}
 
@@ -162,7 +173,7 @@ public class CustomerServiceImpl implements CustomerService {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("status").is("created"));
 		localCustomerList = mongoTemplate.find(query, LocalCustomer.class);
-		System.out.println(localCustomerList);
+		
 		return localCustomerList;
 	}
 
@@ -172,10 +183,28 @@ public class CustomerServiceImpl implements CustomerService {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("status").is("updated"));
 		localCustomerList = mongoTemplate.find(query, LocalCustomer.class);
-		System.out.println(localCustomerList);
+	
 		return localCustomerList;
 	}
 
+	@Override
+	public List<Data> customerCount() {
+		DateTime endDate = new DateTime();
+		DateTime startDate = new DateTime().minusMonths(2);
+		final TypedAggregation<LocalCustomer> otpTypedAggregation = newAggregation(LocalCustomer.class,
+				match(Criteria.where("createTime").gte(startDate).lte(endDate)),
+				project("createTime").andExpression("dayOfMonth(createTime)").as("day")
+						.andExpression("month(createTime)").as("month").andExpression("year(createTime)").as("year"),
+				group(fields().and("month")).first("createTime").as("createTime").count().as("count"));
+		List<Data> dataList = mongoTemplate.aggregate(otpTypedAggregation, Data.class).getMappedResults();
+		return dataList;
+	}
 
+	@Override
+	public ResponseEntity<String> generateCharts() {
+		List<Data> list = customerCount();
+		chartHelper.generatePieChart(list, "D:\\charts");
+		return null;
+	}
 
 }

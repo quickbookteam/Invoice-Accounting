@@ -9,14 +9,14 @@ import com.accounting.modal.CommonResponse;
 
 @RestControllerAdvice
 public class CustomExceptionHandler {
-	@ExceptionHandler(InvoiceNotFound.class)
-	public ResponseEntity<CommonResponse> invoiceNotFound(InvoiceNotFound obj)
+	@ExceptionHandler(InvoiceNotFoundException.class)
+	public ResponseEntity<CommonResponse> invoiceNotFoundException(InvoiceNotFoundException obj)
 	{
 		CommonResponse response=new CommonResponse(null,obj.getMessage());
 		return new ResponseEntity<CommonResponse>(response,HttpStatus.NOT_FOUND);
 	}
-	@ExceptionHandler(CustomerNotFound.class)
-	public ResponseEntity<CommonResponse> customerNotFound(CustomerNotFound obj)
+	@ExceptionHandler(CustomerNotFoundException.class)
+	public ResponseEntity<CommonResponse> customerNotFoundException(CustomerNotFoundException obj)
 	{
 		CommonResponse response=new CommonResponse(null,obj.getMessage());
 		return new ResponseEntity<CommonResponse>(response,HttpStatus.NOT_FOUND);

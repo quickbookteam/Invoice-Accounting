@@ -20,7 +20,7 @@ public interface SchedularService {
 
 	Invoice saveInvoiceToQuickBook(InvoiceModal invoiceModal) throws FMSException;
 
-	public Customer saveCustomerToQuickBook(LocalCustomerModal customerModal) throws FMSException;
+	Customer saveCustomerToQuickBook(LocalCustomerModal customerModal) throws FMSException;
 
 	void saveId(String id, String localInvoiceId);
 

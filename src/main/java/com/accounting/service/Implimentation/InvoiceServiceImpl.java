@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.accounting.entity.invoice.LocalInvoice;
 import com.accounting.exception.CustomException;
-import com.accounting.exception.CustomerNotFound;
-import com.accounting.exception.InvoiceNotFound;
+import com.accounting.exception.CustomerNotFoundException;
+import com.accounting.exception.InvoiceNotFoundException;
 import com.accounting.modal.CommonResponse;
 import com.accounting.modal.invoice.InvoiceModal;
 import com.accounting.repositery.CustomerRepo;
@@ -41,11 +41,10 @@ public class InvoiceServiceImpl implements InvoiceService {
 		this.helper = new Helper();
 		this.modelMapper = new ModelMapper();
 	}
-
 	@Override
 	public ResponseEntity<CommonResponse> save(InvoiceModal invoiceModal) {
 		if (customerRepositery.findByCustomerId(invoiceModal.getCustomerRef().getValue()) == null) {
-			throw new CustomerNotFound(UtilConstants.CUSTOMER_NOT_FOUND);
+			throw new CustomerNotFoundException(UtilConstants.CUSTOMER_NOT_FOUND);
 		}
 		try {
 			LocalInvoice invoice = modelMapper.map(invoiceModal, LocalInvoice.class);
@@ -62,14 +61,15 @@ public class InvoiceServiceImpl implements InvoiceService {
 
 	@Override
 	public ResponseEntity<CommonResponse> findById(String id)   {
-
-		if (!invoiceRepository.existsById(id)) {
-			throw new InvoiceNotFound(UtilConstants.INVOICE_NOT_FOUND);
+	
+		try {
+			LocalInvoice invoice = invoiceRepository.findById(id).get();
+			InvoiceModal invoiceModal = modelMapper.map(invoice, InvoiceModal.class);
+			CommonResponse response = new CommonResponse(invoiceModal,UtilConstants.INVOICE_FOUND);
+			return new ResponseEntity<CommonResponse>(response, HttpStatus.FOUND);
+		} catch (Exception e) {
+			throw new InvoiceNotFoundException(UtilConstants.INVOICE_NOT_FOUND);
 		}
-		LocalInvoice invoice = invoiceRepository.findById(id).get();
-		InvoiceModal invoiceModal = modelMapper.map(invoice, InvoiceModal.class);
-		CommonResponse response = new CommonResponse(invoiceModal,UtilConstants.INVOICE_FOUND);
-		return new ResponseEntity<CommonResponse>(response, HttpStatus.FOUND);
 		
 	}
 

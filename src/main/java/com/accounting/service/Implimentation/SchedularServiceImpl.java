@@ -3,7 +3,6 @@ package com.accounting.service.Implimentation;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.xmlbeans.impl.jam.mutable.MPackage;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -31,10 +30,10 @@ import com.intuit.ipp.services.DataService;
 public class SchedularServiceImpl implements SchedularService {
 	@Autowired
 	private InvoiceRepository invoiceRepository;
-	
+
 	@Autowired
-	private  CustomerRepo customerRepo;
-	
+	private CustomerRepo customerRepo;
+
 	private ObjectMapper mapper;
 	private Helper helper;
 	@Autowired
@@ -45,8 +44,7 @@ public class SchedularServiceImpl implements SchedularService {
 		this.helper = helper;
 		this.modelMapper = new ModelMapper();
 		this.mapper = new ObjectMapper();
-		
-		
+
 	}
 
 	@Override
@@ -55,22 +53,19 @@ public class SchedularServiceImpl implements SchedularService {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("status").is("created"));
 		localInvoices = mongoTemplate.find(query, LocalInvoice.class);
-		System.out.println(localInvoices);
+		
 		return localInvoices;
 	}
 
 	@Override
 	public Invoice saveInvoiceToQuickBook(InvoiceModal invoiceModal) throws FMSException {
-		
-		
 		DataService dataService = helper.getConnection();
-		mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+		ObjectMapper mapper = new ObjectMapper();
 
+		mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 		Invoice invoice = mapper.convertValue(invoiceModal, Invoice.class);
-		System.out.println(" rusia === "+invoice.getCustomerRef().getName());
 
 		Invoice invoice1 = dataService.add(invoice);
-		System.out.println(" Invoice shivani-====== "+ invoice1.getCustomerRef().getName());
 		return invoice1;
 	}
 
@@ -84,13 +79,10 @@ public class SchedularServiceImpl implements SchedularService {
 		InvoiceModal invoiceModal = modelMapper.map(invoice, InvoiceModal.class);
 		return invoiceModal;
 	}
-	
+
 	@Override
 	public void saveId(String id, String localInvoiceId) {
-
-		System.out.println("????????????"+localInvoiceId);
 		LocalInvoice result = invoiceRepository.findById(localInvoiceId).get();
-//		System.out.println("#######"+result.get_id());
 		result.setStatus("uploaded");
 		result.setInvoiceId(id);
 		invoiceRepository.save(result);
@@ -103,11 +95,8 @@ public class SchedularServiceImpl implements SchedularService {
 		mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 		Customer customer = mapper.convertValue(customerModal, Customer.class);
 
-		
 		return dataService.add(customer);
-		
+
 	}
-	
-	
 
 }

@@ -45,8 +45,6 @@ public class CustomerScheduler {
 
 	@Scheduled(cron = "* * * ? * *") // after every second
 	public Customer saveCustomerToQuickBookServer() throws Exception {
-		System.out.println(new Date());
-
 		List<LocalCustomer> customers = customerService.getCustomers_With_CreatedStatus();
 		for (LocalCustomer localCustomer : customers) {
 			LocalCustomerModal localCustomerModal = modelMapper.map(localCustomer, LocalCustomerModal.class);
@@ -60,7 +58,7 @@ public class CustomerScheduler {
 //	
 //	@Scheduled(cron = "0 * * ? * *") // after every minute
 //	public Customer updateCustomerToQuickBookServer() throws FMSException {
-//		System.out.println("update"+new Date());
+//		
 //       String []syncToken= {"1","0"};
 //		List<LocalCustomer> customers = customerDao.getCustomers_With_UpdatedStatus();
 //		for (LocalCustomer item : customers) {
