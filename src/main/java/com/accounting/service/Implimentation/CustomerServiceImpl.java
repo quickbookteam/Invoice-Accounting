@@ -23,6 +23,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.accounting.entity.customer.LocalCustomer;
+import com.accounting.exception.CustomException;
+import com.accounting.exception.CustomerNotFoundException;
+import com.accounting.modal.CommonResponse;
 import com.accounting.modal.customer.CustomerModal;
 import com.accounting.modal.customer.LocalCustomerModal;
 import com.accounting.repositery.CustomerRepo;
@@ -30,73 +33,82 @@ import com.accounting.service.CustomerService;
 import com.accounting.util.ChartHelper;
 import com.accounting.util.Data;
 import com.accounting.util.Helper;
+import com.accounting.util.UtilConstants;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intuit.ipp.data.Customer;
 import com.intuit.ipp.exception.FMSException;
 import com.intuit.ipp.services.DataService;
 
-@Service("CustomerServiceImpl")
+@Service
 @Qualifier("customerServiceImplementation")
 public class CustomerServiceImpl implements CustomerService {
 
 	public final CustomerRepo customerRepo;
 
 	@Autowired
-	MongoTemplate mongoTemplate;
+	private MongoTemplate mongoTemplate;
 
-	Helper helper;
+	private Helper helper;
 
-	ChartHelper chartHelper;
-	ModelMapper modelMapper;
+	private ChartHelper chartHelper;
 
-	ObjectMapper mapper;
+	private ModelMapper modelMapper;
+
+	private ObjectMapper mapper;
 
 	public CustomerServiceImpl(CustomerRepo customerRepo) {
 		this.customerRepo = customerRepo;
 		this.modelMapper = new ModelMapper();
 		this.mapper = new ObjectMapper();
 		this.helper = new Helper();
-		this.chartHelper = new ChartHelper();
+		this.chartHelper=new ChartHelper();
+
 	}
 
 	@Override
-	public ResponseEntity<?> save(CustomerModal customerModal) {
-		LocalCustomer localCustomer = modelMapper.map(customerModal, LocalCustomer.class);
-		localCustomer.setStatus("created");
-		localCustomer.setCustomerId("0");
-		customerRepo.save(localCustomer);
-		return new ResponseEntity<>(localCustomer, HttpStatus.OK);
+	public ResponseEntity<CommonResponse> save(CustomerModal customerModal) {
+		try {
+			LocalCustomer localCustomer = modelMapper.map(customerModal, LocalCustomer.class);
+			localCustomer.setStatus("created");
+			localCustomer.setCustomerId("0");
+			customerRepo.save(localCustomer);
+			CommonResponse response = new CommonResponse(localCustomer, UtilConstants.CUSTOMER_SAVED);
+			return new ResponseEntity<CommonResponse>(response, HttpStatus.OK);
+		} catch (Exception e) {
+			throw new CustomException(e.getMessage());
+		}
 	}
 
-	
 	@Override
-	public ResponseEntity<?> delete(String id) {
+	public ResponseEntity<CommonResponse> delete(String id) {
 		Optional<?> optionalCustomer = customerRepo.findById(id);
 		LocalCustomer localCustomer = new LocalCustomer();
 		localCustomer.set_id(id);
 		if (!optionalCustomer.isEmpty()) {
 			customerRepo.delete(localCustomer);
-			return new ResponseEntity("Customer Deleted", HttpStatus.BAD_REQUEST);
+			CommonResponse response = new CommonResponse(null, UtilConstants.CUSTOMER_DELETED);
+			return new ResponseEntity<CommonResponse>(response, HttpStatus.OK);
 		}
-		return new ResponseEntity("Customer not valid", HttpStatus.BAD_REQUEST);
+		throw new CustomerNotFoundException(UtilConstants.CUSTOMER_NOT_FOUND);
 	}
 
 	@Override
-	public List<LocalCustomerModal> getAll() {
+	public ResponseEntity<CommonResponse> getAll() {
 		List<LocalCustomer> customerAll = customerRepo.findAll();
 		List<LocalCustomerModal> customerModalList = new ArrayList<>();
 		if (customerAll.size() < 1) {
-			
+			throw new CustomerNotFoundException(UtilConstants.CUSTOMER_NOT_FOUND);
 		}
 		for (LocalCustomer customer : customerAll) {
 			LocalCustomerModal customerModal = modelMapper.map(customer, LocalCustomerModal.class);
 			customerModalList.add(customerModal);
 		}
-		return customerModalList;
+		CommonResponse response = new CommonResponse(customerModalList, UtilConstants.CUSTOMER_LIST);
+		return new ResponseEntity<CommonResponse>(response, HttpStatus.FOUND);
 	}
 
 	@Override
-	public ResponseEntity<CustomerModal> update(CustomerModal customer) {
+	public ResponseEntity<CommonResponse> update(CustomerModal customer) {
 		LocalCustomer Customer = customerRepo.findByCustomerId(customer.getId());
 		if (Customer != null) {
 
@@ -105,31 +117,25 @@ public class CustomerServiceImpl implements CustomerService {
 			actualCustomer.set_id(Customer.get_id());
 			actualCustomer.setStatus("updated");
 			customerRepo.save(actualCustomer);
-			return new ResponseEntity<CustomerModal>(customer, HttpStatus.OK);
+
+			CommonResponse response = new CommonResponse(customer, UtilConstants.CUSTOMER_UPDATED);
+			return new ResponseEntity<CommonResponse>(response, HttpStatus.ACCEPTED);
 		}
-	return null;
+		throw new CustomerNotFoundException(UtilConstants.CUSTOMER_NOT_FOUND);
 	}
 
 	@Override
-	public ResponseEntity<LocalCustomerModal> getCustomerById(String id)  {
+	public ResponseEntity<CommonResponse> getCustomerById(String id) {
 		Optional<?> optionalCustomer = customerRepo.findById(id);
 		if (!optionalCustomer.isEmpty()) {
 			LocalCustomer customer = (LocalCustomer) optionalCustomer.get();
 			LocalCustomerModal customerModal = modelMapper.map(customer, LocalCustomerModal.class);
-			return new ResponseEntity<LocalCustomerModal>(customerModal,HttpStatus.OK);
+			CommonResponse response = new CommonResponse(customerModal, UtilConstants.CUSTOMER_FOUND);
+			return new ResponseEntity<CommonResponse>(response, HttpStatus.FOUND);
+
 		}
-	return null;
+		throw new CustomerNotFoundException(UtilConstants.CUSTOMER_NOT_FOUND);
 	}
-
-	
-
-
-	@Override
-	public List<LocalCustomer> findAllLocalCustomers() {
-		return customerRepo.findAll();
-	}
-
-
 
 	@Override
 	public void saveId(String id, String localCustomerId) {
@@ -138,7 +144,9 @@ public class CustomerServiceImpl implements CustomerService {
 			result.setCustomerId(id);
 			result.setStatus("Uploaded");
 			customerRepo.save(result);
-		} 
+		} else {
+			throw new CustomerNotFoundException("localcustomer not fond");
+		}
 	}
 
 	@Override
@@ -154,6 +162,8 @@ public class CustomerServiceImpl implements CustomerService {
 		if (result != null) {
 			result.setStatus("Uploaded");
 			customerRepo.save(result);
+		} else {
+			throw new CustomerNotFoundException("localcustomer not fond");
 		}
 	}
 
@@ -163,7 +173,7 @@ public class CustomerServiceImpl implements CustomerService {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("status").is("created"));
 		localCustomerList = mongoTemplate.find(query, LocalCustomer.class);
-		System.out.println(localCustomerList);
+		
 		return localCustomerList;
 	}
 
@@ -173,7 +183,7 @@ public class CustomerServiceImpl implements CustomerService {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("status").is("updated"));
 		localCustomerList = mongoTemplate.find(query, LocalCustomer.class);
-		System.out.println(localCustomerList);
+	
 		return localCustomerList;
 	}
 

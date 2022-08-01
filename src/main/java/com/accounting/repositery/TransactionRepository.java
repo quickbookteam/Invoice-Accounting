@@ -6,8 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import com.accounting.entity.transaction.LocalTransaction;
 
-import java.util.Optional;
-
 @Repository
 @Qualifier("transactionRepository")
 public interface TransactionRepository extends MongoRepository<LocalTransaction,String> {

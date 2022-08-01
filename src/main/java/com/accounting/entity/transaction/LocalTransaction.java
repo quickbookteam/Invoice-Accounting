@@ -5,9 +5,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import com.accounting.modal.transaction.CustomerRef;
-import com.accounting.modal.transaction.Line;
-
 import java.util.Date;
 import java.util.List;
 

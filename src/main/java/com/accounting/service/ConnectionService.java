@@ -8,13 +8,13 @@ import com.accounting.modal.ConnectionModal;
 
 public interface ConnectionService {
 	
-	public ResponseEntity<?> save(ConnectionModal connection);
+	 ResponseEntity<?> save(ConnectionModal connection);
 
-	public Connection getDetails();
+	 Connection getDetails();
 	
-	public ConnectionModal get(Long id);
+	 ConnectionModal get(Long id);
 
-	public ConnectionModal updateConnectionInfo(ConnectionModal connectionModal);
+	 ConnectionModal updateConnectionInfo(ConnectionModal connectionModal);
 
 
 }

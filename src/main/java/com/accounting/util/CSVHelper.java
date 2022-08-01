@@ -20,7 +20,7 @@ import com.accounting.modal.customer.PrimaryPhoneModal;
 public class CSVHelper {
 	public List<LocalCustomerModal> fileToCustomer(MultipartFile file) {
 		BufferedReader br;
-		List<LocalCustomerModal> customerModal=new ArrayList<LocalCustomerModal>();
+		List<LocalCustomerModal> customerModal = new ArrayList<LocalCustomerModal>();
 		try {
 			String line;
 			InputStream is = file.getInputStream();
@@ -44,7 +44,7 @@ public class CSVHelper {
 			customer.setActive(Boolean.parseBoolean(data[0]));
 			customer.setBalance(Double.parseDouble(data[1]));
 			customer.setBalanceWithJobs(Double.parseDouble(data[2]));
-			BillAddrModal billAddrModal=new BillAddrModal();
+			BillAddrModal billAddrModal = new BillAddrModal();
 			billAddrModal.setId(Long.parseLong(data[3]));
 			billAddrModal.setCity(data[4]);
 			billAddrModal.setCountrySubDivisionCode(data[5]);
@@ -64,24 +64,19 @@ public class CSVHelper {
 			customer.setJob(Boolean.parseBoolean(data[17]));
 			customer.setLastUpdatedTime(new Date());
 			customer.setPreferredDeliveryMethod(data[18]);
-			PrimaryEmailAddrModal primaryEmailAddr=new PrimaryEmailAddrModal();
+			PrimaryEmailAddrModal primaryEmailAddr = new PrimaryEmailAddrModal();
 			primaryEmailAddr.setAddress(data[19]);
 			customer.setPrimaryEmailAddr(primaryEmailAddr);
-			PrimaryPhoneModal PrimaryPhone=new PrimaryPhoneModal();
+			PrimaryPhoneModal PrimaryPhone = new PrimaryPhoneModal();
 			PrimaryPhone.setFreeFormNumber(data[20]);
 			customer.setPrimaryPhone(PrimaryPhone);
 			customer.setPrintOnCheckName(data[21]);
 			customer.setSparse(Boolean.parseBoolean(data[22]));
 			customer.setTaxable(Boolean.parseBoolean(data[23]));
-			
+
 		}
 		return customer;
 
 	}
-	
-	
-	
-
-	
 
 }

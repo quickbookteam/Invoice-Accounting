@@ -28,14 +28,14 @@ public class CustomerCSVServiceImpl implements CustomerCSVServices {
 	}
 
 	@Autowired
-	CustomerRepo customerRepo;
+	private CustomerRepo customerRepo;
 
-	Helper helper;
+	private Helper helper;
 
-	ModelMapper modelMapper;
+	private ModelMapper modelMapper;
 
 	@Autowired
-	CSVHelper cSVHelper;
+	private CSVHelper cSVHelper;
 
 	@Override
 	public List<Customer> listAll() throws FMSException {

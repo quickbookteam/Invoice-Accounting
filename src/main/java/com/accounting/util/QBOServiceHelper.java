@@ -28,7 +28,7 @@ import com.intuit.oauth2.exception.OAuthException;
 public class QBOServiceHelper {
 	
 	@Autowired
-	OAuth2PlatformClientFactory factory;
+	private OAuth2PlatformClientFactory factory;
 	
 	private static final Logger logger = Logger.getLogger(QBOServiceHelper.class);
 

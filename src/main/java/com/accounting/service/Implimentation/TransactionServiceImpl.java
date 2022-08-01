@@ -16,8 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @Qualifier("transactionServiceImplementation")
 public class TransactionServiceImpl implements TransactionServices {
@@ -31,7 +29,7 @@ public class TransactionServiceImpl implements TransactionServices {
     @Autowired
     MongoTemplate mongoTemplate;
 
-    public TransactionServiceImpl(@Qualifier("transactionRepository") TransactionRepository transactionRepository,@Qualifier("helper")Helper helper) {
+    public TransactionServiceImpl(@Qualifier("transactionRepository") TransactionRepository transactionRepository, @Qualifier("helper")Helper helper) {
         this.transactionRepository = transactionRepository;
         this.helper=helper;
         this.modelMapper =new ModelMapper();
