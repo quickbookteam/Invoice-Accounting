@@ -1,0 +1,59 @@
+package com.acounting.service.Implimentation;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+
+import com.acounting.entity.Connection;
+import com.acounting.modal.ConnectionModal;
+import com.acounting.repositery.ConnectionRepositery;
+import com.acounting.service.ConnectionService;
+
+@Service
+@Qualifier("connectionImplementation")
+public class ConnectionServiceImpl implements ConnectionService {
+
+	private ConnectionRepositery connectionRepositery;
+
+	private ModelMapper modelMapper;
+
+	@Autowired
+	public ConnectionServiceImpl(@Qualifier("connectionRepository") ConnectionRepositery connectionRepositery) {
+		this.connectionRepositery = connectionRepositery;
+		this.modelMapper = new ModelMapper();
+
+	}
+
+	@Override
+	public ResponseEntity<?> save(ConnectionModal connection) {
+		Connection con = modelMapper.map(connection, Connection.class);
+		connectionRepositery.save(con);
+
+		return new ResponseEntity<>("Added", HttpStatus.OK);
+	}
+
+	@Override
+	public Connection getDetails() {
+		
+
+		return connectionRepositery.findById(1L).get();
+	}
+
+	@Override
+	public ConnectionModal get(Long id) {
+		if (!connectionRepositery.existsById(id)) {
+			return null;
+		}
+		return new ModelMapper().map(connectionRepositery.findById(id).get(), ConnectionModal.class);
+	}
+
+	@Override
+	public ConnectionModal updateConnectionInfo(ConnectionModal connectionModel) {
+		connectionRepositery.save(new ModelMapper().map(connectionModel, Connection.class));
+		return connectionModel;
+	}
+
+}
