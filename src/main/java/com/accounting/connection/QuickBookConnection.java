@@ -15,7 +15,7 @@ import com.intuit.ipp.services.DataService;
 import com.intuit.ipp.util.Config;
 
 @Component
-public class QuickBookConnection implements Connections {
+public class QuickBookConnection implements IConnections {
 	
 	private ConnectionService connectionService;
 

@@ -18,7 +18,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import com.accounting.connection.Connections;
+import com.accounting.connection.IConnections;
 import com.accounting.entity.customer.LocalCustomer;
 import com.accounting.entity.invoice.LocalInvoice;
 import com.accounting.exception.CustomException;
@@ -44,7 +44,7 @@ public class SchedularServiceImpl implements SchedularService {
 
 	private ObjectMapper mapper;
 
-	private Connections connections;
+	private IConnections iConnections;
 
 	@Autowired
 	private MongoTemplate mongoTemplate;
@@ -54,11 +54,11 @@ public class SchedularServiceImpl implements SchedularService {
 	private ChartHelper chartHelper;
 
 	@Autowired
-	public SchedularServiceImpl(Connections connections, CustomerRepo customerRepo,
+	public SchedularServiceImpl(IConnections iConnections, CustomerRepo customerRepo,
 			InvoiceRepository invoiceRepository) {
 		this.modelMapper = new ModelMapper();
 		this.mapper = new ObjectMapper();
-		this.connections = connections;
+		this.iConnections = iConnections;
 		this.invoiceRepository = invoiceRepository;
 		this.chartHelper = new ChartHelper();
 
@@ -76,7 +76,7 @@ public class SchedularServiceImpl implements SchedularService {
 	@Override
 	public Invoice saveInvoiceToQuickBook(InvoiceModal invoiceModal) throws FMSException {
 		
-			DataService dataService = connections.createConnection();
+			DataService dataService = iConnections.createConnection();
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 			Invoice invoice = mapper.convertValue(invoiceModal, Invoice.class);
@@ -109,7 +109,7 @@ public class SchedularServiceImpl implements SchedularService {
 	@Override
 	public Customer saveCustomerToQuickBook(LocalCustomerModal customerModal) throws FMSException {
 		
-			DataService dataService = connections.createConnection();
+			DataService dataService = iConnections.createConnection();
 			mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 			Customer customer = mapper.convertValue(customerModal, Customer.class);
 			return dataService.add(customer);
@@ -120,7 +120,7 @@ public class SchedularServiceImpl implements SchedularService {
 	@Override
 	public Customer updateCustomerToQuickBook(Customer customer) throws FMSException {
         
-		DataService dataService = connections.createConnection();
+		DataService dataService = iConnections.createConnection();
 		Customer resultCustomer = dataService.add(customer);
 		return resultCustomer;
   

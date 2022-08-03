@@ -37,13 +37,14 @@ public class CustomerScheduler {
 		this.modelMapper = new ModelMapper();
 	}
 
-//	@Scheduled(cron = "* * * ? * *") // after every second
+	@Scheduled(cron = "* * * ? * *") // after every second
 	public void saveCustomerToQuickBookServer() {
 		List<LocalCustomer> customers = customerService.getCustomersWithCreatedStatus();
 		for (LocalCustomer localCustomer : customers) {
 			LocalCustomerModal localCustomerModal = modelMapper.map(localCustomer, LocalCustomerModal.class);
 			Customer customer;
 			try {
+				localCustomerModal.setStatus(null);
 				customer = schedularService.saveCustomerToQuickBook(localCustomerModal);
 				log.info("Customer before save to quick book");
 				customerService.saveCustomerId(customer.getId(), localCustomer.get_id());

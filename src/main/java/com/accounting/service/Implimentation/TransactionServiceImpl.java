@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.accounting.connection.Connections;
+import com.accounting.connection.IConnections;
 import com.accounting.entity.transaction.LocalTransaction;
 import com.accounting.modal.CommonResponse;
 import com.accounting.modal.transaction.LocalTransactionModel;
@@ -22,7 +22,7 @@ public class TransactionServiceImpl implements TransactionServices {
 
 	private TransactionRepository transactionRepository;
 
-	private Connections connections;
+	private IConnections iConnections;
 
 	private ModelMapper modelMapper;
 
@@ -30,9 +30,9 @@ public class TransactionServiceImpl implements TransactionServices {
 	MongoTemplate mongoTemplate;
 
 	@Autowired
-	public TransactionServiceImpl(TransactionRepository transactionRepository, Connections connections) {
+	public TransactionServiceImpl(TransactionRepository transactionRepository, IConnections iConnections) {
 		this.transactionRepository = transactionRepository;
-		this.connections = connections;
+		this.iConnections = iConnections;
 		this.modelMapper = new ModelMapper();
 	}
 
@@ -40,7 +40,7 @@ public class TransactionServiceImpl implements TransactionServices {
 	public ResponseEntity<CommonResponse> saveTransaction(LocalTransactionModel localTransactionModel)
 			throws FMSException {
 		Payment payment = modelMapper.map(localTransactionModel, Payment.class);
-		LocalTransaction localTransaction = modelMapper.map( connections.createConnection().add(payment),
+		LocalTransaction localTransaction = modelMapper.map( iConnections.createConnection().add(payment),
 				LocalTransaction.class);
 		transactionRepository.save(localTransaction);
 		CommonResponse response = new CommonResponse(localTransaction, UtilConstants.TRANSECTION_SAVED);

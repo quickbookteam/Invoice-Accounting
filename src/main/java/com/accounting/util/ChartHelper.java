@@ -11,30 +11,24 @@ import org.jfree.data.general.DefaultPieDataset;
 
 import com.accounting.modal.Data;
 
-
-
 public class ChartHelper {
-	
+
 	public void generatePieChart(List<Data> list, String location) {
-        // a. Create DataSet and read List<Object[]> into DataSet values
 
-        DefaultPieDataset dataset = new DefaultPieDataset();
-    
-       
-        // get value from list
-        for (Data ob : list) {
-            dataset.setValue(String.valueOf(UtilConstants.months.get(ob.getCreateTime().getMonth())), Double.valueOf(ob.getCount()));
-        }
+		DefaultPieDataset dataset = new DefaultPieDataset();
 
-        // b. Convert DataSet data into JFreeChart object using ChartFactory class
-        JFreeChart chart = ChartFactory.createPieChart3D("Customer pieChart", dataset);
-        
-        //// c. Convert JFreeChart object into one Image using ChartUtil class
-        try {
-            ChartUtils.saveChartAsJPEG(new File(location + "/Customerpie.jpg"), chart, 400, 300);        
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+		for (Data ob : list) {
+			dataset.setValue(String.valueOf(UtilConstants.months.get(ob.getCreateTime().getMonth())),
+					Double.valueOf(ob.getCount()));
+		}
 
-    }
+		JFreeChart chart = ChartFactory.createPieChart3D("Customer pieChart", dataset);
+
+		try {
+			ChartUtils.saveChartAsJPEG(new File(location + "/Customerpie.jpg"), chart, 400, 300);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
 }
