@@ -14,7 +14,6 @@ import com.intuit.oauth2.config.OAuth2Config;
 
 
 @Service
-@PropertySource(value="classpath:/application.properties", ignoreResourceNotFound=true)
 public class OAuth2PlatformClientFactory {
 	
 	@Autowired

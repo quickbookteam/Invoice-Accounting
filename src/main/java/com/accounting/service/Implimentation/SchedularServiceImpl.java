@@ -29,6 +29,7 @@ import com.accounting.repositery.CustomerRepo;
 import com.accounting.repositery.InvoiceRepository;
 import com.accounting.service.SchedularService;
 import com.accounting.util.ChartHelper;
+import com.accounting.util.UtilConstants;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intuit.ipp.data.Customer;
@@ -75,7 +76,7 @@ public class SchedularServiceImpl implements SchedularService {
 
 	@Override
 	public Invoice saveInvoiceToQuickBook(InvoiceModal invoiceModal) throws FMSException {
-		
+		try {
 			DataService dataService = iConnections.createConnection();
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
@@ -84,12 +85,16 @@ public class SchedularServiceImpl implements SchedularService {
 			Invoice resultInvoice = dataService.add(invoice);
 			return resultInvoice;
 			}
+		    catch(Exception e) {
+		    	throw new CustomException(UtilConstants.CUSTOMER_ADD_FAILED);
+		    }
+		}
 
 	@Override
 	public InvoiceModal findInvoiceById(String id) {
 
 		if (!invoiceRepository.existsById(id)) {
-			return null;
+			throw new CustomException(UtilConstants.INVOICE_NOT_FOUND);
 		}
 		LocalInvoice invoice = invoiceRepository.findById(id).get();
 		InvoiceModal invoiceModal = modelMapper.map(invoice, InvoiceModal.class);
@@ -104,26 +109,35 @@ public class SchedularServiceImpl implements SchedularService {
 			result.setInvoiceId(id);
 			invoiceRepository.save(result);
 		}
+		else {
+			throw new CustomException(UtilConstants.INVOICE_NOT_FOUND);
+		}
 	}
 
 	@Override
 	public Customer saveCustomerToQuickBook(LocalCustomerModal customerModal) throws FMSException {
-		
-			DataService dataService = iConnections.createConnection();
+		try {
+			
+		DataService dataService = iConnections.createConnection();
 			mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 			Customer customer = mapper.convertValue(customerModal, Customer.class);
 			return dataService.add(customer);
-		
-
+		}
+		catch(Exception e) {
+			throw new CustomException(e.getMessage());
+		}
 	}
 
 	@Override
 	public Customer updateCustomerToQuickBook(Customer customer) throws FMSException {
-        
+		try {
 		DataService dataService = iConnections.createConnection();
 		Customer resultCustomer = dataService.add(customer);
 		return resultCustomer;
-  
+		}
+		catch(Exception e) {
+			throw new CustomException(e.getMessage());
+		}
 	}
 
 	@Override

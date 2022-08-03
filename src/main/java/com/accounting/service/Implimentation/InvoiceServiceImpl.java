@@ -37,7 +37,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
 	@Override
 	public ResponseEntity<CommonResponse> save(InvoiceModal invoiceModal) {
-		if (customerRepositery.findByCustomerId(invoiceModal.getCustomerRef().getValue()) == null) {
+	   if (customerRepositery.findByCustomerId(invoiceModal.getCustomerRef().getValue()) == null) {
 			throw new CustomerNotFoundException(UtilConstants.CUSTOMER_NOT_FOUND);
 		}
 		try {

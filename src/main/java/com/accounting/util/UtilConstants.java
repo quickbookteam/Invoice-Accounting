@@ -19,6 +19,7 @@ public static String CUSTOMER_DELETED="User Deleted Successfully";
 public static String CUSTOMER_LIST= "Getting User List  Successfull";
 public static String CUSTOMER_UPDATED="User Updated Successfully";
 public static String CUSTOMER_FOUND="Customer Found Successfully";
+public static String CUSTOMER_ADD_FAILED="CUSTOMER addd failed to quick book server";
 public static String INVOICE_NOT_FOUND="Invoice Not Found";
 public static String INVOICE_SAVED="Invoice Saved Successfully";
 public static String INVOICE_FOUND="Invoice found Successsfully";

@@ -41,7 +41,7 @@ public class TransactionServiceImpl implements TransactionServices {
 			throws FMSException {
 		Payment payment = modelMapper.map(localTransactionModel, Payment.class);
 		LocalTransaction localTransaction = modelMapper.map( iConnections.createConnection().add(payment),
-				LocalTransaction.class);
+			LocalTransaction.class);
 		transactionRepository.save(localTransaction);
 		CommonResponse response = new CommonResponse(localTransaction, UtilConstants.TRANSECTION_SAVED);
 		return new ResponseEntity<CommonResponse>(response, HttpStatus.OK);
