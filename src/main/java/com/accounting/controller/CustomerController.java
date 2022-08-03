@@ -1,10 +1,12 @@
 package com.accounting.controller;
 
 import java.util.Date;
-import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +21,6 @@ import com.accounting.modal.customer.CustomerModal;
 import com.accounting.modal.customer.LocalCustomerModal;
 import com.accounting.service.CustomerCSVServices;
 import com.accounting.service.CustomerService;
-import com.accounting.util.ChartHelper;
 import com.intuit.ipp.exception.FMSException;
 
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +47,7 @@ public class CustomerController {
 	}
 
 	@PostMapping("/customer")
-	public ResponseEntity<CommonResponse> addLocalCustomer(@RequestBody CustomerModal customer) throws Exception {
+	public ResponseEntity<CommonResponse> addLocalCustomer(@Valid @RequestBody CustomerModal customer) throws MethodArgumentNotValidException {
 		log.info("inside add customer");
 		log.info("customer details", customer);
 		customer.setLastUpdatedTime(new Date());

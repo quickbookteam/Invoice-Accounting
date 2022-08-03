@@ -1,7 +1,7 @@
 package com.accounting.modal.customer;
 
 
-import java.util.Date;
+import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class PrimaryEmailAddrModal {
+	@NotBlank(message = "Address cannot null")
     private String address ;
 
 }

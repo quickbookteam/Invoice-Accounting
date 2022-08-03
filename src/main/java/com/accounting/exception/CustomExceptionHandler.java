@@ -2,12 +2,11 @@ package com.accounting.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.accounting.modal.CommonResponse;
-import com.accounting.scheduler.EmailSchedular;
-import com.intuit.ipp.exception.FMSException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,6 +35,13 @@ public class CustomExceptionHandler {
 	public void customFileNotFoundException(CustomFileNotFoundException obj) {
 		log.info(obj.getMessage());
 
+	}
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<CommonResponse>  methodArgumentNotValidException(MethodArgumentNotValidException obj)
+	{
+		CommonResponse response = new CommonResponse(null, obj.getBindingResult().getAllErrors().get(0).getDefaultMessage());
+		return new ResponseEntity<CommonResponse>(response, HttpStatus.BAD_REQUEST);
 	}
 
 }
