@@ -13,7 +13,6 @@ import com.accounting.repositery.ConnectionRepositery;
 import com.accounting.service.ConnectionService;
 
 @Service
-@Qualifier("connectionImplementation")
 public class ConnectionServiceImpl implements ConnectionService {
 
 	private ConnectionRepositery connectionRepositery;
@@ -21,7 +20,7 @@ public class ConnectionServiceImpl implements ConnectionService {
 	private ModelMapper modelMapper;
 
 	@Autowired
-	public ConnectionServiceImpl(@Qualifier("connectionRepository") ConnectionRepositery connectionRepositery) {
+	public ConnectionServiceImpl( ConnectionRepositery connectionRepositery) {
 		this.connectionRepositery = connectionRepositery;
 		this.modelMapper = new ModelMapper();
 

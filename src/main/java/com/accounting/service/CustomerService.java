@@ -6,8 +6,8 @@ import org.springframework.http.ResponseEntity;
 
 import com.accounting.entity.customer.LocalCustomer;
 import com.accounting.modal.CommonResponse;
+import com.accounting.modal.Data;
 import com.accounting.modal.customer.CustomerModal;
-import com.accounting.util.Data;
 import com.intuit.ipp.data.Customer;
 import com.intuit.ipp.exception.FMSException;
 
@@ -23,15 +23,11 @@ public interface CustomerService {
 
 	ResponseEntity<CommonResponse> update(CustomerModal customer);
 
-	Customer updateCustomerToQuickBook(Customer customer) throws FMSException;
+	void saveCustomerId(String id, String localCustomerId);
 
-	void saveId(String id, String localCustomerId);
+	List<LocalCustomer> getCustomersWithCreatedStatus();
 
-	void updateStatus(String customerId);
-
-	List<LocalCustomer> getCustomers_With_CreatedStatus();
-
-	List<LocalCustomer> getCustomers_With_UpdatedStatus();
+	List<LocalCustomer> getCustomersWithUpdatedStatus();
 
 	List<Data> customerCount();
 

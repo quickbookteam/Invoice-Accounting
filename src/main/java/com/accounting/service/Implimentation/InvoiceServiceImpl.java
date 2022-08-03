@@ -1,10 +1,7 @@
 package com.accounting.service.Implimentation;
 
-import java.util.List;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,31 +15,24 @@ import com.accounting.modal.invoice.InvoiceModal;
 import com.accounting.repositery.CustomerRepo;
 import com.accounting.repositery.InvoiceRepository;
 import com.accounting.service.InvoiceService;
-import com.accounting.util.Helper;
 import com.accounting.util.UtilConstants;
 
 @Service
 public class InvoiceServiceImpl implements InvoiceService {
 
-	private Helper helper;
-
 	private ModelMapper modelMapper;
 
-	
 	private InvoiceRepository invoiceRepository;
 
-	
 	private CustomerRepo customerRepositery;
 
 	@Autowired
-	private MongoTemplate mongoTemplate;
+	public InvoiceServiceImpl(InvoiceRepository invoiceRepository, CustomerRepo customerRepositery) {
 
-	InvoiceServiceImpl(InvoiceRepository invoiceRepository, CustomerRepo customerRepositery) {
-		this.helper = new Helper();
 		this.modelMapper = new ModelMapper();
-		this.invoiceRepository=invoiceRepository;
-		this.customerRepositery=customerRepositery;
-		
+		this.invoiceRepository = invoiceRepository;
+		this.customerRepositery = customerRepositery;
+
 	}
 
 	@Override
@@ -75,31 +65,6 @@ public class InvoiceServiceImpl implements InvoiceService {
 			throw new InvoiceNotFoundException(UtilConstants.INVOICE_NOT_FOUND);
 		}
 
-	}
-
-	@Override
-	public List<LocalInvoice> findAll() {
-		List<LocalInvoice> localinvoice = invoiceRepository.findAll();
-		boolean check = localinvoice.isEmpty();
-		if (check == false) {
-			return localinvoice;
-		} else {
-			return null;
-//			throw new InvoiceException();
-		}
-	}
-
-	@Override
-	public void saveId(String id, String localInvoiceId) {
-
-		LocalInvoice result = invoiceRepository.findById(localInvoiceId).get();
-		if (result != null) {
-			result.setStatus("uploaded");
-			result.setInvoiceId(id);
-			invoiceRepository.save(result);
-		} else {
-//			throw new InvoiceException();
-		}
 	}
 
 }

@@ -1,4 +1,5 @@
 com\accounting\entity\invoice\CustomerRef.class
+com\accounting\connection\QuickBookConnection.class
 com\accounting\exception\CustomException.class
 com\accounting\service\CustomerCSVServices.class
 com\accounting\modal\transaction\CustomerRef.class
@@ -32,6 +33,8 @@ com\accounting\service\Implimentation\EmailServiceImp.class
 com\accounting\util\ChartHelper.class
 com\accounting\entity\invoice\Line.class
 com\accounting\modal\customer\CustomerModal.class
+com\accounting\ascpect\enable.class
+com\accounting\connection\Connections.class
 com\accounting\modal\customer\LocalCustomerModal.class
 com\accounting\entity\invoice\ItemRef.class
 com\accounting\entity\Connection.class

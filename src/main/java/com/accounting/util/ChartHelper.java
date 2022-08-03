@@ -9,6 +9,8 @@ import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 
+import com.accounting.modal.Data;
+
 
 
 public class ChartHelper {

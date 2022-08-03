@@ -34,7 +34,7 @@ public class ConnectionSchedular {
 	private ConnectionService connectionService;
 
     @Autowired // inject FirstServiceImpl
-    public void ConnectionService(@Qualifier("connectionImplementation") ConnectionService connectionService) {
+    public  ConnectionSchedular( ConnectionService connectionService) {
     	log.info("autowiring connection service", connectionService);
         this.connectionService = connectionService;
     }
@@ -77,7 +77,7 @@ public class ConnectionSchedular {
                 connectionModel.setAccessToken(bearerTokenResponse.getAccessToken());
                 connectionService.save(connectionModel);
             } catch (Exception e) {
-                throw e;
+                log.info(e.getMessage());
             }
         }
 
@@ -88,13 +88,10 @@ public class ConnectionSchedular {
                 log.info("after update");
                
             } catch (Exception e) {
-                throw e;
+                log.info(e.getMessage());
             }
         }
 
-        IAuthorizer oauth = new OAuth2Authorizer(bearerTokenResponse.getAccessToken());
-        Config.setProperty(Config.BASE_URL_QBO, UtilConstants.quickBooksConnectURL);
-        Context context = new Context(oauth, ServiceType.QBO, UtilConstants.RealmID);
     }
 
 

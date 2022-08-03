@@ -1,6 +1,5 @@
 package com.accounting.scheduler;
 
-import java.util.Date;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -9,16 +8,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import com.accounting.entity.invoice.LocalInvoice;
-import com.accounting.modal.customer.LocalCustomerModal;
 import com.accounting.modal.invoice.InvoiceModal;
 import com.accounting.service.SchedularService;
-import com.accounting.service.Implimentation.SchedularServiceImpl;
-import com.accounting.util.Helper;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.intuit.ipp.data.Invoice;
 import com.intuit.ipp.exception.FMSException;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Configuration
+@Slf4j
 public class InvoiceScheduler {
 
 	SchedularService schedularService;
@@ -31,16 +29,21 @@ public class InvoiceScheduler {
 
 	}
 
-	@Scheduled(cron = "* * * ? * *") // after every second
+//	@Scheduled(cron = "* * * ? * *") // after every second
 
 	public Invoice saveInvoiceToQuickBookServer() throws FMSException {
 
-		List<LocalInvoice> localInvoices = schedularService.getInvoices_With_Created_Status();
+		List<LocalInvoice> localInvoices = schedularService.getInvoicesWithCreatedStatus();
 		for (LocalInvoice localInvoice : localInvoices) {
 			InvoiceModal invoiceModal = modelMapper.map(localInvoice, InvoiceModal.class);
-
-			Invoice invoice = schedularService.saveInvoiceToQuickBook(invoiceModal);
-			schedularService.saveId(invoice.getId(), localInvoice.getId());
+			try {
+				log.info("Invoice before save to quick book");
+				Invoice invoice = schedularService.saveInvoiceToQuickBook(invoiceModal);
+				log.info("Invoice after save to quickbook");
+				schedularService.saveCustomerId(invoice.getId(), localInvoice.getId());
+			} catch (Exception ex) {
+				log.info(ex.getMessage());
+			}
 		}
 
 		return null;

@@ -11,6 +11,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import com.accounting.modal.EmailDetails;
 import com.accounting.service.CustomerService;
 import com.accounting.service.Emailservice;
+import com.accounting.service.SchedularService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,29 +24,29 @@ public class EmailSchedular {
 	 private  Emailservice emailService;
 
 	 
-	 private CustomerService customerService;
+	 private SchedularService schedularService;
 
     @Autowired // inject FirstServiceImpl
-    public void Emailservice(@Qualifier("emailService") Emailservice emailService,@Qualifier("customerServiceImplementation") CustomerService customerService) {
+    public  EmailSchedular( Emailservice emailService,SchedularService schedularService) {
     	log.info("autowiring Email service", emailService);
         this.emailService = emailService;
-        this.customerService=customerService;
+        this.schedularService=schedularService;
     }
 
-    @Scheduled(cron = "0 * * ? * *")
-    public String chartImageMalling()
+    //@Scheduled(cron = "0 * * ? * *")
+    public void chartImageMalling()
     {
     	
-        customerService.generateCharts();
+    	if(schedularService.generateCharts())
+    	{
     	EmailDetails details=new EmailDetails();
     	details.setRecipient("rusiapradhan33@gmail.com");
 		details.setAttachment("D:\\charts\\Customerpie.jpg");
 		details.setMsgBody("daily deport"+new Date());
 		details.setSubject("daily customer report");
-       
-    	String status= emailService.sendMailWithAttachment(details);
-
-        return status;
+		String status= emailService.sendMailWithAttachment(details);
+    	}
+    	
     }
 
     

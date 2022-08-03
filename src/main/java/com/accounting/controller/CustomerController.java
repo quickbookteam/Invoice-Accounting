@@ -28,28 +28,21 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CustomerController {
 
-	
 	private CustomerService customerService;
 
-	
 	private CustomerCSVServices service;
-	
-
-	
 
 	@Autowired
-	CustomerController(CustomerService customerService,CustomerCSVServices service)
-	{
-		 this.customerService=customerService;
-		 this.service=service;
+	public CustomerController(CustomerService customerService, CustomerCSVServices service) {
+		this.customerService = customerService;
+		this.service = service;
 	}
 
 	@GetMapping("/customer/{id}")
-	public ResponseEntity<CommonResponse> get(@PathVariable("id") String id) throws Exception  {
-	log.info("inside customer search by id");
-				return customerService.getCustomerById(id);
-			
-		
+	public ResponseEntity<CommonResponse> get(@PathVariable("id") String id) throws Exception {
+		log.info("inside customer search by id");
+		return customerService.getCustomerById(id);
+
 	}
 
 	@PostMapping("/customer")
@@ -58,7 +51,7 @@ public class CustomerController {
 		log.info("customer details", customer);
 		customer.setLastUpdatedTime(new Date());
 		customer.setCreateTime(new Date());
-		
+
 		return customerService.save(customer);
 	}
 
@@ -85,10 +78,10 @@ public class CustomerController {
 		log.info("inside add customer using csv file");
 		return service.addCustomersCsv(file);
 	}
+
 	@GetMapping("/charts")
-    public ResponseEntity<String> generateCharts() {
-        log.info("inside chart preparation");
-        return customerService.generateCharts();
+	public ResponseEntity<String> generateCharts() {
+		log.info("inside chart preparation");
+		return customerService.generateCharts();
 	}
 }
-      

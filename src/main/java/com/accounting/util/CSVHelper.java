@@ -11,12 +11,17 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.accounting.controller.CustomerController;
+import com.accounting.exception.CustomFileNotFoundException;
 import com.accounting.modal.customer.BillAddrModal;
 import com.accounting.modal.customer.LocalCustomerModal;
 import com.accounting.modal.customer.PrimaryEmailAddrModal;
 import com.accounting.modal.customer.PrimaryPhoneModal;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Component
+@Slf4j
 public class CSVHelper {
 	public List<LocalCustomerModal> fileToCustomer(MultipartFile file) {
 		BufferedReader br;
@@ -30,10 +35,12 @@ public class CSVHelper {
 				data = line.split(",");
 				customerModal.add(CSVHelper.customerIntializer(data));
 			}
+			br.close();
 			return customerModal;
 
 		} catch (IOException e) {
-			System.err.println(e.getMessage());
+
+			log.info(e.getMessage());
 			return null;
 		}
 	}

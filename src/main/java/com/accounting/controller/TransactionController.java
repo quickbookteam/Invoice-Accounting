@@ -16,7 +16,7 @@ public class TransactionController {
     TransactionServices transactionServices;
 
     @Autowired
-    public TransactionController(@Qualifier("transactionServiceImplementation")TransactionServices transactionServices) {
+    public TransactionController(TransactionServices transactionServices) {
         this.transactionServices =transactionServices;
     }
 

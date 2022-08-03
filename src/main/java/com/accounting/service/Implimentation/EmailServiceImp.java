@@ -18,7 +18,6 @@ import com.accounting.modal.EmailDetails;
 import com.accounting.service.Emailservice;
 
 @Service
-@Qualifier("emailService")
 public class EmailServiceImp implements Emailservice {
 
 	@Autowired

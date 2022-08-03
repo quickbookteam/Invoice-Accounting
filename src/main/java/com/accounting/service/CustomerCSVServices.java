@@ -10,7 +10,6 @@ import com.intuit.ipp.data.Customer;
 
 public interface CustomerCSVServices {
 
-	List<Customer> listAll() throws Exception;
 
 	ResponseEntity<LocalCustomerModal> addCustomersCsv(MultipartFile file);
 }

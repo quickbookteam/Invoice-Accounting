@@ -1,4 +1,4 @@
-package com.accounting.util;
+package com.accounting.modal;
 
 import java.util.Date;
 
