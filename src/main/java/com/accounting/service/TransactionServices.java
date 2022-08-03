@@ -10,4 +10,7 @@ public interface TransactionServices {
     ResponseEntity<?> saveTransaction(LocalTransactionModel localTransactionModel) throws FMSException;
 
     ResponseEntity<?> getTransaction(String id);
+
+    ResponseEntity<?> updateTransaction(String id, LocalTransactionModel localTransactionModel);
+
 }

@@ -32,10 +32,9 @@ public class EmailSchedular {
         this.customerService=customerService;
     }
 
-    @Scheduled(cron = "0 * * ? * *")
+//    @Scheduled(cron = "0 * * ? * *")
     public String chartImageMalling()
     {
-    	
         customerService.generateCharts();
     	EmailDetails details=new EmailDetails();
     	details.setRecipient("rusiapradhan33@gmail.com");

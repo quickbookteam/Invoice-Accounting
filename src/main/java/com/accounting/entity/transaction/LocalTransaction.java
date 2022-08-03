@@ -14,15 +14,13 @@ public class LocalTransaction {
     @Id
     @Field("_id")
     private String id;
-    @Field("transaction_id")
-    private String transactionId;
     private CustomerRef customerRef;
     private double totalAmt;
     private List<Line> line;
     private Date createTime;
     private Date lastUpdatedTime;
     private String domain;
-    private String status;
+    private String status="Uploaded";
     private DepositToAccountRef depositToAccountRef;
     private Double unappliedAmt;
 

@@ -14,32 +14,28 @@ import com.intuit.ipp.exception.FMSException;
 
 public interface CustomerService {
 
-	ResponseEntity<CommonResponse> save(CustomerModal customerModal);
+    ResponseEntity<CommonResponse> save(CustomerModal customerModal);
 
-	ResponseEntity<CommonResponse> getCustomerById(String id)throws Exception;
+    ResponseEntity<CommonResponse> getCustomerById(String id) throws Exception;
 
-	ResponseEntity<CommonResponse> delete(String id);
+    ResponseEntity<CommonResponse> delete(String id);
 
-	ResponseEntity<CommonResponse> getAll();
+    ResponseEntity<CommonResponse> getAll();
 
-	ResponseEntity<CommonResponse> update(CustomerModal customer);
+    ResponseEntity<CommonResponse> update(CustomerModal customer);
 
-//	public ResponseEntity<LocalCustomerModal> findById(String id);
+    Customer updateCustomerToQuickBook(Customer customer) throws FMSException;
 
+    void saveId(String id, String localCustomerId);
 
+    void updateStatus(String customerId);
 
-	
-	 Customer updateCustomerToQuickBook(Customer customer) throws FMSException;
+    List<LocalCustomer> getCustomers_With_CreatedStatus();
 
-	 void saveId(String id, String localCustomerId);
+    List<LocalCustomer> getCustomers_With_UpdatedStatus();
 
-	 void updateStatus(String customerId);
+    List<Data> customerCount();
 
-	List<LocalCustomer> getCustomers_With_CreatedStatus();
-
-	List<LocalCustomer> getCustomers_With_UpdatedStatus();
-	 List<Data> customerCount();
-	
-	  ResponseEntity<String> generateCharts() ;
+    ResponseEntity<String> generateCharts();
 
 }

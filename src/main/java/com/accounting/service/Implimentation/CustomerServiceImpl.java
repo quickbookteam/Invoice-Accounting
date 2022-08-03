@@ -62,7 +62,6 @@ public class CustomerServiceImpl implements CustomerService {
 		this.mapper = new ObjectMapper();
 		this.helper = new Helper();
 		this.chartHelper=new ChartHelper();
-
 	}
 
 	@Override
@@ -111,7 +110,6 @@ public class CustomerServiceImpl implements CustomerService {
 	public ResponseEntity<CommonResponse> update(CustomerModal customer) {
 		LocalCustomer Customer = customerRepo.findByCustomerId(customer.getId());
 		if (Customer != null) {
-
 			LocalCustomer actualCustomer = modelMapper.map(customer, LocalCustomer.class);
 			actualCustomer.setCustomerId(customer.getId());
 			actualCustomer.set_id(Customer.get_id());

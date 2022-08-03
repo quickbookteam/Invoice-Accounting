@@ -11,19 +11,15 @@ import com.accounting.scheduler.ConnectionSchedular;
 public class SetupRunner 
 	implements CommandLineRunner
 {
-	
-
 	private ConnectionSchedular connectionSchedular;
 
 	@Autowired
 	public SetupRunner(ConnectionSchedular connectionSchedular) {
 		this.connectionSchedular = connectionSchedular;
-		
-
 	}
 	
 	public void run(String... args) throws Exception {
 		connectionSchedular.connectionStablished();
-
 }
+
 }

@@ -10,6 +10,6 @@ import com.accounting.entity.transaction.LocalTransaction;
 @Qualifier("transactionRepository")
 public interface TransactionRepository extends MongoRepository<LocalTransaction,String> {
 
-    LocalTransaction findByTransactionId(String id);
+//    LocalTransaction findByTransactionId(String id);
 
 }

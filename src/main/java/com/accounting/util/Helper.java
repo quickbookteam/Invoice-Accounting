@@ -18,6 +18,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Component
+@Qualifier("helper")
 public class Helper {
 	
 	

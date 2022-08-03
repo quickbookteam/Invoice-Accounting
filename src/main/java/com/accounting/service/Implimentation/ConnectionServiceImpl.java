@@ -1,5 +1,8 @@
 package com.accounting.service.Implimentation;
 
+import com.accounting.exception.CustomException;
+import com.accounting.modal.CommonResponse;
+import com.accounting.util.UtilConstants;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,44 +19,53 @@ import com.accounting.service.ConnectionService;
 @Qualifier("connectionImplementation")
 public class ConnectionServiceImpl implements ConnectionService {
 
-	private ConnectionRepositery connectionRepositery;
+    private ConnectionRepositery connectionRepositery;
 
-	private ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
-	@Autowired
-	public ConnectionServiceImpl(@Qualifier("connectionRepository") ConnectionRepositery connectionRepositery) {
-		this.connectionRepositery = connectionRepositery;
-		this.modelMapper = new ModelMapper();
+    @Autowired
+    public ConnectionServiceImpl(@Qualifier("connectionRepository") ConnectionRepositery connectionRepositery) {
+        this.connectionRepositery = connectionRepositery;
+        this.modelMapper = new ModelMapper();
+    }
 
-	}
+    @Override
+    public ResponseEntity<?> save(ConnectionModal connection) {
+        try {
+            Connection con = modelMapper.map(connection, Connection.class);
+            connectionRepositery.save(con);
+            CommonResponse response = new CommonResponse(con, UtilConstants.CONNECTION_STABLISHED);
+            return new ResponseEntity<CommonResponse>(response, HttpStatus.CREATED);
+        } catch (Exception e) {
+            throw new CustomException(e.getMessage());
+        }
+    }
 
-	@Override
-	public ResponseEntity<?> save(ConnectionModal connection) {
-		Connection con = modelMapper.map(connection, Connection.class);
-		connectionRepositery.save(con);
+    @Override
+    public Connection getDetails() {
+        Connection connection = connectionRepositery.findById(1L).get();
+        if (!connection.equals(null)) {
+            return connection;
+        } else {
+            throw new CustomException("Connection Not Found");
+        }
+    }
 
-		return new ResponseEntity<>("Added", HttpStatus.OK);
-	}
+    @Override
+    public ConnectionModal get(Long id) {
+        if (!connectionRepositery.existsById(id)) {
+            throw new CustomException(UtilConstants.CONNECTION_NOT_FOUND);
+        }
+        return new ModelMapper().map(connectionRepositery.findById(id).get(), ConnectionModal.class);
+    }
 
-	@Override
-	public Connection getDetails() {
-		
-
-		return connectionRepositery.findById(1L).get();
-	}
-
-	@Override
-	public ConnectionModal get(Long id) {
-		if (!connectionRepositery.existsById(id)) {
-			return null;
-		}
-		return new ModelMapper().map(connectionRepositery.findById(id).get(), ConnectionModal.class);
-	}
-
-	@Override
-	public ConnectionModal updateConnectionInfo(ConnectionModal connectionModel) {
-		connectionRepositery.save(new ModelMapper().map(connectionModel, Connection.class));
-		return connectionModel;
-	}
-
+    @Override
+    public ConnectionModal updateConnectionInfo(ConnectionModal connectionModel) {
+        try {
+            connectionRepositery.save(new ModelMapper().map(connectionModel, Connection.class));
+            return connectionModel;
+        }catch (Exception e){
+            throw  new CustomException(e.getMessage());
+        }
+    }
 }

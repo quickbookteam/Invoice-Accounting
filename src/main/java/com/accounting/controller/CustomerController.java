@@ -1,8 +1,6 @@
 package com.accounting.controller;
 
 import java.util.Date;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,7 +17,6 @@ import com.accounting.modal.customer.CustomerModal;
 import com.accounting.modal.customer.LocalCustomerModal;
 import com.accounting.service.CustomerCSVServices;
 import com.accounting.service.CustomerService;
-import com.accounting.util.ChartHelper;
 import com.intuit.ipp.exception.FMSException;
 
 import lombok.extern.slf4j.Slf4j;
@@ -27,15 +24,9 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @Slf4j
 public class CustomerController {
-
 	
 	private CustomerService customerService;
-
-	
 	private CustomerCSVServices service;
-	
-
-	
 
 	@Autowired
 	CustomerController(CustomerService customerService,CustomerCSVServices service)
@@ -46,10 +37,8 @@ public class CustomerController {
 
 	@GetMapping("/customer/{id}")
 	public ResponseEntity<CommonResponse> get(@PathVariable("id") String id) throws Exception  {
-	log.info("inside customer search by id");
-				return customerService.getCustomerById(id);
-			
-		
+		log.info("inside customer search by id");
+		return customerService.getCustomerById(id);
 	}
 
 	@PostMapping("/customer")
@@ -58,7 +47,6 @@ public class CustomerController {
 		log.info("customer details", customer);
 		customer.setLastUpdatedTime(new Date());
 		customer.setCreateTime(new Date());
-		
 		return customerService.save(customer);
 	}
 

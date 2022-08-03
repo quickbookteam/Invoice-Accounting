@@ -27,4 +27,11 @@ public class CustomExceptionHandler {
 		CommonResponse response=new CommonResponse(null,obj.getMessage());
 		return new ResponseEntity<CommonResponse>(response,HttpStatus.NOT_FOUND);
 	}
+
+	@ExceptionHandler(TransactionNotFoundException.class)
+	public ResponseEntity<CommonResponse> transactionNotFoundException(TransactionNotFoundException obj)
+	{
+		CommonResponse response = new CommonResponse(null,obj.getMessage());
+		return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
+	}
 }
