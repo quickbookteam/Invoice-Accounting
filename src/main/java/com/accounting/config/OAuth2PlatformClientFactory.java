@@ -15,7 +15,6 @@ import com.intuit.oauth2.config.OAuth2Config;
 
 @Service
 public class OAuth2PlatformClientFactory {
-	
 	@Autowired
 	org.springframework.core.env.Environment env;
 

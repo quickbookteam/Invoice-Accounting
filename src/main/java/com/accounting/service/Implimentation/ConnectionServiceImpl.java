@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.accounting.entity.Connection;
+import com.accounting.exception.CustomException;
 import com.accounting.modal.ConnectionModal;
 import com.accounting.repositery.ConnectionRepositery;
 import com.accounting.service.ConnectionService;
@@ -18,7 +19,6 @@ public class ConnectionServiceImpl implements ConnectionService {
 	private ConnectionRepositery connectionRepositery;
 
 	private ModelMapper modelMapper;
-
 	@Autowired
 	public ConnectionServiceImpl( ConnectionRepositery connectionRepositery) {
 		this.connectionRepositery = connectionRepositery;
@@ -43,7 +43,7 @@ public class ConnectionServiceImpl implements ConnectionService {
 	@Override
 	public ConnectionModal get(Long id) {
 		if (!connectionRepositery.existsById(id)) {
-			return null;
+			throw new CustomException("No connection established yet");
 		}
 		return new ModelMapper().map(connectionRepositery.findById(id).get(), ConnectionModal.class);
 	}
