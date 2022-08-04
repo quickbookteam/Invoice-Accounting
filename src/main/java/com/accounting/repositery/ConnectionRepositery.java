@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 import com.accounting.entity.Connection;
 
 @Repository
-@Qualifier("connectionRepository")
 public  interface ConnectionRepositery extends MongoRepository<Connection, Long> {
 
 }

@@ -1,18 +1,16 @@
 package com.accounting.modal.customer;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.util.Date;
 
-import com.accounting.entity.customer.BillAddr;
-import com.accounting.entity.customer.PrimaryEmailAddr;
-import com.accounting.entity.customer.PrimaryPhone;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class LocalCustomerModal {
 	private String customerId;
 	private PrimaryEmailAddrModal primaryEmailAddr;
@@ -36,5 +34,5 @@ public class LocalCustomerModal {
 	private double balance;
 	private Date createTime;
 	private Date lastUpdatedTime;
-
+    private String status;
 }

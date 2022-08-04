@@ -5,16 +5,14 @@ import org.springframework.http.ResponseEntity;
 import com.accounting.entity.Connection;
 import com.accounting.modal.ConnectionModal;
 
-
 public interface ConnectionService {
-	
-	public ResponseEntity<?> save(ConnectionModal connection);
 
-	public Connection getDetails();
-	
-	public ConnectionModal get(Long id);
+	ResponseEntity<?> save(ConnectionModal connection);
 
-	public ConnectionModal updateConnectionInfo(ConnectionModal connectionModal);
+	Connection getDetails();
 
+	ConnectionModal get(Long id);
+
+	ConnectionModal updateConnectionInfo(ConnectionModal connectionModal);
 
 }

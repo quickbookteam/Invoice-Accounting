@@ -1,7 +1,8 @@
 package com.accounting.entity.customer;
 
-import org.springframework.data.mongodb.core.index.Indexed;
+import java.util.Date;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
