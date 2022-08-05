@@ -37,8 +37,10 @@ import com.intuit.ipp.data.Invoice;
 import com.intuit.ipp.exception.FMSException;
 import com.intuit.ipp.services.DataService;
 
-@Service
+import lombok.extern.slf4j.Slf4j;
 
+@Service
+@Slf4j
 public class SchedularServiceImpl implements SchedularService {
 
 	private InvoiceRepository invoiceRepository;
@@ -77,12 +79,14 @@ public class SchedularServiceImpl implements SchedularService {
 	@Override
 	public Invoice saveInvoiceToQuickBook(InvoiceModal invoiceModal) throws FMSException {
 		try {
+			log.info("Save invoice to quickbook server");
 			DataService dataService = iConnections.createConnection();
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 			Invoice invoice = mapper.convertValue(invoiceModal, Invoice.class);
 
 			Invoice resultInvoice = dataService.add(invoice);
+			log.info("Invoice saved successfully to quickbook server");
 			return resultInvoice;
 			}
 		    catch(Exception e) {
@@ -117,10 +121,11 @@ public class SchedularServiceImpl implements SchedularService {
 	@Override
 	public Customer saveCustomerToQuickBook(LocalCustomerModal customerModal) throws FMSException {
 		try {
-			
+			log.info("Inside save customer save to Quickbook server");
 		DataService dataService = iConnections.createConnection();
 			mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 			Customer customer = mapper.convertValue(customerModal, Customer.class);
+			log.info("customer saved to Quickbook server");
 			return dataService.add(customer);
 		}
 		catch(Exception e) {
@@ -131,8 +136,10 @@ public class SchedularServiceImpl implements SchedularService {
 	@Override
 	public Customer updateCustomerToQuickBook(Customer customer) throws FMSException {
 		try {
+			log.info("Update Customer to Quckbook server");
 		DataService dataService = iConnections.createConnection();
 		Customer resultCustomer = dataService.add(customer);
+		log.info("Upadted successfully");
 		return resultCustomer;
 		}
 		catch(Exception e) {
@@ -142,12 +149,13 @@ public class SchedularServiceImpl implements SchedularService {
 
 	@Override
 	public boolean generateCharts() {
+		log.info("Inside chart genration");
 		List<Data> list = customerCount();
 		if (!list.isEmpty()) {
 			chartHelper.generatePieChart(list, "D:\\charts");
 			return true;
 		}
-
+        log.info("Chart genartion failed");
 		return false;
 	}
 

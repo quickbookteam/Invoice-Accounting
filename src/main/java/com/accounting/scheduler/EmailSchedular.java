@@ -36,11 +36,11 @@ public class EmailSchedular {
     //@Scheduled(cron = "0 * * ? * *")
     public void chartImageMalling()
     {
-    	
+    	log.info("inside chart mail method");
     	if(schedularService.generateCharts())
     	{
     	EmailDetails details=new EmailDetails();
-    	details.setRecipient("rusiapradhan33@gmail.com");
+    	details.setRecipient("newdevelop420@gmail.com");
 		details.setAttachment("D:\\charts\\Customerpie.jpg");
 		details.setMsgBody("daily deport"+new Date());
 		details.setSubject("daily customer report");

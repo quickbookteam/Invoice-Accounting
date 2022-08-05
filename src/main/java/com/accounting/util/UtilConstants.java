@@ -8,7 +8,7 @@ import com.intuit.oauth2.config.Environment;
 public   interface UtilConstants {
 public static String clientId="ABU0pV6Wc9PWCs3UhP0hsqvUyoA9vopY3yjT8oTmNrgggizNs5";
 public static String clientSecret= "KIMAYJDdSuGO3Sgc9Y7phwUH1kD9dsKLDvl6kXvQ";
-public static String refreshToken= "AB11668160062ME4JWITBrGuICCQHzoZNXI8EW9BLbPyrvjg1F";
+public static String refreshToken= "AB11668322182JBRevfIRqor6fymOBGtHBqmKSUwJwpABfOYfH";
 public static String RealmID = "4620816365236374530";
 public static Environment quickBooksEnvironment = Environment.SANDBOX;
 public static String quickBooksConnectURL = "https://sandbox-quickbooks.api.intuit.com/v3/company";
@@ -28,6 +28,7 @@ public static String TRANSECTION_SAVED="Transection Saved SuccessFully";
 public static String TRANSECTION_FOUND="Transection Found Successfully";
 
 public static String FILE_NOT_FOUND="File Not Found";
+public static String CONNECTION_NOT_FOUND="Not yet connected to quick book server";
 
 public static  List<String> months = Arrays.asList("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
 }
