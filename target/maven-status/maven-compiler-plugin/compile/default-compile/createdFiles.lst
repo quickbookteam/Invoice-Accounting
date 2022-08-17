@@ -1,3 +1,4 @@
+com\accounting\entity\TaskDefinition.class
 com\accounting\modal\Data.class
 com\accounting\entity\invoice\CustomerRef.class
 com\accounting\connection\QuickBookConnection.class
@@ -22,6 +23,8 @@ com\accounting\entity\customer\BillAddr.class
 com\accounting\modal\CommonResponse.class
 com\accounting\connection\IConnections.class
 com\accounting\repositery\InvoiceRepository.class
+com\accounting\service\Implimentation\TaskDefinationServiceImpl.class
+com\accounting\service\TaskDefinationService.class
 com\accounting\util\SetupRunner.class
 com\accounting\repositery\ConnectionRepositery.class
 com\accounting\repositery\CustomerRepo.class
@@ -29,6 +32,7 @@ com\accounting\repositery\TransactionRepository.class
 com\accounting\modal\customer\BillAddrModal.class
 com\accounting\entity\transaction\Line.class
 com\accounting\service\CustomerService.class
+com\accounting\controller\JobSchedulingController.class
 com\accounting\modal\transaction\LinkedTxn.class
 com\accounting\service\Implimentation\SchedularServiceImpl.class
 com\accounting\service\Implimentation\CustomerCSVServiceImpl.class
@@ -47,6 +51,7 @@ com\accounting\modal\customer\PrimaryEmailAddrModal.class
 com\accounting\entity\customer\PrimaryPhone.class
 com\accounting\modal\customer\PrimaryPhoneModal$PrimaryPhoneModalBuilder.class
 com\accounting\entity\invoice\LocalInvoice.class
+com\accounting\service\Implimentation\TaskSchedulingService.class
 com\accounting\exception\CustomerNotFoundException.class
 com\accounting\modal\invoice\ItemRefModal.class
 com\accounting\service\InvoiceService.class
@@ -57,8 +62,10 @@ com\accounting\exception\CustomExceptionHandler.class
 com\accounting\controller\TransactionController.class
 com\accounting\controller\CustomerController.class
 com\accounting\scheduler\ConnectionSchedular.class
+com\accounting\util\UuidGenerator.class
 com\accounting\modal\invoice\InvoiceModal.class
 com\accounting\modal\invoice\LineModal.class
+com\accounting\repositery\TaskDefinationRepositery.class
 com\accounting\entity\transaction\LocalTransaction.class
 com\accounting\modal\transaction\LocalTransactionModel.class
 com\accounting\entity\invoice\LocalInvoice$LocalInvoiceBuilder.class

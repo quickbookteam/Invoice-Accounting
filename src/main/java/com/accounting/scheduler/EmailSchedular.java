@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import com.accounting.entity.TaskDefinition;
 import com.accounting.modal.EmailDetails;
 import com.accounting.service.CustomerService;
 import com.accounting.service.Emailservice;
@@ -18,11 +19,10 @@ import lombok.extern.slf4j.Slf4j;
 @EnableScheduling
 @Configuration
 @Slf4j
-public class EmailSchedular {
+public class EmailSchedular implements Runnable{
 	
 	 
 	 private  Emailservice emailService;
-
 	 
 	 private SchedularService schedularService;
 
@@ -33,8 +33,7 @@ public class EmailSchedular {
         this.schedularService=schedularService;
     }
 
-    //@Scheduled(cron = "0 * * ? * *")
-    public void chartImageMalling()
+        public  void chartImageMalling()
     {
     	log.info("inside chart mail method");
     	if(schedularService.generateCharts())
@@ -49,5 +48,19 @@ public class EmailSchedular {
     	
     }
 
-    
+	@Override
+	public void run() {
+		if(schedularService.generateCharts())
+    	{
+    	EmailDetails details=new EmailDetails();
+    	details.setRecipient("newdevelop420@gmail.com");
+		details.setAttachment("D:\\charts\\Customerpie.jpg");
+		details.setMsgBody("daily deport"+new Date());
+		details.setSubject("daily customer report");
+		String status= emailService.sendMailWithAttachment(details);
+		log.info("email sent successfully");
+    	}
+		
+	}
+	
 }

@@ -28,6 +28,9 @@ public static String TRANSECTION_SAVED="Transection Saved SuccessFully";
 public static String TRANSECTION_FOUND="Transection Found Successfully";
 
 public static String FILE_NOT_FOUND="File Not Found";
+public static String Email="email";
+public static String Customer="customer";
+public static String Invoice="invoice";
 public static String CONNECTION_NOT_FOUND="Not yet connected to quick book server";
 
 public static  List<String> months = Arrays.asList("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
