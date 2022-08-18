@@ -8,7 +8,7 @@ import com.intuit.oauth2.config.Environment;
 public   interface UtilConstants {
 public static String clientId="ABU0pV6Wc9PWCs3UhP0hsqvUyoA9vopY3yjT8oTmNrgggizNs5";
 public static String clientSecret= "KIMAYJDdSuGO3Sgc9Y7phwUH1kD9dsKLDvl6kXvQ";
-public static String refreshToken= "AB11668322182JBRevfIRqor6fymOBGtHBqmKSUwJwpABfOYfH";
+public static String refreshToken= "AB11669534186HNYnr0tocnm0Kj5PwLzZ63sgd2YYn8izvVXuv";
 public static String RealmID = "4620816365236374530";
 public static Environment quickBooksEnvironment = Environment.SANDBOX;
 public static String quickBooksConnectURL = "https://sandbox-quickbooks.api.intuit.com/v3/company";
@@ -19,7 +19,7 @@ public static String CUSTOMER_DELETED="User Deleted Successfully";
 public static String CUSTOMER_LIST= "Getting User List  Successfull";
 public static String CUSTOMER_UPDATED="User Updated Successfully";
 public static String CUSTOMER_FOUND="Customer Found Successfully";
-public static String CUSTOMER_ADD_FAILED="CUSTOMER addd failed to quick book server";
+public static String CUSTOMER_ADD_FAILED="CUSTOMER add failed to quick book server";
 public static String INVOICE_NOT_FOUND="Invoice Not Found";
 public static String INVOICE_SAVED="Invoice Saved Successfully";
 public static String INVOICE_FOUND="Invoice found Successsfully";
@@ -34,4 +34,7 @@ public static String Invoice="invoice";
 public static String CONNECTION_NOT_FOUND="Not yet connected to quick book server";
 
 public static  List<String> months = Arrays.asList("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+public static String INVOICE_ADD_FAILED = "Invoice Adding to QuickBook Failed ";
+public static String INVALID_ADMIN = "Invalid user";
+
 }

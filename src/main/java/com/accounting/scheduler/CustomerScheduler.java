@@ -23,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CustomerScheduler implements Runnable {
 
+	
 	private ModelMapper modelMapper;
 
 	private CustomerService customerService;

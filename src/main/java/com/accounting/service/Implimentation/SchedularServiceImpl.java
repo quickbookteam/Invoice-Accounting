@@ -90,7 +90,8 @@ public class SchedularServiceImpl implements SchedularService {
 			return resultInvoice;
 			}
 		    catch(Exception e) {
-		    	throw new CustomException(UtilConstants.CUSTOMER_ADD_FAILED);
+		    	log.info(e.getMessage());
+		    	throw new CustomException(UtilConstants.INVOICE_ADD_FAILED);
 		    }
 		}
 
