@@ -12,10 +12,7 @@ import java.util.List;
 @Data
 public class LocalTransaction {
     @Id
-    @Field("_id")
     private String id;
-    @Field("transaction_id")
-    private String transactionId;
     private CustomerRef customerRef;
     private double totalAmt;
     private List<Line> line;

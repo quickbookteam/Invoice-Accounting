@@ -48,7 +48,7 @@ public class ConnectionServiceImpl implements ConnectionService {
 	public ConnectionModal get(Long id) {
 		log.info("Insidse connection model get method");
 		if (!connectionRepositery.existsById(id)) {
-			throw new CustomException(UtilConstants.CONNECTION_NOT_FOUND);
+			return null;
 		}
 		return new ModelMapper().map(connectionRepositery.findById(id).get(), ConnectionModal.class);
 	}

@@ -35,6 +35,7 @@ public class ConnectionSchedular {
     public void connectionStablished() throws OAuthException, FMSException {
       
         log.info("connected in Scheduled");
+        
         ConnectionModal connectionModel = connectionService.get(1L);
       
         if (ObjectUtils.isEmpty(connectionModel)) {

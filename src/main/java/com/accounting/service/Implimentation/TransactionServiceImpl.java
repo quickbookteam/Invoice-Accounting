@@ -51,7 +51,7 @@ public class TransactionServiceImpl implements TransactionServices {
 
 	@Override
 	public ResponseEntity<CommonResponse> getTransaction(String id) {
-		LocalTransaction localTransaction = transactionRepository.findByTransactionId(id);
+		LocalTransaction localTransaction = transactionRepository.findById(id).get();
 		CommonResponse response = new CommonResponse(modelMapper.map(localTransaction, LocalTransactionModel.class),
 				UtilConstants.TRANSECTION_FOUND);
 		return new ResponseEntity<CommonResponse>(response, HttpStatus.OK);
