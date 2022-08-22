@@ -82,6 +82,5 @@ public class JobSchedulingController {
            else {
            	log.info("enter valid scheduler name");
            }
-       
 	}
 }

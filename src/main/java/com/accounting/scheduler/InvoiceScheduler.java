@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import com.accounting.entity.invoice.LocalInvoice;
+import com.accounting.exception.CustomException;
 import com.accounting.modal.invoice.InvoiceModal;
 import com.accounting.service.SchedularService;
 import com.intuit.ipp.data.Invoice;
@@ -41,6 +42,7 @@ public void run() {
 			schedularService.saveCustomerId(invoice.getId(), localInvoice.getId());
 		} catch (Exception ex) {
 			log.info(ex.getMessage());
+			throw new CustomException(ex.getMessage());
 		}
 	}
 

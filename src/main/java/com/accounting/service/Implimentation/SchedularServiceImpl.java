@@ -155,8 +155,9 @@ public class SchedularServiceImpl implements SchedularService {
 		if (!list.isEmpty()) {
 			chartHelper.generatePieChart(list, "D:\\charts");
 			return true;
-		}
-        log.info("Chart genartion failed");
+		}else {
+			log.info("Chart genartion failed");
+		}        
 		return false;
 	}
 

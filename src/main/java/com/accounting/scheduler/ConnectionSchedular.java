@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import com.accounting.exception.CustomException;
 import com.accounting.modal.ConnectionModal;
 import com.accounting.service.ConnectionService;
 import com.accounting.util.UtilConstants;
@@ -62,15 +63,15 @@ public class ConnectionSchedular {
 
         while (isRetry) {
             try {
-            	log.info("refersh token",connectionModel.getRefreshToken());
-               
+                           
                 bearerTokenResponse = client.refreshToken(connectionModel.getRefreshToken());
                 isRetry = false;
-               
+                log.info("refersh token",connectionModel.getRefreshToken());
                 connectionModel.setAccessToken(bearerTokenResponse.getAccessToken());
                 connectionService.save(connectionModel);
             } catch (Exception e) {
-                log.info(e.getMessage());
+            	log.info(e.getMessage());
+            	throw new CustomException(e.getMessage());
             }
         }
 
@@ -79,9 +80,9 @@ public class ConnectionSchedular {
             try {
                 connectionService.updateConnectionInfo(connectionModel);
                 log.info("after update");
-               
             } catch (Exception e) {
-                log.info(e.getMessage());
+            	log.info(e.getMessage());
+            	throw new CustomException(e.getMessage());
             }
         }
 
