@@ -14,6 +14,7 @@ import com.accounting.modal.transaction.LocalTransactionModel;
 import com.accounting.repositery.TransactionRepository;
 import com.accounting.service.TransactionServices;
 import com.accounting.util.UtilConstants;
+import com.fasterxml.jackson.core.JsonParser;
 import com.intuit.ipp.data.Payment;
 import com.intuit.ipp.exception.FMSException;
 
@@ -39,6 +40,7 @@ public class TransactionServiceImpl implements TransactionServices {
 	@Override
 	public ResponseEntity<CommonResponse> saveTransaction(LocalTransactionModel localTransactionModel)
 			throws FMSException {
+		
 		Payment payment = modelMapper.map(localTransactionModel, Payment.class);
 		LocalTransaction localTransaction = modelMapper.map( iConnections.createConnection().add(payment),
 			LocalTransaction.class);
@@ -49,7 +51,7 @@ public class TransactionServiceImpl implements TransactionServices {
 
 	@Override
 	public ResponseEntity<CommonResponse> getTransaction(String id) {
-		LocalTransaction localTransaction = transactionRepository.findByTransactionId(id);
+		LocalTransaction localTransaction = transactionRepository.findById(id).get();
 		CommonResponse response = new CommonResponse(modelMapper.map(localTransaction, LocalTransactionModel.class),
 				UtilConstants.TRANSECTION_FOUND);
 		return new ResponseEntity<CommonResponse>(response, HttpStatus.OK);

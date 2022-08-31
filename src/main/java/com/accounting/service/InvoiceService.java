@@ -10,9 +10,4 @@ public interface InvoiceService {
 	ResponseEntity<CommonResponse> save(InvoiceModal invoice);
 
 	ResponseEntity<CommonResponse> findById(String id);
-
-	
-
-	
-
 }

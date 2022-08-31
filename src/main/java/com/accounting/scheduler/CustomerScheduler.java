@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @EnableScheduling
 @Configuration
 @Slf4j
-public class CustomerScheduler {
+public class CustomerScheduler implements Runnable {
 
 	private ModelMapper modelMapper;
 
@@ -37,8 +37,9 @@ public class CustomerScheduler {
 		this.modelMapper = new ModelMapper();
 	}
 
-//	@Scheduled(cron = "* * * ? * *") // after every second
-	public void saveCustomerToQuickBookServer() {
+	@Override
+	public void run() {
+		
 		List<LocalCustomer> customers = customerService.getCustomersWithCreatedStatus();
 		for (LocalCustomer localCustomer : customers) {
 			LocalCustomerModal localCustomerModal = modelMapper.map(localCustomer, LocalCustomerModal.class);
@@ -51,16 +52,14 @@ public class CustomerScheduler {
 				log.info("Customer after save to quickbook");
 			} catch (Exception ex) {
 				log.info(ex.getMessage());
+				throw new CustomException(ex.getMessage());
 			}
-
 		}
-
 	}
-//	
+	
 //	@Scheduled(cron = "0 * * ? * *") // after every minute
 //	public Customer updateCustomerToQuickBookServer() throws FMSException {
-//		
-//       String []syncToken= {"1","0"};
+//		String []syncToken= {"1","0"};      
 //		List<LocalCustomer> customers = customerDao.getCustomersWithUpdatedStatus();
 //		for (LocalCustomer item : customers) {
 //			Random r=new Random();        
@@ -72,8 +71,8 @@ public class CustomerScheduler {
 ////			customer.setSyncToken(randomElement);
 //			 customer = customerService.updateCustomerToQuickBook(customer);
 //			customerService.updateStatus(customer.getId());
-//			
 //		}
 //		return null;
 //	}
+
 }

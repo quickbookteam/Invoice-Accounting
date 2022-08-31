@@ -18,7 +18,10 @@ import com.accounting.service.CustomerCSVServices;
 import com.accounting.util.CSVHelper;
 import com.accounting.util.UtilConstants;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class CustomerCSVServiceImpl implements CustomerCSVServices {
 	
 	private CustomerRepo customerRepo;
@@ -39,6 +42,7 @@ public class CustomerCSVServiceImpl implements CustomerCSVServices {
 
 	@Override
 	public ResponseEntity<LocalCustomerModal> addCustomersCsv(MultipartFile file) {
+		log.info("inside add customer to csv");
       if(file.isEmpty())
     	  throw new CustomFileNotFoundException(UtilConstants.FILE_NOT_FOUND);
 		List<LocalCustomerModal> customerModals = cSVHelper.fileToCustomer(file);
@@ -46,6 +50,7 @@ public class CustomerCSVServiceImpl implements CustomerCSVServices {
 				.map(customer -> modelMapper.map(customer, LocalCustomer.class)).collect(Collectors.toList());
 
 		customerRepo.saveAll(customers);
+		log.info("customer saved to database by csv file");
 		return new ResponseEntity<LocalCustomerModal>(HttpStatus.OK);
 	}
 }

@@ -4,7 +4,9 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 
+import com.accounting.exception.CustomException;
 import com.accounting.modal.ConnectionModal;
 import com.accounting.service.ConnectionService;
 import com.accounting.util.UtilConstants;
@@ -23,16 +25,18 @@ import lombok.extern.slf4j.Slf4j;
 public class ConnectionSchedular {
 	
 	private ConnectionService connectionService;
-    @Autowired // inject FirstServiceImpl
+
+    @Autowired
     public  ConnectionSchedular( ConnectionService connectionService) {
     	log.info("autowiring connection service", connectionService);
         this.connectionService = connectionService;
     }
 
-//    @Scheduled(cron = "0 * * ? * *")
+//   @Scheduled(cron = "0 * * ? * *")
     public void connectionStablished() throws OAuthException, FMSException {
       
         log.info("connected in Scheduled");
+        
         ConnectionModal connectionModel = connectionService.get(1L);
       
         if (ObjectUtils.isEmpty(connectionModel)) {
@@ -59,15 +63,15 @@ public class ConnectionSchedular {
 
         while (isRetry) {
             try {
-            	log.info("refersh token",connectionModel.getRefreshToken());
-               
+                           
                 bearerTokenResponse = client.refreshToken(connectionModel.getRefreshToken());
                 isRetry = false;
-               
+                log.info("refersh token",connectionModel.getRefreshToken());
                 connectionModel.setAccessToken(bearerTokenResponse.getAccessToken());
                 connectionService.save(connectionModel);
             } catch (Exception e) {
-                log.info(e.getMessage());
+            	log.info(e.getMessage());
+            	throw new CustomException(e.getMessage());
             }
         }
 
@@ -76,9 +80,9 @@ public class ConnectionSchedular {
             try {
                 connectionService.updateConnectionInfo(connectionModel);
                 log.info("after update");
-               
             } catch (Exception e) {
-                log.info(e.getMessage());
+            	log.info(e.getMessage());
+            	throw new CustomException(e.getMessage());
             }
         }
 

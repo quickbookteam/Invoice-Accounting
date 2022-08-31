@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import com.accounting.entity.invoice.LocalInvoice;
+import com.accounting.exception.CustomException;
 import com.accounting.modal.invoice.InvoiceModal;
 import com.accounting.service.SchedularService;
 import com.intuit.ipp.data.Invoice;
@@ -17,10 +18,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @Configuration
 @Slf4j
-public class InvoiceScheduler {
+public class InvoiceScheduler implements Runnable{
 
-	SchedularService schedularService;
-	ModelMapper modelMapper;
+	private SchedularService schedularService;
+	private ModelMapper modelMapper;
 
 	@Autowired
 	InvoiceScheduler(SchedularService schedularService) {
@@ -29,23 +30,21 @@ public class InvoiceScheduler {
 
 	}
 
-//	@Scheduled(cron = "* * * ? * *") // after every second
-
-	public Invoice saveInvoiceToQuickBookServer() throws FMSException {
-
-		List<LocalInvoice> localInvoices = schedularService.getInvoicesWithCreatedStatus();
-		for (LocalInvoice localInvoice : localInvoices) {
-			InvoiceModal invoiceModal = modelMapper.map(localInvoice, InvoiceModal.class);
-			try {
-				log.info("Invoice before save to quick book");
-				Invoice invoice = schedularService.saveInvoiceToQuickBook(invoiceModal);
-				log.info("Invoice after save to quickbook");
-				schedularService.saveCustomerId(invoice.getId(), localInvoice.getId());
-			} catch (Exception ex) {
-				log.info(ex.getMessage());
-			}
+@Override
+public void run() {
+	List<LocalInvoice> localInvoices = schedularService.getInvoicesWithCreatedStatus();
+	for (LocalInvoice localInvoice : localInvoices) {
+		InvoiceModal invoiceModal = modelMapper.map(localInvoice, InvoiceModal.class);
+		try {
+			log.info("Invoice before save to quick book");
+			Invoice invoice = schedularService.saveInvoiceToQuickBook(invoiceModal);
+			log.info("Invoice after save to quickbook");
+			schedularService.saveCustomerId(invoice.getId(), localInvoice.getId());
+		} catch (Exception ex) {
+			log.info(ex.getMessage());
+			throw new CustomException(ex.getMessage());
 		}
-
-		return null;
 	}
+
+}
 }

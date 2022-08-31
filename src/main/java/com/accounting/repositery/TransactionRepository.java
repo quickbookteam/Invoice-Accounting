@@ -9,6 +9,5 @@ import com.accounting.entity.transaction.LocalTransaction;
 @Repository
 public interface TransactionRepository extends MongoRepository<LocalTransaction,String> {
 
-    LocalTransaction findByTransactionId(String id);
 
 }
