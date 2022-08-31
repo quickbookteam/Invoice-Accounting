@@ -7,12 +7,14 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.newA
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
 import org.joda.time.DateTime;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -139,7 +141,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public List<LocalCustomer> getCustomersWithCreatedStatus() {
-		List<LocalCustomer> localCustomerList;
+		List<LocalCustomer> localCustomerList = new ArrayList<>();
 		Query query = new Query();
 		query.addCriteria(Criteria.where("status").is("created"));
 		localCustomerList = mongoTemplate.find(query, LocalCustomer.class);

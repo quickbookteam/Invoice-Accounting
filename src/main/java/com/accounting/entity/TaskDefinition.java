@@ -15,8 +15,7 @@ import lombok.Setter;
 @lombok.Data
 public class TaskDefinition {
 	@Id
-	private String id;
-	
+	private String id;	
 	@Indexed(unique = true)
 	private String actionType;
     private String cronExpression;

@@ -37,6 +37,8 @@ public static String FILE_NOT_FOUND="File Not Found";
 public static String Email="email";
 public static String Customer="customer";
 public static String Invoice="invoice";
+public static String CRON="0 * * ? * *";
+public static String Scheduler_failed="Add scheduler email or customer or invoice";
 
 public static String INVALID_ADMIN = "Invalid user";
 

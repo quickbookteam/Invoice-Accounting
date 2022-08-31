@@ -19,5 +19,4 @@ public class User {
     @Id
     String userName;
     String password;
-
 }

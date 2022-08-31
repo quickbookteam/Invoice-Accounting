@@ -7,6 +7,6 @@ import com.accounting.entity.TaskDefinition;
 
 
 @Repository
-public  interface TaskDefinationRepositery extends MongoRepository<TaskDefinition, Long> {
+public  interface TaskDefinationRepositery extends MongoRepository<TaskDefinition, String> {
 	 public TaskDefinition findByactionType(String mail);
 }
